@@ -1,0 +1,12 @@
+import './bootstrap';
+import '@popperjs/core';
+// import './vendor/jquery-1.12.4.min.js';
+import './ajax-mail.js';
+import './jquery.meanmenu.min.js';
+import './bootstrap.js';
+import './bootstrap.min.js';
+// import './jquery-1.12.4.min.js';
+// import './jquery-1.12.4.min.js';
+// import './jquery-1.12.4.min.js';
+// import './jquery-1.12.4.min.js';
+// import './jquery-1.12.4.min.js';
