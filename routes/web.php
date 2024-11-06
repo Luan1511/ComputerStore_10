@@ -38,17 +38,3 @@ Route::prefix('/admin')->group(function () {
     Route::get('/getBrand', [BrandController::class, 'getBrand'])->name('admin-getBrand');
     Route::get('/showBrand', [BrandController::class, 'showBrand'])->name('admin-showBrand');
 });
-
-
-// Route::get('/user', function () {
-//     return view('form');
-// })->name('user.form');
-
-// Route::post('/user', function () {
-//     return 'Post method for user';
-// });
-
-// Route::put('/user', function () {
-//     print_r(route('home'));
-//     return 'Put method for user';
-// });
