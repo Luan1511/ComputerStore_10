@@ -66,7 +66,7 @@
         } else {
             menu.style.display = "none"; 
             menu_btn.style.display = "block";
-        }
+        } 
     }
     </script>
 </body>

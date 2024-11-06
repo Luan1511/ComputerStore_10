@@ -165,6 +165,7 @@
 .table-container {
     width: 90%!important;
     height: fit-content;
+    padding: 0px 30px;
     padding-bottom: 50px !important;
     overflow: auto;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
