@@ -7,7 +7,7 @@
     <title>Home</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/LuNi_icon.png">
     @vite(['resources/css/app.css'])
-    @vite(['resources/js/app.js'])
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/vendor/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ asset('js/jquery.meanmenu.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
