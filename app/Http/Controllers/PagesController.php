@@ -5,33 +5,51 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\Admin\BrandController;
+use App\Models\Brand;
+
 class PagesController extends Controller
 {
-    public function gethome(){
+    protected $users;
+    protected $brands;
+    protected $laptops;
+    protected $payment;
+
+    public function getHome(){
         return view('home');
     }
     
-    public function getabout(){
+    public function getAbout(){
         return view('about');
     }
     
-    public function getcontact(){
+    public function getContact(){
         return view('contact');
     }
     
-    // public function get(){
-    //     return view('about');
-    // }
+    public function getWishlist(){
+        return view('wishlist');
+    }
     
-    // public function getabout(){
-    //     return view('about');
-    // }
+    public function getCheckout(){
+        return view('checkout');
+    }
     
-    // public function getabout(){
-    //     return view('about');
-    // }
+    public function getCart(){
+        return view('cart');
+    }
     
-    // public function getabout(){
-    //     return view('about');
-    // }
+    public function getLogin(){
+        return view('login');
+    }
+    
+    public function getRegister(){
+        return view('register');
+    }
+    
+
+    // Admin
+    public function getAdminDashboard(){
+        return view('Admins.dashboard');
+    }
 }

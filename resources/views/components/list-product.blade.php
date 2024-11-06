@@ -923,12 +923,4 @@
             }
         }
     });
-    /*----------------------------------------*/
-    /* 09. Tooltip Active
-    /*----------------------------------------*/
-    $('.product-action a, .social-link a').tooltip({
-        animated: 'fade',
-        placement: 'top',
-        container: 'body'
-    });
 </script>

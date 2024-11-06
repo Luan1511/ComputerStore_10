@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\LaptopController;
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\Admin\LaptopController;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\LoginController;
 
 /*
@@ -21,12 +21,23 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::get('/', [PagesController::class, 'gethome'])->name('homepage');
-Route::get('/about', [PagesController::class, 'getabout'])->name('aboutpage');
-Route::get('/contact', [PagesController::class, 'getcontact'])->name('contactpage');
+Route::get('/', [PagesController::class, 'getHome'])->name('home-page');
+Route::get('/about', [PagesController::class, 'getAbout'])->name('about-page');
+Route::get('/contact', [PagesController::class, 'getContact'])->name('contact-page');
+Route::get('/wishlist', [PagesController::class, 'getWishlist'])->name('wishlist-page');
+Route::get('/checkout', [PagesController::class, 'getCheckout'])->name('checkout-page');
+Route::get('/cart', [PagesController::class, 'getCart'])->name('cart-page');
+Route::get('/login', [PagesController::class, 'getLogin'])->name('login-page');
+Route::get('/register', [PagesController::class, 'getRegister'])->name('register-page');
 
-// Route::get('/indexhome', 'App\Http\Controllers\HomeController@index')->name('home');
-// Route::get('/home/{id}', [HomeController::class, 'gethome']);
+// Router Admin
+Route::prefix('/admin')->group(function () {
+
+    Route::get('/', [PagesController::class, 'getAdminDashboard'])->name('admin-dashboard-page');
+
+    Route::get('/getBrand', [BrandController::class, 'getBrand'])->name('admin-getBrand');
+    Route::get('/showBrand', [BrandController::class, 'showBrand'])->name('admin-showBrand');
+});
 
 
 // Route::get('/user', function () {
@@ -41,5 +52,3 @@ Route::get('/contact', [PagesController::class, 'getcontact'])->name('contactpag
 //     print_r(route('home'));
 //     return 'Put method for user';
 // });
-
-

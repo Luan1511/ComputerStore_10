@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+    <!-- Begin Li's Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <ul>
+                    <li><a href="{{ route('home-page')}}">Home</a></li>
+                    <li class="active">About Us</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Li's Breadcrumb Area End Here -->
+
     <!-- about wrapper start -->
     <div class="about-us-wrapper pt-60 pb-40">
         <div class="container">
@@ -172,7 +185,7 @@
                 $(this).html(
                     event.strftime(
                         '<div class="count">%D <span>Days:</span></div> <div class="count">%H <span>Hours:</span></div> <div class="count">%M <span>Mins:</span></div><div class="count"> %S <span>Secs</span></div>'
-                        )
+                    )
                 );
             });
     </script>

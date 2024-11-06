@@ -5,15 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/LuNi_icon.png">
     @vite(['resources/css/app.css'])
+    @vite(['resources/js/app.js'])
     <script src="{{ asset('js/vendor/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ asset('js/jquery.meanmenu.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/scrollUp.min.js') }}"></script>
     <script src="{{ asset('js/jquery.counterup.min.js') }}"></script>
     <script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('js/waypoints.min.js') }}"></script>
-    {{-- <script src="{{ asset('js/jquery-1.12.4.min.js') }}"></script> --}}
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('js/slick.min.js') }}"></script>
 </head>
 
 <body>

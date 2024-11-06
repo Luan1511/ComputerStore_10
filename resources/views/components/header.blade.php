@@ -17,18 +17,19 @@
                 <div class="col-lg-9 col-md-8">
                     <div class="header-top-right">
                         <ul class="ht-menu">
-                            <!-- Begin Setting Area -->
+                            <!-- Begin Option Area -->
                             <li>
-                                <div class="ht-setting-trigger"><span>Setting</span></div>
+                                <div class="ht-setting-trigger"><span>Option</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
                                         <li><a href="login-register.html">My Account</a></li>
                                         <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="login-register.html">Sign In</a></li>
+                                        <li><a href="{{ route('login-page')}}">Sign In</a></li>
+                                        <li><a href="{{ route('admin-dashboard-page')}}">Admin</a></li>
                                     </ul>
                                 </div>
                             </li>
-                            <!-- Setting Area End Here -->
+                            <!-- Option Area End Here -->
                             <!-- Begin Language Area -->
                             <li>
                                 <span class="language-selector-wrapper">Language :</span>
@@ -66,9 +67,9 @@
                 </div>
                 <!-- Header Logo Area End Here -->
                 <!-- Begin Header Middle Right Area -->
-                <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
+                <div class="header-middle-container col-md-12 col-lg-9 pl-0 ml-sm-15 ml-xs-15 space-x-cus">
                     <!-- Begin Header Middle Searchbox Area -->
-                    <form action="#" class="hm-searchbox">
+                    <form action="#" class="hm-searchbox header-search-box">
                         <select class="nice-select select-search-category">
                             <option value="0">All</option>
                             <option value="10">Laptops</option>
@@ -93,7 +94,7 @@
                         <ul class="hm-menu">
                             <!-- Begin Header Middle Wishlist Area -->
                             <li class="hm-wishlist">
-                                <a href="wishlist.html">
+                                <a href="{{ route('wishlist-page')}}">
                                     <span class="cart-item-count wishlist-item-count">0</span>
                                     <i class="fa fa-heart-o"></i>
                                 </a>
@@ -112,11 +113,11 @@
 
                                     <p class="minicart-total">SUBTOTAL: <span>£80.00</span></p>
                                     <div class="minicart-button">
-                                        <a href="shopping-cart.html"
+                                        <a href="{{ route('cart-page')}}"
                                             class="li-button li-button-fullwidth li-button-dark">
                                             <span>View Full Cart</span>
                                         </a>
-                                        <a href="checkout.html" class="li-button li-button-fullwidth">
+                                        <a href="{{ route('checkout-page')}}" class="li-button li-button-fullwidth">
                                             <span>Checkout</span>
                                         </a>
                                     </div>
@@ -141,8 +142,8 @@
                     <div class="hb-menu">
                         <nav>
                             <ul>
-                                <li><a href="{{ route('homepage')}}">Home</a></li>
-                                <li class="megamenu-holder"><a href="shop-left-sidebar.html">Shop</a>
+                                <li><a href="{{ route('home-page')}}">Home</a></li>
+                                <li class="megamenu-holder"><a href="">Shop</a>
                                     {{-- <ul class="megamenu hb-megamenu">
                                         <li><a href="shop-left-sidebar.html">Shop Page Layout</a>
                                             <ul>
@@ -221,7 +222,7 @@
                                         </li>
                                     </ul>
                                 </li> --}}
-                                <li class="megamenu-static-holder"><a href="index.html">Pages</a>
+                                <li class="megamenu-static-holder"><a href="">Pages</a>
                                     <ul class="megamenu hb-megamenu">
                                         <li><a href="blog-left-sidebar.html">Blog Layouts</a>
                                             <ul>
@@ -255,15 +256,15 @@
                                         <li><a href="index.html">Other Pages 2</a>
                                             <ul>
                                                 <li><a href="contact.html">Contact</a></li>
-                                                <li><a href="{{ route('aboutpage') }}">About Us</a></li>
+                                                <li><a href="{{ route('about-page') }}">About Us</a></li>
                                                 <li><a href="faq.html">FAQ</a></li>
                                                 <li><a href="404.html">404 Error</a></li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="{{ route('aboutpage') }}">About Us</a></li>
-                                <li><a href="{{ route('contactpage')}}">Contact</a></li>
+                                <li><a href="{{ route('about-page') }}">About Us</a></li>
+                                <li><a href="{{ route('contact-page')}}">Contact</a></li>
                                 {{-- <li><a href="shop-left-sidebar.html">Accessories</a></li> --}}
                             </ul>
                         </nav>
@@ -309,4 +310,9 @@
             $('.header-sticky').removeClass("sticky");
         }
     });
+
+    // Nice select
+    $(document).ready(function() {
+		$('.nice-select').niceSelect();
+	});
 </script>

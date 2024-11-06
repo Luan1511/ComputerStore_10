@@ -1,0 +1,21 @@
+.header-middle-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.hm-searchbox {
+
+}
+
+.space-x-cus > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem /* 16px */ * var(--tw-space-x-reverse));
+    margin-left: calc(1rem /* 16px */ * calc(1 - var(--tw-space-x-reverse)));
+}
+
+@media screen and (min-width: 768px) {
+    .header-middle-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

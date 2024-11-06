@@ -1,6 +1,6 @@
 import './bootstrap';
 import '@popperjs/core';
-// import './vendor/jquery-1.12.4.min.js';
+import 'laravel-datatables-vite';
 import './ajax-mail.js';
 import './jquery.meanmenu.min.js';
 import './bootstrap.js';

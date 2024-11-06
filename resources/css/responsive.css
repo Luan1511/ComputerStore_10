@@ -54,11 +54,12 @@ Note: responsive.css, All Responsive CSS Style For This Theme Included In This F
 	/*Header Right*/
 	.header-middle-right {
 		display: flex;
-		justify-content: center;
+		justify-content: space-between !important;
+		width: 40% !important;
 	}
 	/*Header Middle*/
 	.hm-searchbox {
-		min-width: 480px;
+		min-width: 450px;
 	}
 	.logo {
 		text-align: center;
@@ -229,7 +230,8 @@ Note: responsive.css, All Responsive CSS Style For This Theme Included In This F
 	}
 	.header-middle-right {
 		display: flex;
-		justify-content: center;
+		justify-content: space-between !important;
+		padding-top: 30px;
 	}
 	.hm-wishlist {
 		margin-right: 15px;
@@ -421,7 +423,7 @@ Note: responsive.css, All Responsive CSS Style For This Theme Included In This F
 	}
 	.header-middle-right {
 		display: flex;
-		justify-content: flex-start;
+		justify-content: space-between !important;
 		padding-top: 30px;
 	}
 	.mean-container a.meanmenu-reveal {
@@ -644,16 +646,16 @@ Note: responsive.css, All Responsive CSS Style For This Theme Included In This F
 		min-width: 268px;
 		float: unset;
 	}
-	.hm-searchbox .nice-select.select-search-category {
+	/* .hm-searchbox .nice-select.select-search-category {
 		display: none;
-	}
+	} */
 	.hm-searchbox input {
 		padding: 0 60px 0 15px!important;
 	}
 	.header-middle-right {
 		display: flex;
-		justify-content: flex-start;
-		padding-top: 40px;
+		justify-content: space-between	!important;
+		padding-top: 40px !important;
 	}
 	.mean-container a.meanmenu-reveal {
 		right: 0 !important;
