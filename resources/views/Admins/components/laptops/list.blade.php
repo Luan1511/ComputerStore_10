@@ -16,6 +16,7 @@
                     <th>RAM</th>
                     <th>ROM</th>
                     <th>Image</th>
+                    <th>Action</th>
                 </tr>
             </thead>
         </table>
@@ -54,6 +55,15 @@
                         render: function(data, type, row) {
                             return '<img src="' + data + '" alt="laptop image" width="100px" height="100px">';
                         }
+                    },
+                    {
+                        data: 'id',
+                        render: function(data, type, row) {
+                            return '<a class="delete-btn" onclick="return confirm(\'Are you sure?\')" href="' + '{{ url("admin/laptop") }}' + '/' + data + '/delete">Delete</a>' + 
+                                   '<a class="edit-btn" href="' + '{{ url("admin/laptop") }}' + '/' + data + '/edit">Edit</a>';
+                        }
+
+
                     }
                 ],
                 initComplete: function() {

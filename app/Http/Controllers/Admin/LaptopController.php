@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use App\Models\Admin\Laptop;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class LaptopController extends Controller
 {
@@ -97,6 +99,86 @@ class LaptopController extends Controller
 
         $laptop->save();
 
-        return view('Admins.components.laptops.list');
+        return redirect()->route('admin-showLaptop')->with('status', 'Laptop Added');
+    }
+
+    public function destroy(int $id)
+    {
+        $laptop = Laptop::findOrFail($id);
+
+        if ($laptop->img) {
+            $fullPath = public_path('storage/' . $laptop->img);
+            if (File::exists($fullPath)) {
+                try {
+                    File::delete($fullPath);
+                } catch (\Exception $e) {
+                    Log::error('Failed to delete image: ' . $e->getMessage());
+                }
+            } else {
+                Log::warning('Image file not found: ' . $fullPath);
+            }
+        }
+
+        $laptop->delete();
+
+        return redirect()->back()->with('status', 'Laptop Deleted');
+    }
+
+
+
+    public function edit(int $id)
+    {
+        $laptop = Laptop::findOrFail($id);
+        return view('Admins.components.laptops.edit', compact('laptop'));
+    }
+
+    public function update(Request $request, int $id)
+    {
+        // dd($request->image);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'brand' => 'required|integer|exists:brands,id',
+            'processor' => 'required|string',
+            'ram' => 'required|string',
+            'rom' => 'required|string',
+            'screen_size' => 'required|string',
+            'graphics_card' => 'required|string',
+            'battery' => 'required|string',
+            'os' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'description' => 'nullable|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3074',
+        ]);
+
+        $laptop = Laptop::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            $originalFileName = $request->file('image')->getClientOriginalName();
+            $imagePath = $request->file('image')->storeAs('images', $originalFileName, 'public');
+
+            if (File::exists($laptop->image)) {
+                File::delete($laptop->image);
+            }
+        }
+
+        $laptop->update([
+            'name' => $request->name,
+            'brand_id' => $request->brand,
+            'processor' => $request->processor,
+            'ram' => $request->ram,
+            'rom' => $request->rom,
+            'screen_size' => $request->screen_size,
+            'graphics_card' => $request->graphics_card,
+            'battery' => $request->battery,
+            'os' => $request->os,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'description' => $request->description,
+            'img' => $imagePath
+        ]);
+
+        return redirect()->back()->with('status', 'Laptop Updated');
     }
 }

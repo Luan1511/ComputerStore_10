@@ -11,6 +11,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Action</th>
                 </tr>
             </thead>
         </table>
@@ -31,6 +32,13 @@
                     },
                     {
                         data: 'name'
+                    },
+                    {
+                        data: 'id',
+                        render: function(data, type, row) {
+                            return '<a class="delete-btn" onclick="return confirm(\'Are you sure?\')" href="' + '{{ url("admin/brand") }}' + '/' + data + '/delete">Delete</a>' + 
+                                   '<a class="edit-btn" href="' + '{{ url("admin/brand") }}' + '/' + data + '/edit">Edit</a>';
+                        }
                     },
                 ],
                 initComplete: function() {

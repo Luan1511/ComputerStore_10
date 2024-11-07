@@ -28,9 +28,9 @@ class BrandController extends Controller
     public function addBrandHandle(Request $request)
     {
         // dd($request->all());
-        
+
         $request->validate([
-            'name' =>'required|string|max:255',
+            'name' => 'required|string|max:255',
         ]);
 
         $brand = new Brand([
@@ -39,6 +39,15 @@ class BrandController extends Controller
 
         $brand->save();
 
-        return view('Admins.components.brands.list');
+        return redirect()->route('admin-showBrand')->with('status', 'Brand Added');
+    }
+
+    public function destroy(int $id)
+    {
+        $brand = Brand::findOrFail($id);
+
+        $brand->delete();
+
+        return redirect()->back()->with('status', 'Brand Deleted');
     }
 }
