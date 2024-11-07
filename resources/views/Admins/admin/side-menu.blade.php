@@ -23,7 +23,7 @@
 
         {{-- Laptops --}}
         <li class="menu-item pt-20 pb-20 ml-auto mr-auto mt-auto mb-auto">
-            <a href="">
+            <a href="{{ route('admin-showLaptop')}}">
                 <i class="fa-solid fa-laptop mr-4"></i><span class="label-item">Laptops</span>
             </a>
         </li>

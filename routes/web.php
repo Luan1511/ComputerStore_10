@@ -37,4 +37,11 @@ Route::prefix('/admin')->group(function () {
 
     Route::get('/getBrand', [BrandController::class, 'getBrand'])->name('admin-getBrand');
     Route::get('/showBrand', [BrandController::class, 'showBrand'])->name('admin-showBrand');
+    Route::get('/addBrand', [BrandController::class, 'addBrand'])->name('admin-addBrand');
+    Route::post('/addBrandHandle', [BrandController::class, 'addBrandHandle'])->name('admin-addBrand-handle');
+
+    Route::get('/getLaptop', [LaptopController::class, 'getLaptop'])->name('admin-getLaptop');
+    Route::get('/showLaptop', [LaptopController::class, 'showLaptop'])->name('admin-showLaptop');
+    Route::get('/addLaptop', [LaptopController::class, 'addLaptop'])->name('admin-addLaptop');
+    Route::post('/addLaptopHandle', [LaptopController::class, 'addLaptopHandle'])->name('admin-addLaptop-handle');
 });

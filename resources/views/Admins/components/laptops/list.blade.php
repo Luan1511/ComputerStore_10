@@ -1,0 +1,59 @@
+@extends('Admins.admin.layout-admin')
+
+@section('content')
+    <div class="table-container">
+        <div class="title-content">Laptops</div>
+        <a href="{{ route('admin-addLaptop')}}" class="add-btn">
+            Add laptop
+        </a>
+        <table id="laptops-table" class="display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Brand ID</th>
+                    <th>Processor</th>
+                    <th>RAM</th>
+                    <th>ROM</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#laptops-table').DataTable({
+                autoWidth: false,
+                processing: true,
+                serverSide: false,
+                ajax: '{{ route('admin-getLaptop') }}',
+                columns: [{
+                        data: 'id'
+                    },
+                    {
+                        data: 'name'
+                    },
+                    {
+                        data: 'brand_id'
+                    },
+                    {
+                        data: 'processor'
+                    },
+                    {
+                        data: 'ram'
+                    },
+                    {
+                        data: 'rom'
+                    },
+                ],
+                initComplete: function() {
+                    $('.dataTables_info').hide();
+                    $('.dataTables_info').hide();
+                }
+            });
+        });
+    </script>
+@endsection

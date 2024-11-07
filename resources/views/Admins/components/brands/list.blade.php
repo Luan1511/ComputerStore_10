@@ -3,6 +3,9 @@
 @section('content')
     <div class="table-container">
         <div class="title-content">Brands</div>
+        <a href="{{ route('admin-addBrand')}}" class="add-btn">
+            Add brand
+        </a>
         <table id="brands-table" class="display">
             <thead>
                 <tr>
@@ -31,6 +34,7 @@
                     },
                 ],
                 initComplete: function() {
+                    $('.dataTables_info').hide();
                     $('.dataTables_info').hide();
                 }
             });
