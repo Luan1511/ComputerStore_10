@@ -3,7 +3,7 @@
 @section('content')
     <div class="table-container">
         <div class="title-content">Laptops</div>
-        <a href="{{ route('admin-addLaptop')}}" class="add-btn">
+        <a href="{{ route('admin-addLaptop') }}" class="add-btn">
             Add laptop
         </a>
         <table id="laptops-table" class="display">
@@ -11,10 +11,11 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Brand ID</th>
+                    <th>Brand</th>
                     <th>Processor</th>
                     <th>RAM</th>
                     <th>ROM</th>
+                    <th>Image</th>
                 </tr>
             </thead>
         </table>
@@ -37,7 +38,7 @@
                         data: 'name'
                     },
                     {
-                        data: 'brand_id'
+                        data: 'brand_name'
                     },
                     {
                         data: 'processor'
@@ -48,6 +49,12 @@
                     {
                         data: 'rom'
                     },
+                    {
+                        data: 'img_url',
+                        render: function(data, type, row) {
+                            return '<img src="' + data + '" alt="laptop image" width="100px" height="100px">';
+                        }
+                    }
                 ],
                 initComplete: function() {
                     $('.dataTables_info').hide();

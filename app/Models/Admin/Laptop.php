@@ -5,10 +5,12 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Brand;
+
 class Laptop extends Model
 {
     // use HasFactory;
-    protected $table = 'laptops'; 
+    protected $table = 'laptops';
     protected $primaryKey = 'id';
     public $timestamps = true;
 
@@ -21,8 +23,8 @@ class Laptop extends Model
         'rom',
         'screen_size',
         'graphics_card',
-        'battery',  
-        'os',  
+        'battery',
+        'os',
         'price',
         'stock',
         'description',
@@ -31,4 +33,9 @@ class Laptop extends Model
         'img',
         'rating'
     ];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

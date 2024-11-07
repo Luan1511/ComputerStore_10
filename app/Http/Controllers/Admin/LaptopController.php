@@ -11,25 +11,33 @@ class LaptopController extends Controller
 {
     public function getLaptop()
     {
-        $laptops = Laptop::select([
-            'id',
-            'name',
-            'brand_id',
-            'processor',
-            'ram',
-            'rom',
-            'screen_size',
-            'graphics_card',
-            'battery',
-            'os',
-            'price',
-            'stock',
-            'description',
-            'created_at',
-            'updated_at',
-            'img',
-            'rating'
-        ])->get();
+        $laptops = Laptop::with('brand:id,name')
+            ->select([
+                'id',
+                'name',
+                'brand_id',
+                'processor',
+                'ram',
+                'rom',
+                'screen_size',
+                'graphics_card',
+                'battery',
+                'os',
+                'price',
+                'stock',
+                'description',
+                'created_at',
+                'updated_at',
+                'img',
+                'rating'
+            ])->get()
+            ->map(function ($laptop) {
+                $laptop->brand_name = $laptop->brand->name;
+                $laptop->img_url = asset('storage/' . $laptop->img);
+                unset($laptop->brand);
+                return $laptop;
+            });
+
         return response()->json(['data' => $laptops]);
     }
 

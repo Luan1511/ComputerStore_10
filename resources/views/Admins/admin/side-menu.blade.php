@@ -35,9 +35,9 @@
             </a>
         </li>
 
-        {{-- Orders --}}
+        {{-- Payments --}}
         <li class="menu-item pt-20 pb-20 ml-auto mr-auto mt-auto mb-auto">
-            <a href="">
+            <a href="{{ route('admin-showPayment')}}">
                 <i class="fa-regular fa-credit-card mr-4"></i><span class="label-item">Payments</span>
             </a>
         </li>

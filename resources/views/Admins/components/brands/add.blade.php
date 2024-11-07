@@ -19,5 +19,3 @@
         </form>
     </div>
 @endsection
-
-{{-- Failed to load ressponse data: No content available because this request was redirected --}}
