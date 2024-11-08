@@ -43,6 +43,13 @@ class LaptopController extends Controller
         return response()->json(['data' => $laptops]);
     }
 
+    public function showDetailLaptop(int $id)
+    {
+        $laptop = Laptop::findOrFail($id);
+        $laptop->brand_name = $laptop->brand->name;
+        return view('Admins.components.laptops.detail', compact('laptop'));
+    }
+
     public function showLaptop()
     {
         $this->getLaptop();
@@ -149,17 +156,21 @@ class LaptopController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'description' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3074',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3074',
         ]);
 
         $laptop = Laptop::findOrFail($id);
 
-        if ($request->hasFile('image')) {
-            $originalFileName = $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('images', $originalFileName, 'public');
+        if ($laptop->image == null) {
+            $imagePath = $laptop->img;
+        } else {
+            if ($request->hasFile('image')) {
+                $originalFileName = $request->file('image')->getClientOriginalName();
+                $imagePath = $request->file('image')->storeAs('images', $originalFileName, 'public');
 
-            if (File::exists($laptop->image)) {
-                File::delete($laptop->image);
+                if (File::exists($laptop->image)) {
+                    File::delete($laptop->image);
+                }
             }
         }
 

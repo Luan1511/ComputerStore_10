@@ -4,7 +4,7 @@
     <div class="table-container">
         <div class="title-content">Add brand</div>
 
-        <form action="addBrandHandle" method="POST">
+        <form action="addHandle" method="POST">
             @csrf
             <div class="row">
                 <div class="col-md-6 mb-3">

@@ -73,22 +73,28 @@
                         <div class="footer-logo">
                             <img src="images/LuNi_logo.png" alt="Footer Logo">
                             <p class="info">
-                                We are a team of designers and developers that create high quality HTML Template &
-                                Woocommerce, Shopify Theme.
+                                We are from 23AI <br>
+                                VietNam-Korea University
                             </p>
                         </div>
                         <ul class="des">
                             <li>
                                 <span>Address: </span>
-                                6688Princess Road, London, Greater London BAS 23JK, UK
+                                Tran Dai Nghia, Hoa Hai, Ngu Hanh Son, Da Nang
                             </li>
                             <li>
                                 <span>Phone: </span>
-                                <a href="#">(+123) 123 321 345</a>
+                                <div class="col-1">
+                                    <a href="mailto://luanpvc.23ai@vku.udn.vn">0389376692(Luan)</a>
+                                    <a href="mailto://nhinh.23ai@vku.udn.vn">000000000(Nhi)</a>
+                                </div>
                             </li>
                             <li>
                                 <span>Email: </span>
-                                <a href="mailto://info@yourdomain.com">info@yourdomain.com</a>
+                                <div class="col-1">
+                                    <a href="mailto://luanpvc.23ai@vku.udn.vn">luanpvc.23ai@vku.vku.udn.vn</a>
+                                    <a href="mailto://nhinh.23ai@vku.udn.vn">nhinh.23ai@vku.udn.vn</a>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -111,10 +117,8 @@
                         <div class="footer-block">
                             <h3 class="footer-block-title">Our company</h3>
                             <ul>
-                                <li><a href="#">Delivery</a></li>
-                                <li><a href="#">Legal Notice</a></li>
                                 <li><a href="#">About us</a></li>
-                                <li><a href="#">Contact us</a></li>
+                                <li><a href="#">Our school</a></li>
                             </ul>
                         </div>
                     </div>
@@ -124,15 +128,9 @@
                         <div class="footer-block">
                             <h3 class="footer-block-title">Follow Us</h3>
                             <ul class="social-link">
-                                <li class="twitter">
-                                    <a href="https://twitter.com/" data-toggle="tooltip" target="_blank"
-                                        title="Twitter">
-                                        <i class="fa fa-twitter"></i>
-                                    </a>
-                                </li>
                                 <li class="rss">
                                     <a href="https://rss.com/" data-toggle="tooltip" target="_blank" title="RSS">
-                                        <i class="fa fa-rss"></i>
+                                        <i class="fa-brands fa-github"></i>
                                     </a>
                                 </li>
                                 <li class="google-plus">
@@ -161,22 +159,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- Begin Footer Newsletter Area -->
-                        <div class="footer-newsletter">
-                            <h4>Sign up to newsletter</h4>
-                            <form action="#" method="post" id="mc-embedded-subscribe-form"
-                                name="mc-embedded-subscribe-form" class="footer-subscribe-form validate"
-                                target="_blank" novalidate>
-                                <div id="mc_embed_signup_scroll">
-                                    <div id="mc-form" class="mc-form subscribe-form form-group">
-                                        <input id="mc-email" type="email" autocomplete="off"
-                                            placeholder="Enter your email" />
-                                        <button class="btn" id="mc-submit">Subscribe</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- Footer Newsletter Area End Here -->
                     </div>
                     <!-- Footer Block Area End Here -->
                 </div>

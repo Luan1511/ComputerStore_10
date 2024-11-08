@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Brand;
+use App\Models\Admin\Brand;
 
 class BrandController extends Controller
 {
@@ -49,5 +49,26 @@ class BrandController extends Controller
         $brand->delete();
 
         return redirect()->back()->with('status', 'Brand Deleted');
+    }
+
+    public function edit(int $id)
+    {
+        $brand = Brand::findOrFail($id);
+        return view('Admins.components.brands.edit', compact('brand'));
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        $brand = Brand::findOrFail($id);
+
+        $brand->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->back()->with('status', 'Brand Updated');
     }
 }

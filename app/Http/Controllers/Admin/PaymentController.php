@@ -42,6 +42,38 @@ class PaymentController extends Controller
 
         $brand->save();
 
-        return view('Admins.components.payments.list');
+        return redirect()->route('admin-showPayment')->with('status', 'Payment Added');
+    }
+
+    public function destroy(int $id)
+    {
+        $payment = Payment::findOrFail($id);
+
+        $payment->delete();
+
+        return redirect()->back()->with('status', 'Payment Deleted');
+    }
+
+    public function edit(int $id)
+    {
+        $payment = Payment::findOrFail($id);
+        return view('Admins.components.payments.edit', compact('payment'));
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:526',
+        ]);
+
+        $payment = Payment::findOrFail($id);
+
+        $payment->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->back()->with('status', 'Payment Updated');
     }
 }

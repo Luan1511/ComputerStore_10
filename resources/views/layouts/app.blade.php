@@ -20,6 +20,7 @@
     <script src="{{ asset('js/datatables.min.js') }}"></script>
     <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>
+    <script src="https://kit.fontawesome.com/6e70409343.js" crossorigin="anonymous"></script>
 </head>
 
 <body>

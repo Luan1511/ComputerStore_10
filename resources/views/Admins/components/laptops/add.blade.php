@@ -4,7 +4,7 @@
     <div class="form-container">
         <div class="title-content">Add laptop</div>
 
-        <form action="addLaptopHandle" method="POST" enctype="multipart/form-data">
+        <form action="addHandle" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6 mb-3">
