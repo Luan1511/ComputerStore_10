@@ -2915,16 +2915,16 @@ textarea:focus {
 	background: rgb(51, 51, 51);
 }
 .google-plus {
-	background: #ed3c32;
+	background: rgb(255, 179, 0);
 }
 .facebook {
 	background: #3c5b9b;
 }
 .youtube {
-	background: #c72982;
+	background: #e03636;
 }
 .instagram {
-	background: #c619b8;
+	background: #dd32cf;
 }
 /*Footer Newsletter*/
 .footer-newsletter {

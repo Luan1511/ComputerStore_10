@@ -9,7 +9,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
                         <div class="li-shipping-inner-box">
                             <div class="shipping-icon">
-                                <img src="images/shipping-icon/1.png" alt="Shipping Icon">
+                                <img src="{{asset('images/shipping-icon/1.png')}}" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
                                 <h2>Free Delivery</h2>
@@ -22,7 +22,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 pb-sm-55 pb-xs-55">
                         <div class="li-shipping-inner-box">
                             <div class="shipping-icon">
-                                <img src="images/shipping-icon/2.png" alt="Shipping Icon">
+                                <img src="{{asset('images/shipping-icon/2.png')}}" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
                                 <h2>Safe Payment</h2>
@@ -35,7 +35,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
                         <div class="li-shipping-inner-box">
                             <div class="shipping-icon">
-                                <img src="images/shipping-icon/3.png" alt="Shipping Icon">
+                                <img src="{{asset('images/shipping-icon/3.png')}}" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
                                 <h2>Shop with Confidence</h2>
@@ -48,7 +48,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 pb-xs-30">
                         <div class="li-shipping-inner-box">
                             <div class="shipping-icon">
-                                <img src="images/shipping-icon/4.png" alt="Shipping Icon">
+                                <img src="{{asset('images/shipping-icon/4.png')}}" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
                                 <h2>24/7 Help Center</h2>
@@ -86,7 +86,7 @@
                                 <span>Phone: </span>
                                 <div class="col-1">
                                     <a href="mailto://luanpvc.23ai@vku.udn.vn">0389376692(Luan)</a>
-                                    <a href="mailto://nhinh.23ai@vku.udn.vn">000000000(Nhi)</a>
+                                    <a href="mailto://nhinh.23ai@vku.udn.vn">0818943707(Nhi)</a>
                                 </div>
                             </li>
                             <li>

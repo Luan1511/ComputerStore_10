@@ -23,6 +23,7 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', [PagesController::class, 'getHome'])->name('home-page');
+Route::get('/laptop/{id}', [PagesController::class, 'getSingleLaptop'])->name('single-laptop');
 Route::get('/about', [PagesController::class, 'getAbout'])->name('about-page');
 Route::get('/contact', [PagesController::class, 'getContact'])->name('contact-page');
 Route::get('/wishlist', [PagesController::class, 'getWishlist'])->name('wishlist-page');

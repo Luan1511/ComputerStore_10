@@ -13,13 +13,13 @@
             @method('PUT')
 
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3 ml-auto mr-auto">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ $payment->name }}">
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3 ml-auto mr-auto">
                     <label for="description" class="form-label">Desciption</label>
                     <textarea class="form-control" id="description" name="description" cols="30" rows="10">{{ $payment->description }}</textarea>
                 </div>

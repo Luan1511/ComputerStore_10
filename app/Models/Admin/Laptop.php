@@ -38,4 +38,9 @@ class Laptop extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(Images_Laptop::class);
+    }
 }
