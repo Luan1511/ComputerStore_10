@@ -22,7 +22,7 @@
                                 <div class="ht-setting-trigger"><span>Option</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
-                                        <li><a href="login-register.html">My Account</a></li>
+                                        <li><a href="{{ route('profile-page')}}">My Account</a></li>
                                         <li><a href="checkout.html">Checkout</a></li>
                                         <li><a href="{{ route('login-page')}}">Sign In</a></li>
                                         <li><a href="{{ route('admin-dashboard-page')}}">Admin</a></li>

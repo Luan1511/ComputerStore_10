@@ -18,35 +18,37 @@ class PagesController extends Controller
     public function getHome(){
         return view('home');
     }
-    
+
     public function getAbout(){
         return view('about');
     }
-    
+
     public function getContact(){
         return view('contact');
     }
-    
+
     public function getWishlist(){
         return view('wishlist');
     }
-    
+
     public function getCheckout(){
         return view('checkout');
     }
-    
+
     public function getCart(){
         return view('cart');
     }
-    
+
     public function getLogin(){
         return view('login');
     }
-    
+
     public function getRegister(){
         return view('register');
     }
-    
+    public function getProfile(){
+        return view('profile');
+    }
 
     // Admin
     public function getAdminDashboard(){
