@@ -30,6 +30,7 @@ Route::get('/checkout', [PagesController::class, 'getCheckout'])->name('checkout
 Route::get('/cart', [PagesController::class, 'getCart'])->name('cart-page');
 Route::get('/login', [PagesController::class, 'getLogin'])->name('login-page');
 Route::get('/register', [PagesController::class, 'getRegister'])->name('register-page');
+Route::get('/profile', [PagesController::class, 'getProfile'])->name('profile-page');
 
 // Router Admin
 Route::prefix('/admin')->group(function () {
