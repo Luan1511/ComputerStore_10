@@ -19,4 +19,35 @@ class BrandController extends Controller
         $this->getBrand();
         return view('Admins.components.brands.list');
     }
+
+    public function addBrand()
+    {
+        return view('Admins.components.brands.add');
+    }
+
+    public function addBrandHandle(Request $request)
+    {
+        // dd($request->all());
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $brand = new Brand([
+            'name' => $request->name
+        ]);
+
+        $brand->save();
+
+        return redirect()->route('admin-showBrand')->with('status', 'Brand Added');
+    }
+
+    public function destroy(int $id)
+    {
+        $brand = Brand::findOrFail($id);
+
+        $brand->delete();
+
+        return redirect()->back()->with('status', 'Brand Deleted');
+    }
 }

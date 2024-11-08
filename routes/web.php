@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Admin\LaptopController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\LoginController;
 
@@ -38,4 +39,23 @@ Route::prefix('/admin')->group(function () {
 
     Route::get('/getBrand', [BrandController::class, 'getBrand'])->name('admin-getBrand');
     Route::get('/showBrand', [BrandController::class, 'showBrand'])->name('admin-showBrand');
+    Route::get('/addBrand', [BrandController::class, 'addBrand'])->name('admin-addBrand');
+    Route::post('/addBrandHandle', [BrandController::class, 'addBrandHandle'])->name('admin-addBrand-handle');
+    Route::get('brand/{id}/delete', [BrandController::class, 'destroy'])->name('admin-destroyBrand');
+
+    // Laptop
+    Route::get('/getLaptop', [LaptopController::class, 'getLaptop'])->name('admin-getLaptop');
+    Route::get('/showLaptop', [LaptopController::class, 'showLaptop'])->name('admin-showLaptop');
+    Route::get('/addLaptop', [LaptopController::class, 'addLaptop'])->name('admin-addLaptop');
+    Route::post('/addLaptopHandle', [LaptopController::class, 'addLaptopHandle'])->name('admin-addLaptop-handle');
+    // Route::get('/detailLaptop', [LaptopController::class, 'detailLaptop'])->name('admin-detailLaptop');
+    Route::get('laptop/{id}/delete', [LaptopController::class, 'destroy'])->name('admin-destroyLaptop');
+    Route::get('laptop/{id}/edit', [LaptopController::class, 'edit'])->name('admin-editLaptop');
+    Route::put('laptop/{id}/edit', [LaptopController::class, 'update'])->name('admin-updateLaptop');
+
+    // Payment method
+    Route::get('/getPayment', [PaymentController::class, 'getPayment'])->name('admin-getPayment');
+    Route::get('/showPayment', [PaymentController::class, 'showPayment'])->name('admin-showPayment');
+    Route::get('/addPayment', [PaymentController::class, 'addPayment'])->name('admin-addPayment');
+    Route::post('/addPaymentHandle', [PaymentController::class, 'addPaymentHandle'])->name('admin-addPayment-handle');
 });

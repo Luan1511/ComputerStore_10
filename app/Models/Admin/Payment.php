@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model
+class Payment extends Model
 {
-    protected $table = 'brands'; 
+    // use HasFactory;
+    protected $table = 'payment_method'; 
     protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
         'id',
         'name',
+        'description'
     ];
 }

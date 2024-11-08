@@ -21,7 +21,8 @@
                             <div class="single-product-wrap">
                                 <div class="product-image">
                                     <a href="single-product.html">
-                                        {{-- <img src="images/product/large-size/1.jpg" alt="Li's Product Image"> --}}
+                                        {{-- <img src="{{ storage_path().'/images/'.$article->image }}" alt="Li's Product Image"> --}}
+                                        <img src="storage/images/dell-inspiron15_01.jpg" alt="Li's Product Image">
                                     </a>
                                     <span class="sticker">New</span>
                                 </div>

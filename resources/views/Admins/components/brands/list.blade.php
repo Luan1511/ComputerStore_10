@@ -3,11 +3,15 @@
 @section('content')
     <div class="table-container">
         <div class="title-content">Brands</div>
+        <a href="{{ route('admin-addBrand')}}" class="add-btn">
+            Add brand
+        </a>
         <table id="brands-table" class="display">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Action</th>
                 </tr>
             </thead>
         </table>
@@ -29,8 +33,16 @@
                     {
                         data: 'name'
                     },
+                    {
+                        data: 'id',
+                        render: function(data, type, row) {
+                            return '<a class="delete-btn" onclick="return confirm(\'Are you sure?\')" href="' + '{{ url("admin/brand") }}' + '/' + data + '/delete">Delete</a>' + 
+                                   '<a class="edit-btn" href="' + '{{ url("admin/brand") }}' + '/' + data + '/edit">Edit</a>';
+                        }
+                    },
                 ],
                 initComplete: function() {
+                    $('.dataTables_info').hide();
                     $('.dataTables_info').hide();
                 }
             });
