@@ -24,8 +24,7 @@ class PagesController extends Controller
 
     public function getHome(){
         $laptops = Laptop::all();
-        $countWishlist = Auth::user()->wishlist->count();
-        return view('home', compact('laptops', 'countWishlist'));
+        return view('home', compact('laptops'));
     }
 
     public function getSingleLaptop(int $id){

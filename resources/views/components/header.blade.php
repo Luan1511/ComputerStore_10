@@ -108,7 +108,7 @@
                             @auth
                                 <li class="hm-wishlist">
                                     <a href="{{ url('wishlist/' . Auth::user()->id) }}">
-                                        <span class="cart-item-count wishlist-item-count">{{$countWishlist}}</span>
+                                        <span class="cart-item-count wishlist-item-count">{{Auth::user()->wishlist->count()}}</span>
                                         <i class="fa fa-heart-o"></i>
                                     </a>
                                 </li>
