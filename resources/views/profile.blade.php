@@ -36,9 +36,13 @@
                 </div>
 
                 <form>
-                    <div class="mb-2 row">
+                    <div class="mb-12 row">
                         <div class="col-md-11">
-                            <input type="text" class="form-control bang" id="name" placeholder="Full name">
+                            @if(Auth::check())
+                            <input type="text" class="form-control bang" id="name" value="{{ Auth::user()->name }}">
+                            @else
+                            <input type="text" class="form-control bang" id="name" placeholder="Fullname">
+                            @endif
                         </div>
                     </div>
                     <div class="mb-2 row">

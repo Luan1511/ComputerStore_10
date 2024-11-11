@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
@@ -9,7 +10,17 @@ use App\Http\Controllers\Admin\LaptopController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\AuthAdmin;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Auth;
+
+
+Auth::routes();
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,12 +39,19 @@ Route::get('/contact', [PagesController::class, 'getContact'])->name('contact-pa
 Route::get('/wishlist', [PagesController::class, 'getWishlist'])->name('wishlist-page');
 Route::get('/checkout', [PagesController::class, 'getCheckout'])->name('checkout-page');
 Route::get('/cart', [PagesController::class, 'getCart'])->name('cart-page');
-Route::get('/login', [PagesController::class, 'getLogin'])->name('login-page');
-Route::get('/register', [PagesController::class, 'getRegister'])->name('register-page');
+Route::get('/login', [LoginController::class, 'getLogin'])->name('login-page');
+Route::post('/login', [LoginController::class, 'postLogin'])->name('post-login');
+Route::get('/register', [LoginController::class, 'getRegister'])->name('register-page');
+Route::post('/register', [LoginController::class, 'postRegister'])->name('post-register');
 Route::get('/profile', [PagesController::class, 'getProfile'])->name('profile-page');
+Route::get('/logout', [LoginController::class, 'getLogout'])->name('logout');
+Route::post('/check_login', [PagesController::class, 'check_login']);
+Route::get('/loginAdmin', [LoginController::class, 'getLoginAdmin'])->name('loginAdmin');
+Route::post('/loginAdmin', [LoginController::class, 'postLoginAdmin'])->name('loginAdmin');
 
 // Router Admin
-Route::prefix('/admin')->group(function () {
+Route::middleware('admin')->group(function(){
+Route::prefix('admin')->group(function () {
 
     Route::get('/', [PagesController::class, 'getAdminDashboard'])->name('admin-dashboard-page');
 
@@ -58,4 +76,12 @@ Route::prefix('/admin')->group(function () {
     Route::get('/showPayment', [PaymentController::class, 'showPayment'])->name('admin-showPayment');
     Route::get('/addPayment', [PaymentController::class, 'addPayment'])->name('admin-addPayment');
     Route::post('/addPaymentHandle', [PaymentController::class, 'addPaymentHandle'])->name('admin-addPayment-handle');
+ });
 });
+
+
+
+
+
+
+

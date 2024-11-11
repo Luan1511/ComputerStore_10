@@ -21,10 +21,10 @@
                 <div class="col-lg-3"></div>
                 <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb-30">
                     <!-- Login Form -->
-                    <form action="{{route('post-login')}}" method="POST">
+                    <form action="{{route('loginAdmin')}}" method="POST">
                         @csrf
                         <div class="login-form">
-                            <h4 class="login-title">Login</h4>
+                            <h4 class="login-title">Login Admin</h4>
 
                             @if (Session::has('error'))
                                 <div class="alert alert-danger alert-block">
