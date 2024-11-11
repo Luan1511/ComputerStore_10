@@ -17,7 +17,7 @@ class LoginController extends Controller
     public function postLogin(Request $req){
 
         if(Auth::attempt(['email' => $req-> email, 'password' => $req->password])){
-            return redirect()->route('home-page');
+            return redirect()->route('home-page') ;
         }
         return redirect()->back()->with('error','Incorrect email address or password');
 
@@ -26,7 +26,7 @@ class LoginController extends Controller
 
         public function getRegister()
         {
-            return view('register');  // Trả về view đăng ký
+            return view('register'); 
         }
 
         public function postRegister(Request $req){
@@ -36,7 +36,9 @@ class LoginController extends Controller
         try {
             User::insert([ 'name' => $req->name,
             'email' => $req->email,
-            'password' => $req->password,]);
+            'password' => $req->password,
+            'authority' => 2
+        ]);
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -45,7 +47,7 @@ class LoginController extends Controller
         public function getLogout(){
 
             Auth::logout();
-            return redirect()->back();
+            return redirect()->route('home-page');
         }
         public function getLoginAdmin(){
             return view('Admins.admin.loginAdmin');

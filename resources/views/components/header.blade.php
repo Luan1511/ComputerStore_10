@@ -8,7 +8,7 @@
                 <div class="col-lg-3 col-md-4">
                     <div class="header-top-left">
                         <ul class="phone-wrap">
-                            <li><span>@copyright by </span><a href="#" style="font-weight: 500; color: #0363CD">Chi Luan - Ha Nhi</a></li>
+                            <li><span style="font-size: 15px;">Welcome </span><a href="{{route('profile-page')}}" style="font-weight: 500; font-size: 18px; color: #0363CD">{{Auth::user()->name}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -22,12 +22,14 @@
                                 <div class="ht-setting-trigger"><span>Option</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
-                                        <li><a href="{{ route('profile-page')}}">My Account</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="{{ route('login-page')}}">Sign In</a></li>
-                                        <li><a href="{{ route('admin-dashboard-page')}}">Admin</a></li>
+                                        @guest
+                                            <li><a href="{{ route('login-page') }}">Sign In</a></li>
+                                        @endguest
                                         @auth
-                                        <li><a href="{{ route('logout')}}">Logout</a></li>
+                                            <li><a href="{{ route('profile-page') }}">My Account</a></li>
+                                            <li><a href="{{ route('admin-dashboard-page') }}">Admin</a></li>
+                                            <li><a href="checkout.html">Checkout</a></li>
+                                            <li><a onclick="showLogoutAlert()">Logout</a></li>
                                         @endauth
                                     </ul>
                                 </div>
@@ -39,9 +41,9 @@
                                 <div class="ht-language-trigger"><span>English</span></div>
                                 <div class="language ht-language">
                                     <ul class="ht-setting-list">
-                                        <li class="active"><a href="#"><img src="images/menu/flag-icon/1.jpg"
+                                        <li class="active"><a href="#"><img src="{{asset('images/menu/flag-icon/1.jpg')}}"
                                                     alt="">English</a></li>
-                                        <li><a href="#"><img src="images/menu/flag-icon/2.png"
+                                        <li><a href="#"><img src="{{asset('images/menu/flag-icon/2.png')}}"
                                                     alt="">VietNam</a></li>
                                     </ul>
                                 </div>
@@ -64,7 +66,7 @@
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="index.html">
-                            <img src="images/LuNi_logo.png" alt="">
+                            <img src="{{asset('images/LuNi_logo.png')}}" alt="">
                         </a>
                     </div>
                 </div>
@@ -96,12 +98,14 @@
                     <div class="header-middle-right">
                         <ul class="hm-menu">
                             <!-- Begin Header Middle Wishlist Area -->
-                            <li class="hm-wishlist">
-                                <a href="{{ route('wishlist-page') }}">
-                                    <span class="cart-item-count wishlist-item-count">0</span>
-                                    <i class="fa fa-heart-o"></i>
-                                </a>
-                            </li>
+                            @auth
+                                <li class="hm-wishlist">
+                                    <a href="{{ url('wishlist/' . Auth::user()->id) }}">
+                                        <span class="cart-item-count wishlist-item-count">0</span>
+                                        <i class="fa fa-heart-o"></i>
+                                    </a>
+                                </li>
+                            @endauth
                             <!-- Header Middle Wishlist Area End Here -->
                             <!-- Begin Header Mini Cart Area -->
                             <li class="hm-minicart">
@@ -113,16 +117,27 @@
                                 </div>
                                 <span></span>
                                 <div class="minicart">
-
-                                    <p class="minicart-total">SUBTOTAL: <span>£80.00</span></p>
+                                    <p class="minicart-total">SUBTOTAL: <span>$0</span></p>
                                     <div class="minicart-button">
-                                        <a href="{{ route('cart-page') }}"
-                                            class="li-button li-button-fullwidth li-button-dark">
-                                            <span>View Full Cart</span>
-                                        </a>
-                                        <a href="{{ route('checkout-page') }}" class="li-button li-button-fullwidth">
-                                            <span>Checkout</span>
-                                        </a>
+
+                                        @auth
+                                            <a href="{{ route('cart-page') }}"
+                                                class="li-button li-button-fullwidth li-button-dark">
+                                                <span>View Full Cart</span>
+                                            </a>
+                                            <a href="{{ route('checkout-page') }}" class="li-button li-button-fullwidth">
+                                                <span>Checkout</span>
+                                            </a>
+                                        @else 
+                                            <a onclick="showLoginAlert()"
+                                                class="li-button li-button-fullwidth li-button-dark text-light">
+                                                <span>View Full Cart</span>
+                                            </a>
+                                            <a onclick="showLoginAlert()" class="li-button li-button-fullwidth">
+                                                <span>Checkout</span>
+                                            </a>
+                                        @endauth
+
                                     </div>
                                 </div>
                             </li>
@@ -171,8 +186,8 @@
                                         </li>
                                         <li><a href="index.html">Other Pages</a>
                                             <ul>
-                                                <li><a href={{ route('login-page')}}>My Account</a></li>
-                                                <li><a href={{ route('register-page')}}>Checkout</a></li>
+                                                <li><a href={{ route('login-page') }}>My Account</a></li>
+                                                <li><a href={{ route('register-page') }}>Checkout</a></li>
                                                 <li><a href="compare.html">Compare</a></li>
                                                 <li><a href="wishlist.html">Wishlist</a></li>
                                                 <li><a href="shopping-cart.html">Shopping Cart</a></li>
@@ -240,4 +255,35 @@
     $(document).ready(function() {
         $('.nice-select').niceSelect();
     });
+
+    // Login
+    function showLoginAlert() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'You must login',
+            text: 'Please login to open the cart',
+            confirmButtonText: 'Login',
+            showCancelButton: true,
+            cancelButtonText: 'Later',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('login-page') }}";
+            }
+        });
+    }
+
+    // Logout
+    function showLogoutAlert() {
+        Swal.fire({
+            icon: 'info ',
+            title: 'Logout successfully',
+            text: 'Redirect to Home',
+            confirmButtonText: 'OK',
+            showCancelButton: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('logout') }}";
+            }
+        });
+    }
 </script>

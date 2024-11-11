@@ -7,6 +7,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/css/admin.css',
+                'resources/css/tables.css',
                 'resources/js/app.js',
                 'resources/js/vendor/jquery-1.12.4.min.js',
             ],

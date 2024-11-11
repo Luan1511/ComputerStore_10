@@ -9,7 +9,7 @@
 
         {{-- Account --}}
         <li class="menu-item pt-20 pb-20 ml-auto mr-auto mt-auto mb-auto">
-            <a href="">
+            <a href="{{ route('admin-showAccount')}}">
                 <i class="fa-solid fa-users mr-4"></i><span class="label-item">Accounts</span>
             </a>
         </li>

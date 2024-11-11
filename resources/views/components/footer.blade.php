@@ -71,7 +71,7 @@
                     <!-- Begin Footer Logo Area -->
                     <div class="col-lg-4 col-md-6">
                         <div class="footer-logo">
-                            <img src="images/LuNi_logo.png" alt="Footer Logo">
+                            <img src="{{asset('images/LuNi_logo.png')}}" alt="Footer Logo">
                             <p class="info">
                                 We are from 23AI <br>
                                 VietNam-Korea University

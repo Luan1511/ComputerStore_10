@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Admin\Brand;
+use App\Models\Wishlist;
 
 class Laptop extends Model
 {
@@ -42,5 +43,10 @@ class Laptop extends Model
     public function images()
     {
         return $this->hasMany(Images_Laptop::class);
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class, 'id', 'id');
     }
 }

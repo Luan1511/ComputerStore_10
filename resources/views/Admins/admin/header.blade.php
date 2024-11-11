@@ -3,11 +3,13 @@
         {{-- Logo --}}
         <div class="title-header bg-white text-center d-flex">
             <a>
-                <img src="{{ asset('images/LuNi_logo.png')}}" alt="" height="30px" class="ml-auto mr-auto mt-auto mb-auto">
+                <img src="{{ asset('images/LuNi_logo.png') }}" alt="" height="30px"
+                    class="ml-auto mr-auto mt-auto mb-auto">
             </a>
         </div>
 
-        <i onclick="toggleMenu()" id="sidebar-toggle-btn" class="fa-solid fa-bars" style="display: none; font-size: 18px"></i>
+        <i onclick="toggleMenu()" id="sidebar-toggle-btn" class="fa-solid fa-bars"
+            style="display: none; font-size: 18px"></i>
     </div>
 
     {{-- Items --}}

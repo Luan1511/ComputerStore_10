@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\Admin\BrandController;
-use App\Models\Brand;
-use App\Models\User;  // Để sử dụng model User
-use Illuminate\Support\Facades\Hash;  // Để sử dụng Hash::make
-
+use App\Models\Admin\Account;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;  
 use App\Models\Admin\Laptop;
+use App\Models\Admin\Brand;
 
 class PagesController extends Controller
 {
@@ -45,8 +45,10 @@ class PagesController extends Controller
         return view('contact');
     }
 
-    public function getWishlist(){
-        return view('wishlist');
+    public function getWishlist(int $id){
+        $customer = User::find($id);
+        $wishlist = $customer->wishlist;
+        return view(('wishlist'), compact('wishlist'));
     }
 
     public function getCheckout(){
@@ -63,7 +65,11 @@ class PagesController extends Controller
 
     // Admin
     public function getAdminDashboard(){
-        return view('Admins.dashboard');
+        $userCount = User::where('authority', 2)->count();
+        $laptopCount = Laptop::count();
+        $brandCount = Brand::count();
+
+        return view(('Admins.dashboard'), compact('userCount', 'laptopCount', 'brandCount'));
     }
 
 }

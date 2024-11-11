@@ -29,7 +29,7 @@
                     <div class="counter" style="border-bottom: 5px solid rgb(0, 149, 255);">
                         <div>
                             <div style="color: rgb(0, 149, 255);">Customer</div>
-                            <h4>0</h4>
+                            <h4>{{ $userCount}}</h4>
                         </div>
                         <i class="fa-solid fa-user"></i>
                     </div>
@@ -51,7 +51,7 @@
                     <div class="counter" style="border-bottom: 5px solid rgb(227, 163, 36);">
                         <div>
                             <div style="color: rgb(227, 163, 36);">Laptop</div>
-                            <h4>$0</h4>
+                            <h4>{{$laptopCount}}</h4>
                         </div>
                         <i class="fa-solid fa-laptop"></i>
                     </div>
@@ -60,20 +60,20 @@
                 <div class="counter-container col-10 col-md-6 col-lg-3">
                     <div class="counter" style="border-bottom: 5px solid rgb(0, 149, 255);">
                         <div>
-                            <div style="color: rgb(0, 149, 255);">Monthly revenue</div>
-                            <h4>$0</h4>
+                            <div style="color: rgb(0, 149, 255);">Brand</div>
+                            <h4>{{$brandCount}}</h4>
                         </div>
-                        <i class="fa-solid fa-sack-dollar"></i>
+                        <i class="fa-solid fa-list"></i>
                     </div>
                 </div>
 
                 <div class="counter-container col-10 col-md-6 col-lg-3">
                     <div class="counter" style="border-bottom: 5px solid rgb(54, 222, 255);">
                         <div>
-                            <div style="color: rgb(54, 222, 255);">Monthly revenue</div>
-                            <h4>$0</h4>
+                            <div style="color: rgb(54, 222, 255);">Orders</div>
+                            <h4>0</h4>
                         </div>
-                        <i class="fa-solid fa-sack-dollar"></i>
+                        <i class="fa-solid fa-box-open"></i>
                     </div>
                 </div>
 

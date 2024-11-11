@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -12,15 +13,13 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishListController;
 use App\Http\Middleware\AuthAdmin;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Auth;
-
-
-Auth::routes();
-
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +35,8 @@ Auth::routes();
 Route::get('/', [PagesController::class, 'getHome'])->name('home-page');
 Route::get('/about', [PagesController::class, 'getAbout'])->name('about-page');
 Route::get('/contact', [PagesController::class, 'getContact'])->name('contact-page');
-Route::get('/wishlist', [PagesController::class, 'getWishlist'])->name('wishlist-page');
+Route::get('/wishlist/{id}', [PagesController::class, 'getWishlist'])->name('wishlist-page');
+Route::get('/getWishlist', [WishListController::class, 'getWishlist'])->name('getWishlist');
 Route::get('/checkout', [PagesController::class, 'getCheckout'])->name('checkout-page');
 Route::get('/cart', [PagesController::class, 'getCart'])->name('cart-page');
 Route::get('/login', [LoginController::class, 'getLogin'])->name('login-page');
@@ -49,6 +49,7 @@ Route::post('/check_login', [PagesController::class, 'check_login']);
 Route::get('/loginAdmin', [LoginController::class, 'getLoginAdmin'])->name('loginAdmin');
 Route::post('/loginAdmin', [LoginController::class, 'postLoginAdmin'])->name('loginAdmin');
 Route::get('/laptop/{id}', [PagesController::class, 'getSingleLaptop'])->name('single-laptop');
+Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('send.email');
 
 // Router Admin
 Route::middleware('admin')->group(function () {
@@ -65,6 +66,13 @@ Route::middleware('admin')->group(function () {
             Route::get('/{id}/delete', [BrandController::class, 'destroy'])->name('admin-destroyBrand');
             Route::get('/{id}/edit', [BrandController::class, 'edit'])->name('admin-editBrand');
             Route::put('{id}/edit', [BrandController::class, 'update'])->name('admin-updateBrand');
+        });
+
+        // Account
+        Route::prefix('/account')->group(function () {
+            Route::get('/get', [AccountController::class, 'getAccount'])->name('admin-getAccount');
+            Route::get('/show', [AccountController::class, 'showAccount'])->name('admin-showAccount');
+            Route::get('/{id}/delete', [AccountController::class, 'destroy'])->name('admin-destroyAccount');
         });
 
         // Laptop

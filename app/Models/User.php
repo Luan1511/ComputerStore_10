@@ -18,9 +18,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
+        'phone',
+        'birthday',
         'password',
+        'img',
+        'authority',
+
     ];
 
     /**
@@ -42,4 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function wishlist(){
+        return $this->hasMany(Wishlist::class, 'customer_id', 'id');
+    }
 }
