@@ -4,7 +4,7 @@
     <div class="form-container">
         <div class="title-content">Add laptop</div>
 
-        <form action="addLaptopHandle" method="POST" enctype="multipart/form-data">
+        <form action="addHandle" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -75,13 +75,27 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="description" name="description"></textarea>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label for="image" class="form-label">Image</label>
+                <div class="col-md-4 mb-3">
+                    <label for="image" class="form-label">Main image</label>
                     <input type="file" class="form-control" id="image" name="image" style="height: 61px">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="image" class="form-label">Sub images</label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="file" class="form-control" id="image_1" name="image_1" style="height: 61px; padding: 6px; font-size: 7px">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="file" class="form-control" id="image_2" name="image_2" style="height: 61px; padding: 6px; font-size: 7px">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="file" class="form-control" id="image_3" name="image_3" style="height: 61px; padding: 6px; font-size: 7px">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row d-flex" style="justify-content: center;">

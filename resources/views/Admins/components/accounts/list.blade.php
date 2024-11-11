@@ -1,7 +1,7 @@
 <div class="table-container">
     <table id="exampleTable" class="table table-striped table-bordered table-hover" style="width: 70%;!important">
         <thead id="thead">
-            <tr style="background-color: #FED700">
+            <tr style="background-color: #90e0ef">
                 <th>Tên</th>
                 <th>Tuổi</th>
                 <th>Công việc</th>
