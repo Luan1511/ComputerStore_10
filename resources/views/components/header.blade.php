@@ -8,7 +8,13 @@
                 <div class="col-lg-3 col-md-4">
                     <div class="header-top-left">
                         <ul class="phone-wrap">
-                            <li><span style="font-size: 15px;">Welcome </span><a href="{{route('profile-page')}}" style="font-weight: 500; font-size: 18px; color: #0363CD">{{Auth::user()->name}}</a></li>
+                            @auth
+                                <li><span style="font-size: 15px;">Welcome </span><a href="{{ route('profile-page') }}"
+                                        style="font-weight: 500; font-size: 18px; color: #0363CD">{{ Auth::user()->name }}</a>
+                                </li>
+                            @else
+                                <li><span style="font-size: 15px;">Welcome Guest</span></li> 
+                            @endauth
                         </ul>
                     </div>
                 </div>
@@ -41,9 +47,10 @@
                                 <div class="ht-language-trigger"><span>English</span></div>
                                 <div class="language ht-language">
                                     <ul class="ht-setting-list">
-                                        <li class="active"><a href="#"><img src="{{asset('images/menu/flag-icon/1.jpg')}}"
+                                        <li class="active"><a href="#"><img
+                                                    src="{{ asset('images/menu/flag-icon/1.jpg') }}"
                                                     alt="">English</a></li>
-                                        <li><a href="#"><img src="{{asset('images/menu/flag-icon/2.png')}}"
+                                        <li><a href="#"><img src="{{ asset('images/menu/flag-icon/2.png') }}"
                                                     alt="">VietNam</a></li>
                                     </ul>
                                 </div>
@@ -66,7 +73,7 @@
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="index.html">
-                            <img src="{{asset('images/LuNi_logo.png')}}" alt="">
+                            <img src="{{ asset('images/LuNi_logo.png') }}" alt="">
                         </a>
                     </div>
                 </div>
@@ -128,7 +135,7 @@
                                             <a href="{{ route('checkout-page') }}" class="li-button li-button-fullwidth">
                                                 <span>Checkout</span>
                                             </a>
-                                        @else 
+                                        @else
                                             <a onclick="showLoginAlert()"
                                                 class="li-button li-button-fullwidth li-button-dark text-light">
                                                 <span>View Full Cart</span>
