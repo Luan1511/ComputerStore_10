@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images_laptop', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->string('image_url', 526)->nullable();
-            $table->integer('laptop_id')->nullable()->index('image_laptop');
+        Schema::table('laptops', function (Blueprint $table) {
+            $table->foreign(['brand_id'], 'brand_id')->references(['id'])->on('brands')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images_laptop');
+        Schema::table('laptops', function (Blueprint $table) {
+            $table->dropForeign('brand_id');
+        });
     }
 };

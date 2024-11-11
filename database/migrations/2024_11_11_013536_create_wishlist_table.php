@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images_laptop', function (Blueprint $table) {
+        Schema::create('wishlist', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->string('image_url', 526)->nullable();
-            $table->integer('laptop_id')->nullable()->index('image_laptop');
+            $table->integer('customer_id')->index('customer_id');
+            $table->integer('laptop_id')->index('lap_id');
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images_laptop');
+        Schema::dropIfExists('wishlist');
     }
 };

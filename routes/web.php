@@ -34,7 +34,6 @@ Auth::routes();
 */
 
 Route::get('/', [PagesController::class, 'getHome'])->name('home-page');
-Route::get('/laptop/{id}', [PagesController::class, 'getSingleLaptop'])->name('single-laptop');
 Route::get('/about', [PagesController::class, 'getAbout'])->name('about-page');
 Route::get('/contact', [PagesController::class, 'getContact'])->name('contact-page');
 Route::get('/wishlist', [PagesController::class, 'getWishlist'])->name('wishlist-page');
@@ -49,39 +48,46 @@ Route::get('/logout', [LoginController::class, 'getLogout'])->name('logout');
 Route::post('/check_login', [PagesController::class, 'check_login']);
 Route::get('/loginAdmin', [LoginController::class, 'getLoginAdmin'])->name('loginAdmin');
 Route::post('/loginAdmin', [LoginController::class, 'postLoginAdmin'])->name('loginAdmin');
+Route::get('/laptop/{id}', [PagesController::class, 'getSingleLaptop'])->name('single-laptop');
 
 // Router Admin
-Route::middleware('admin')->group(function(){
-Route::prefix('admin')->group(function () {
+Route::middleware('admin')->group(function () {
+    Route::prefix('admin')->group(function () {
 
-    Route::get('/', [PagesController::class, 'getAdminDashboard'])->name('admin-dashboard-page');
+        Route::get('/', [PagesController::class, 'getAdminDashboard'])->name('admin-dashboard-page');
 
-    // Brand
-    Route::prefix('/brand')->group(function () {
-        Route::get('/get', [BrandController::class, 'getBrand'])->name('admin-getBrand');
-        Route::get('/show', [BrandController::class, 'showBrand'])->name('admin-showBrand');
-        Route::get('/add', [BrandController::class, 'addBrand'])->name('admin-addBrand');
-        Route::post('/addHandle', [BrandController::class, 'addBrandHandle'])->name('admin-addBrand-handle');
-        Route::get('/{id}/delete', [BrandController::class, 'destroy'])->name('admin-destroyBrand');
-        Route::get('/{id}/edit', [BrandController::class, 'edit'])->name('admin-editBrand');
-        Route::put('{id}/edit', [BrandController::class, 'update'])->name('admin-updateBrand');
+        // Brand
+        Route::prefix('/brand')->group(function () {
+            Route::get('/get', [BrandController::class, 'getBrand'])->name('admin-getBrand');
+            Route::get('/show', [BrandController::class, 'showBrand'])->name('admin-showBrand');
+            Route::get('/add', [BrandController::class, 'addBrand'])->name('admin-addBrand');
+            Route::post('/addHandle', [BrandController::class, 'addBrandHandle'])->name('admin-addBrand-handle');
+            Route::get('/{id}/delete', [BrandController::class, 'destroy'])->name('admin-destroyBrand');
+            Route::get('/{id}/edit', [BrandController::class, 'edit'])->name('admin-editBrand');
+            Route::put('{id}/edit', [BrandController::class, 'update'])->name('admin-updateBrand');
+        });
+
+        // Laptop
+        Route::prefix('/laptop')->group(function () {
+            Route::get('get', [LaptopController::class, 'getLaptop'])->name('admin-getLaptop');
+            Route::get('show', [LaptopController::class, 'showLaptop'])->name('admin-showLaptop');
+            Route::get('add', [LaptopController::class, 'addLaptop'])->name('admin-addLaptop');
+            Route::post('addHandle', [LaptopController::class, 'addLaptopHandle'])->name('admin-addLaptop-handle');
+            Route::get('{id}/detail', [LaptopController::class, 'showDetailLaptop'])->name('admin-detailLaptop');
+            Route::get('{id}/delete', [LaptopController::class, 'destroy'])->name('admin-destroyLaptop');
+            Route::get('{id}/edit', [LaptopController::class, 'edit'])->name('admin-editLaptop');
+            Route::put('{id}/edit', [LaptopController::class, 'update'])->name('admin-updateLaptop');
+        });
+
+        // Payment method
+        Route::prefix('/payment')->group(function () {
+            Route::get('/get', [PaymentController::class, 'getPayment'])->name('admin-getPayment');
+            Route::get('/show', [PaymentController::class, 'showPayment'])->name('admin-showPayment');
+            Route::get('/add', [PaymentController::class, 'addPayment'])->name('admin-addPayment');
+            Route::post('/addHandle', [PaymentController::class, 'addPaymentHandle'])->name('admin-addPayment-handle');
+            Route::get('{id}/delete', [PaymentController::class, 'destroy'])->name('admin-destroyPayment');
+            Route::get('{id}/edit', [PaymentController::class, 'edit'])->name('admin-editPayment');
+            Route::put('{id}/edit', [PaymentController::class, 'update'])->name('admin-updatePayment');
+        });
     });
-
-    // Laptop
-    Route::prefix('/laptop')->group(function () {
-        Route::get('get', [LaptopController::class, 'getLaptop'])->name('admin-getLaptop');
-        Route::get('show', [LaptopController::class, 'showLaptop'])->name('admin-showLaptop');
-        Route::get('add', [LaptopController::class, 'addLaptop'])->name('admin-addLaptop');
-        Route::post('addHandle', [LaptopController::class, 'addLaptopHandle'])->name('admin-addLaptop-handle');
-        Route::get('{id}/detail', [LaptopController::class, 'showDetailLaptop'])->name('admin-detailLaptop');
-        Route::get('{id}/delete', [LaptopController::class, 'destroy'])->name('admin-destroyLaptop');
-        Route::get('{id}/edit', [LaptopController::class, 'edit'])->name('admin-editLaptop');
-        Route::put('{id}/edit', [LaptopController::class, 'update'])->name('admin-updateLaptop');
-    });
-
-    // Payment method
-    Route::get('/getPayment', [PaymentController::class, 'getPayment'])->name('admin-getPayment');
-    Route::get('/showPayment', [PaymentController::class, 'showPayment'])->name('admin-showPayment');
-    Route::get('/addPayment', [PaymentController::class, 'addPayment'])->name('admin-addPayment');
-    Route::post('/addPaymentHandle', [PaymentController::class, 'addPaymentHandle'])->name('admin-addPayment-handle');
 });

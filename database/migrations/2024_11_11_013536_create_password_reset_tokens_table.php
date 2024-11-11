@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images_laptop', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->string('image_url', 526)->nullable();
-            $table->integer('laptop_id')->nullable()->index('image_laptop');
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images_laptop');
+        Schema::dropIfExists('password_reset_tokens');
     }
 };

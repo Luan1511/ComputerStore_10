@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('images_laptop', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('image_url', 526)->nullable();
-            $table->integer('laptop_id')->nullable()->index('image_laptop');
+            $table->integer('id_laptop')->nullable()->index('image_laptop');
         });
     }
 
