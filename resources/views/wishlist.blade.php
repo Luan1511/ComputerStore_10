@@ -71,13 +71,20 @@
                         }
                     },
                     {
-                        data: 'stock'
+                        data: 'stock',
+                        render: function(data, type, row) {
+                            if (data == 0){
+                                return '<div>Out of stock</div>';
+                            } else {
+                                return '<div>' + data + '</div>';
+                            }
+                        }
                     },
                     {
                         data: 'id',
                         render: function(data, type, row) {
                             return '<a class="delete-btn" onclick="return confirm(\'Are you sure?\')" href="' +
-                                '{{ url('admin/account') }}' + '/' + data + '/delete">Delete</a>';
+                                '{{ url('wishlist') }}' + '/' + data + '/delete">Delete</a>';
                         }
 
 

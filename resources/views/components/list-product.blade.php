@@ -21,7 +21,8 @@
                                 <!-- single-product-wrap start -->
                                 <div class="single-product-wrap">
                                     <div class="product-image">
-                                        <a href="{{ url('laptop/' . $laptop->id )}}" style="height: 180px !important; display: flex; align-items: center">
+                                        <a href="{{ url('laptop/' . $laptop->id) }}"
+                                            style="height: 180px !important; display: flex; align-items: center">
                                             <img src="{{ asset('storage/' . $laptop->img) }}" alt="Current Image"
                                                 style="height: auto; margin: 0 auto; margin-top: 10px;">
                                         </a>
@@ -31,7 +32,8 @@
                                         <div class="product_desc_info">
                                             <div class="product-review">
                                                 <h5 class="manufacturer">
-                                                    <a href="shop-left-sidebar.html">{{ $laptop->brand->name ?? 'No Brand' }}</a>
+                                                    <a
+                                                        href="shop-left-sidebar.html">{{ $laptop->brand->name ?? 'No Brand' }}</a>
                                                 </h5>
                                                 <div class="rating-box">
                                                     <ul class="rating">
@@ -43,16 +45,18 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <h4><a class="product_name" href="single-product.html">{{ $laptop->name}}</a>
+                                            <h4><a class="product_name"
+                                                    href="single-product.html">{{ $laptop->name }}</a>
                                             </h4>
                                             <div class="price-box">
-                                                <span class="new-price">${{$laptop->price}}</span>
+                                                <span class="new-price">${{ $laptop->price }}</span>
                                             </div>
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
                                                 <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                <li><a class="links-details" href="wishlist.html"><i
+                                                <li><a class="links-details"
+                                                        href="{{ url('wishlist/' . $laptop->id . '/add') }}"><i
                                                             class="fa fa-heart-o"></i></a></li>
                                                 <li><a href="#" title="quick view" class="quick-view-btn"
                                                         data-toggle="modal" data-target="#exampleModalCenter"><i
@@ -637,10 +641,31 @@
 </div>
 <!-- Product Area End Here -->
 
+@if (session('status'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('status') === 'added')
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Added!',
+                    text: 'Laptop has been added to your wishlist.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            @elseif (session('status') === 'existed')
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Already Exists!',
+                    text: 'Laptop is already in your wishlist.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            @endif
+        });
+    </script>
+@endif
+
 <script>
-    /*----------------------------------------*/
-    /* 06. Li's Product Activision
-    /*----------------------------------------*/
     $(".product-active").owlCarousel({
         loop: true,
         nav: true,
@@ -667,9 +692,7 @@
             }
         }
     });
-    /*----------------------------------------*/
-    /* 07. Li's Product Activision
-    /*----------------------------------------*/
+    // Li's Product Activision
     $(".special-product-active").owlCarousel({
         loop: true,
         nav: false,

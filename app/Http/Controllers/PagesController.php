@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;  
 use App\Models\Admin\Laptop;
 use App\Models\Admin\Brand;
+use App\Models\Wishlist;
 
 class PagesController extends Controller
 {
@@ -23,7 +24,8 @@ class PagesController extends Controller
 
     public function getHome(){
         $laptops = Laptop::all();
-        return view('home', compact('laptops'));
+        $countWishlist = Auth::user()->wishlist->count();
+        return view('home', compact('laptops', 'countWishlist'));
     }
 
     public function getSingleLaptop(int $id){

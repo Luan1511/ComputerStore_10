@@ -26,25 +26,38 @@ class WishListController extends Controller
     }
 
 
-    public function add(Request $request)
+    public function add(int $laptop_id)
     {
         $user = Auth::user();
-        $productId = $request->input('product_id');
+
+        if ($this->checkLaptopInWishlist($laptop_id)){
+            return redirect()->back()->with('status', 'existed');
+        }
 
         $wishlistItem = Wishlist::firstOrCreate([
-            'user_id' => $user->id,
-            'product_id' => $productId
+            'customer_id' => $user->id,
+            'laptop_id' => $laptop_id
         ]);
 
-        return redirect()->back()->with('success', 'Product added to wishlist');
+        return redirect()->back()->with('status', 'added');
     }
 
-    public function remove($id)
+    public function remove(int $laptop_id)
     {
         $user = Auth::user();
-        Wishlist::where('user_id', $user->id)->where('id', $id)->delete();
+        Wishlist::where('customer_id', $user->id)->where('laptop_id', $laptop_id)->delete();
 
         return redirect()->back()->with('success', 'Product removed from wishlist');
     }
-}
 
+    public function checkLaptopInWishlist(int $laptop_id)
+    {
+        $user = Auth::user();  
+
+        $exists = Wishlist::where('customer_id', $user->id)
+            ->where('laptop_id', $laptop_id)
+            ->exists();
+
+        return $exists;
+    }
+}
