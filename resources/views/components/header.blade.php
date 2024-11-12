@@ -119,7 +119,7 @@
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
                                     <span class="item-text">£80.00
-                                        <span class="cart-item-count">2</span>
+                                        <span class="cart-item-count">{{Auth::user()->cart->count()}}</span>
                                     </span>
                                 </div>
                                 <span></span>

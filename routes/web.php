@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
@@ -41,6 +42,12 @@ Route::get('wishlist/{id}', [PagesController::class, 'getWishlist'])->name('wish
 Route::get('getWishlist', [WishListController::class, 'getWishlist'])->name('getWishlist');
 Route::get('wishlist/{id}/add', [WishListController::class, 'add'])->name('addToWishlist');
 Route::get('wishlist/{id}/delete', [WishListController::class, 'remove'])->name('removeFromWishlist');
+
+// Cart routes
+Route::get('cart/{id}', [PagesController::class, 'getCart'])->name('cart-page');
+Route::get('getCart', [CartController::class, 'getCart'])->name('getCart');
+Route::get('cart/{id}/addSingle', [CartController::class, 'addSingle'])->name('addSingleToCart');
+Route::get('cart/{id}/delete', [CartController::class, 'remove'])->name('removeFromCart');
 
 Route::get('checkout', [PagesController::class, 'getCheckout'])->name('checkout-page');
 Route::get('cart', [PagesController::class, 'getCart'])->name('cart-page');

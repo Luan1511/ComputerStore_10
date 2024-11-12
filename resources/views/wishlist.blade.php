@@ -42,12 +42,52 @@
                 autoWidth: false,
                 processing: true,
                 serverSide: false,
-                ajax: '{{ route('getWishlist') }}',
+                ajax: {
+                    url: '{{route('getWishlist')}}',
+                    type: 'GET',
+                    error: function(xhr, status, error) {
+                        if (xhr.status === 500) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Unindetify Error',
+                                text: 'You are not authorized to access this website',
+                                confirmButtonText: 'Return to home',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ route('home-page') }}";
+                                }
+                            });
+                        } else if (xhr.status === 401) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Unauthorized',
+                                text: 'You are not authorized to access this website',
+                                confirmButtonText: 'Return to home',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ route('home-page') }}";
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Có lỗi xảy ra: ' + (xhr.responseJSON?.message ||
+                                    'Không xác định'),
+                                confirmButtonText: 'Return to home',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ route('home-page') }}";
+                                }
+                            });
+                        }
+                    }
+                },
                 columns: [{
                         data: 'id',
                         render: function(data, type, row) {
-                            return '<a class="detail-btn" href="' + '{{ url('wishlist') }}' +
-                                '/' + data + '/detail">' + data + '</a>';
+                            return '<a class="detail-btn" href="' + '{{ url('laptop') }}' +
+                                '/' + data + '">' + data + '</a>';
                         }
                     },
                     {
@@ -73,7 +113,7 @@
                     {
                         data: 'stock',
                         render: function(data, type, row) {
-                            if (data == 0){
+                            if (data == 0) {
                                 return '<div>Out of stock</div>';
                             } else {
                                 return '<div>' + data + '</div>';

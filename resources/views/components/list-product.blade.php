@@ -54,7 +54,7 @@
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
-                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                <li class="add-cart active"><a href="{{ url('cart/' . $laptop->id . '/addSingle')}}">Add to cart</a></li>
                                                 <li><a class="links-details"
                                                         href="{{ url('wishlist/' . $laptop->id . '/add') }}"><i
                                                             class="fa fa-heart-o"></i></a></li>
@@ -657,6 +657,14 @@
                     icon: 'info',
                     title: 'Already Exists!',
                     text: 'Laptop is already in your wishlist.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            @elseif (session('status') === 'addedCart')
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Already Exists!',
+                    text: 'Laptop has been added to your cart.',
                     timer: 2000,
                     showConfirmButton: false
                 });

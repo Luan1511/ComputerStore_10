@@ -47,7 +47,7 @@ class WishListController extends Controller
         $user = Auth::user();
         Wishlist::where('customer_id', $user->id)->where('laptop_id', $laptop_id)->delete();
 
-        return redirect()->back()->with('success', 'Product removed from wishlist');
+        return redirect()->back()->with('success', 'Laptop removed from wishlist');
     }
 
     public function checkLaptopInWishlist(int $laptop_id)
