@@ -61,8 +61,23 @@ Route::get('logout', [LoginController::class, 'getLogout'])->name('logout');
 Route::post('check_login', [PagesController::class, 'check_login']);
 Route::get('loginAdmin', [LoginController::class, 'getLoginAdmin'])->name('loginAdmin');
 Route::post('loginAdmin', [LoginController::class, 'postLoginAdmin'])->name('loginAdmin');
-Route::get('laptop/{id}', [PagesController::class, 'getSingleLaptop'])->name('single-laptop');
 Route::post('send-email', [ContactController::class, 'sendEmail'])->name('send.email');
+
+
+// Single Laptop
+Route::get('laptop/{id}', [PagesController::class, 'getSingleLaptop'])->name('single-laptop');
+Route::get('laptop/search/{name}', [PagesController::class, 'getLaptopByName'])->name('single-laptop-name');
+
+// Language
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'vi'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('changeLanguage');
+
+// Search
+Route::get('/search', [PagesController::class, 'search'])->name('search');
 
 // Router Admin
 Route::middleware('admin')->group(function () {

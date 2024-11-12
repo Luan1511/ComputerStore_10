@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\Admin\BrandController;
 use App\Models\Admin\Account;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;  
+use Illuminate\Support\Facades\Hash;
 use App\Models\Admin\Laptop;
 use App\Models\Admin\Brand;
 use App\Models\Wishlist;
@@ -22,12 +22,14 @@ class PagesController extends Controller
     protected $laptops;
     protected $payment;
 
-    public function getHome(){
+    public function getHome()
+    {
         $laptops = Laptop::all();
         return view('home', compact('laptops'));
     }
 
-    public function getSingleLaptop(int $id){
+    public function getSingleLaptop(int $id)
+    {
         $laptop = Laptop::findOrFail($id);
 
         $laptop->brand_name = $laptop->brand->name;
@@ -38,39 +40,68 @@ class PagesController extends Controller
         return view('single-product', compact('laptop'));
     }
 
-    public function getAbout(){
+    public function getLaptopByName($name)
+    {
+        $laptop = Laptop::where('name', $name)->firstOrFail();
+
+        $laptop->brand_name = $laptop->brand->name;
+
+        $images = $laptop->images()->pluck('image_url');
+        $laptop->images_url = $images;
+
+        return view('single-product', compact('laptop'));
+    }
+
+    public function getAbout()
+    {
         return view('about');
     }
 
-    public function getContact(){
+    public function getContact()
+    {
         return view('contact');
     }
 
-    public function getWishlist(int $id){
+    public function getWishlist(int $id)
+    {
         $customer = User::find($id);
         $wishlist = $customer->wishlist;
         return view(('wishlist'), compact('wishlist'));
     }
 
-    public function getCheckout(){
+    public function getCheckout()
+    {
         return view('checkout');
     }
 
-    public function getCart(){
+    public function getCart()
+    {
         return view('cart');
     }
 
-    public function getProfile(){
+    public function getProfile()
+    {
         return view('profile');
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $results = Laptop::where('name', 'LIKE', '%' . $search . '%')
+            ->select('name')
+            ->get();
+
+        return response()->json($results);
+    }
+
     // Admin
-    public function getAdminDashboard(){
+    public function getAdminDashboard()
+    {
         $userCount = User::where('authority', 2)->count();
         $laptopCount = Laptop::count();
         $brandCount = Brand::count();
 
         return view(('Admins.dashboard'), compact('userCount', 'laptopCount', 'brandCount'));
     }
-
 }

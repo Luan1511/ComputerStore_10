@@ -9,7 +9,8 @@
                     <div class="header-top-left">
                         <ul class="phone-wrap">
                             @auth
-                                <li><span style="font-size: 15px;">Welcome </span><a href="{{ route('profile-page') }}"
+                                <li><span style="font-size: 15px;">{{ __('messages.welcome') }} </span><a
+                                        href="{{ route('profile-page') }}"
                                         style="font-weight: 500; font-size: 18px; color: #0363CD">{{ Auth::user()->name }}</a>
                                 </li>
                             @else
@@ -44,14 +45,21 @@
                             <!-- Begin Language Area -->
                             <li>
                                 <span class="language-selector-wrapper">Language :</span>
-                                <div class="ht-language-trigger"><span>English</span></div>
+                                <div class="ht-language-trigger"><span>{{ session('locale', 'English') }}</span></div>
                                 <div class="language ht-language">
                                     <ul class="ht-setting-list">
-                                        <li class="active"><a href="#"><img
-                                                    src="{{ asset('images/menu/flag-icon/1.jpg') }}"
-                                                    alt="">English</a></li>
-                                        <li><a href="#"><img src="{{ asset('images/menu/flag-icon/2.png') }}"
-                                                    alt="">VietNam</a></li>
+                                        <li class="lang_choice_en {{ session('locale') === 'en' ? 'active' : '' }}">
+                                            <a href="{{ url('lang/en') }}">
+                                                <img src="{{ asset('images/menu/flag-icon/1.jpg') }}" alt="">
+                                                English
+                                            </a>
+                                        </li>
+                                        <li class="lang_choice_vi {{ session('locale') === 'vi' ? 'active' : '' }}">
+                                            <a href="{{ url('lang/vi') }}">
+                                                <img src="{{ asset('images/menu/flag-icon/2.png') }}" alt="">
+                                                VietNam
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -97,7 +105,9 @@
                             <option value="15">Smartwatch</option>
                             <option value="16">Accessories</option>
                         </select>
-                        <input type="text" placeholder="Enter your search key ...">
+                        <input type="text" id="search-input" placeholder="Enter your search key ..."
+                            autocomplete="off">
+                        <div id="search-results"></div>
                         <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                     <!-- Header Middle Searchbox Area End Here -->
@@ -251,6 +261,7 @@
     </div>
     <!-- Mobile Menu Area End Here -->
 </header>
+
 <script>
     // meanmenu
     jQuery('.hb-menu nav').meanmenu({
@@ -311,4 +322,75 @@
             }
         });
     }
+
+    // Search
+    $('#search-input').on('keyup', function() {
+        var query = $(this).val();
+
+        if (query.length > 0) {
+            $.ajax({
+                url: "{{ route('search') }}",
+                method: 'GET',
+                data: {
+                    search: query
+                },
+                success: function(response) {
+                    var results = '';
+                    if (response.length > 0) {
+                        $.each(response, function(index, item) {
+                            results += '<div class="search-item">' + item.name + '</div>';
+                        });
+                    } else {
+                        results = '<div class="search-item">No results found</div>';
+                    }
+                    $('#search-results').html(results).show();
+                }
+            });
+        } else {
+            $('#search-results').html('');
+        }
+    });
+
+    // Search out
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('#search-wrapper').length) {
+            $('#search-results').hide();
+        }
+    });
+
+    // Choose result
+    $(document).on('click', '.search-item', function() {
+        $('#search-input').val($(this).text());
+        $('#search-results').hide();
+        window.location.href = "{{ url('laptop/search')}}/" + $(this).text(); 
+    });
 </script>
+<style>
+    #search-input {
+        position: relative;
+    }
+
+    #search-results {
+        border: 1px solid #ddd;
+        max-height: 200px;
+        overflow-y: auto;
+        margin-top: 5px;
+        background-color: #fff;
+        position: absolute;
+        top: 92%;
+        border-radius: 5px;
+        z-index: 999;
+        width: 100%;
+        padding: 2px;
+        display: none
+    }
+
+    .search-item {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .search-item:hover {
+        background-color: #90e0ef;
+    }
+</style>
