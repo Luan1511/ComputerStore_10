@@ -13,7 +13,7 @@
                                         style="font-weight: 500; font-size: 18px; color: #0363CD">{{ Auth::user()->name }}</a>
                                 </li>
                             @else
-                                <li><span style="font-size: 15px;">Welcome Guest</span></li> 
+                                <li><span style="font-size: 15px;">Welcome Guest</span></li>
                             @endauth
                         </ul>
                     </div>
@@ -108,7 +108,8 @@
                             @auth
                                 <li class="hm-wishlist">
                                     <a href="{{ url('wishlist/' . Auth::user()->id) }}">
-                                        <span class="cart-item-count wishlist-item-count">{{Auth::user()->wishlist->count()}}</span>
+                                        <span
+                                            class="cart-item-count wishlist-item-count">{{ Auth::user()->wishlist->count() }}</span>
                                         <i class="fa fa-heart-o"></i>
                                     </a>
                                 </li>
@@ -118,8 +119,16 @@
                             <li class="hm-minicart">
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
-                                    <span class="item-text">£80.00
-                                        <span class="cart-item-count">{{Auth::user()->cart->count()}}</span>
+                                    @php
+                                        $user = Auth::user();
+                                        $cartItems = $user->cart;
+                                        $totalItems = $cartItems->count();
+                                        $totalPrice = $cartItems->sum(function ($item) {
+                                            return $item->quantity * $item->laptop->price;
+                                        });
+                                    @endphp
+                                    <span class="item-text">$ {{ $totalPrice }}
+                                        <span class="cart-item-count">{{ Auth::user()->cart->count() }}</span>
                                     </span>
                                 </div>
                                 <span></span>
@@ -132,16 +141,10 @@
                                                 class="li-button li-button-fullwidth li-button-dark">
                                                 <span>View Full Cart</span>
                                             </a>
-                                            <a href="{{ route('checkout-page') }}" class="li-button li-button-fullwidth">
-                                                <span>Checkout</span>
-                                            </a>
                                         @else
                                             <a onclick="showLoginAlert()"
                                                 class="li-button li-button-fullwidth li-button-dark text-light">
                                                 <span>View Full Cart</span>
-                                            </a>
-                                            <a onclick="showLoginAlert()" class="li-button li-button-fullwidth">
-                                                <span>Checkout</span>
                                             </a>
                                         @endauth
 

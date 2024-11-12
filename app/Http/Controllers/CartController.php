@@ -20,9 +20,22 @@ class CartController extends Controller
     public function getCart()
     {
         $user = Auth::user();
-        $cart = Cart::where('customer_id', $user->id)->with('laptop')->get();
-        $laptops = $cart->pluck('laptop');
-        return response()->json(['data' => $laptops]);
+        $cartItems = Cart::where('customer_id', $user->id)->with('laptop')->get();
+
+        $data = $cartItems->map(function ($item) {
+            return [
+                'id' => $item->laptop->id,
+                'name' => $item->laptop->name,
+                'price' => $item->laptop->price,
+                'img' => $item->laptop->img,
+                'quantity' => $item->quantity,
+                'total_price' => $item->quantity * $item->laptop->price,
+            ];
+        });
+
+        $totalPrice = $data->sum('total_price');
+        return response()->json(['data' => $data,
+                                'total_price' => $totalPrice]);
     }
 
 

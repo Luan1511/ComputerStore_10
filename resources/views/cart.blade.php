@@ -54,9 +54,9 @@
                                     <h2>Cart totals</h2>
                                     <ul>
                                         {{-- <li>Subtotal <span>$130.00</span></li> --}}
-                                        <li>Total <span>$130.00</span></li>
+                                        <li>Total: <span class="total_price_cart"> </span><span>$</span></li>
                                     </ul>
-                                    <a href="#">Proceed to checkout</a>
+                                    <a href="{{ route('checkout-page')}}">Proceed to checkout</a>
                                 </div>
                             </div>
                         </div>
@@ -144,10 +144,10 @@
                         }
                     },
                     {
-                        data: '2',
+                        data: 'quantity',
                         render: function(data, type, row) {
                             return '<div class="cart-plus-minus">' +
-                                '<input class="cart-plus-minus-box" value="' + 2 +
+                                '<input class="cart-plus-minus-box" value="' + data +
                                 '" type="text">' +
                                 '<div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>' +
                                 '<div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>' +
@@ -157,7 +157,7 @@
                     {
                         data: 'price',
                         render: function(data, type, row) {
-                            var quantity= row.quantity ? row.quantity : 2;
+                            var quantity = row.quantity ? row.quantity : 2;
                             var totalPrice = (quantity * parseFloat(data)).toFixed(2);
                             return '<span style="font-size: 16px !important">$</span><span class="total_price">' +
                                 totalPrice + '</span>';
@@ -171,27 +171,37 @@
                 },
                 drawCallback: function() {
                     initPlusMinus();
+                    updateCartTotal();
                 }
             });
+
+            function updateCartTotal() {
+                let total_cart = 0;
+
+                $('#cart-table tbody tr').each(function() {
+                    const itemTotal = parseFloat($(this).find('.total_price').text()) || 0;
+                    total_cart += itemTotal;
+                });
+
+                $('.total_price_cart').text('Total: $' + total_cart.toFixed(2));
+            }
 
             function initPlusMinus() {
                 $(".qtybutton").off('click').on("click", function() {
                     var $button = $(this);
-                    var $row = $button.closest('tr'); // Lấy hàng hiện tại
+                    var $row = $button.closest('tr');  
                     var oldValue = $row.find(".cart-plus-minus-box").val();
 
-                    // Tăng hoặc giảm giá trị
-                    var newVal = $button.hasClass('inc') ? parseInt(oldValue) + 1 : Math.max(0, parseInt(
-                        oldValue) - 1);
+                    var newVal = $button.hasClass('inc') ? parseInt(oldValue) + 1 : Math.max(0, parseInt(oldValue) - 1);
                     $row.find(".cart-plus-minus-box").val(newVal);
 
-                    // Lấy giá trị `unit_price` cho hàng hiện tại
                     var unitPriceText = $row.find(".unit_price").text();
                     var unitPrice = parseFloat(unitPriceText);
 
-                    // Tính lại `total_price` cho hàng hiện tại
                     var totalAfter = newVal * unitPrice;
                     $row.find(".total_price").text(totalAfter.toFixed(2));
+
+                    updateCartTotal();
                 });
             }
         });
