@@ -663,8 +663,16 @@
             @elseif (session('status') === 'addedCart')
                 Swal.fire({
                     icon: 'success',
-                    title: 'Already Exists!',
+                    title: 'Added!',
                     text: 'Laptop has been added to your cart.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            @elseif (session('status') === 'plused')
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Plus!',
+                    text: 'Laptop has been plused to your Laptop quantity.',
                     timer: 2000,
                     showConfirmButton: false
                 });

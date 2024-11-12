@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Laptop;
 use App\Models\Cart;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,8 +35,10 @@ class CartController extends Controller
         });
 
         $totalPrice = $data->sum('total_price');
-        return response()->json(['data' => $data,
-                                'total_price' => $totalPrice]);
+        return response()->json([
+            'data' => $data,
+            'total_price' => $totalPrice
+        ]);
     }
 
 
@@ -43,17 +46,51 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
-        if ($this->checkLaptopInCart($laptop_id)){
-            return redirect()->back()->with('status', 'existed');
+        if ($this->checkLaptopInCart($laptop_id)) {
+            $item = Cart::where('customer_id', $user->id)->where('laptop_id', $laptop_id)->first();
+            $oldQty = $item->quantity;
+            Cart::where('customer_id', $user->id)->where('laptop_id', $laptop_id)->update([
+                'quantity' => $oldQty + 1
+            ]);
+            return redirect()->back()->with('status', 'plused');
         }
 
-        $wishlistItem = Cart::firstOrCreate([
+        Cart::firstOrCreate([
             'customer_id' => $user->id,
             'laptop_id' => $laptop_id,
             'quantity' => 1
         ]);
 
         return redirect()->back()->with('status', 'addedCart');
+    }
+
+    public function updateQuantity($laptop_id, $quantity)
+    {
+        $user = Auth::user();
+
+        // if ($this->checkLaptopInCart($laptop_id)) {
+        //     ///
+        // }
+
+        $cartItem = $user->cart->where('laptop_id', $laptop_id)->first();
+
+        if ($cartItem) {
+            if ($quantity > 0) {
+                $cartItem->quantity = $quantity;
+                $cartItem->save();
+            } else {
+                $cartItem->delete();
+            }
+        } else {
+            if ($quantity > 0) {
+                $user->cart->create([
+                    'laptop_id' => $laptop_id,
+                    'quantity' => $quantity,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('status', 'updated');
     }
 
     public function remove(int $laptop_id)
@@ -66,7 +103,7 @@ class CartController extends Controller
 
     public function checkLaptopInCart(int $laptop_id)
     {
-        $user = Auth::user();  
+        $user = Auth::user();
 
         $exists = Cart::where('customer_id', $user->id)
             ->where('laptop_id', $laptop_id)

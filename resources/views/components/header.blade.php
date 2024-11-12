@@ -119,21 +119,36 @@
                             <li class="hm-minicart">
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
-                                    @php
-                                        $user = Auth::user();
-                                        $cartItems = $user->cart;
-                                        $totalItems = $cartItems->count();
-                                        $totalPrice = $cartItems->sum(function ($item) {
-                                            return $item->quantity * $item->laptop->price;
-                                        });
-                                    @endphp
-                                    <span class="item-text">$ {{ $totalPrice }}
-                                        <span class="cart-item-count">{{ Auth::user()->cart->count() }}</span>
-                                    </span>
+                                    @auth
+                                        @php
+                                            $cartItems = Auth::user()->cart;
+                                            $totalPrice = $cartItems->sum(function ($item) {
+                                                return $item->quantity * $item->laptop->price;
+                                            });
+                                            $itemCount = $cartItems->count();
+                                        @endphp
+                                        <span class="item-text">${{ number_format($totalPrice, 2) }}
+                                            <span class="cart-item-count">{{ $itemCount }}</span>
+                                        </span>
+                                    @else
+                                        <span class="item-text">$0
+                                            <span class="cart-item-count">0</span>
+                                        </span>
+                                    @endauth
                                 </div>
                                 <span></span>
                                 <div class="minicart">
-                                    <p class="minicart-total">SUBTOTAL: <span>$0</span></p>
+                                    <p class="minicart-total">SUBTOTAL:
+                                        @auth
+                                            <span>
+                                                ${{ number_format($totalPrice, 2) }}
+                                            </span>
+                                        @else
+                                            <span>
+                                                $0
+                                            </span>
+                                        @endauth
+                                    </p>
                                     <div class="minicart-button">
 
                                         @auth

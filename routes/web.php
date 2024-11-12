@@ -47,6 +47,7 @@ Route::get('wishlist/{id}/delete', [WishListController::class, 'remove'])->name(
 Route::get('cart/{id}', [PagesController::class, 'getCart'])->name('cart-page');
 Route::get('getCart', [CartController::class, 'getCart'])->name('getCart');
 Route::get('cart/{id}/addSingle', [CartController::class, 'addSingle'])->name('addSingleToCart');
+Route::get('cart/{id}/{qty}', [CartController::class, 'updateQuantity'])->name('updateQuantity');
 Route::get('cart/{id}/delete', [CartController::class, 'remove'])->name('removeFromCart');
 
 Route::get('checkout', [PagesController::class, 'getCheckout'])->name('checkout-page');

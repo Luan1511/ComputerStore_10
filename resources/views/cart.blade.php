@@ -56,7 +56,7 @@
                                         {{-- <li>Subtotal <span>$130.00</span></li> --}}
                                         <li>Total: <span class="total_price_cart"> </span><span>$</span></li>
                                     </ul>
-                                    <a href="{{ route('checkout-page')}}">Proceed to checkout</a>
+                                    <a href="{{ route('checkout-page') }}">Proceed to checkout</a>
                                 </div>
                             </div>
                         </div>
@@ -183,25 +183,77 @@
                     total_cart += itemTotal;
                 });
 
-                $('.total_price_cart').text('Total: $' + total_cart.toFixed(2));
+                $('.total_price_cart').text(total_cart.toFixed(2));
             }
 
             function initPlusMinus() {
                 $(".qtybutton").off('click').on("click", function() {
-                    var $button = $(this);
-                    var $row = $button.closest('tr');  
-                    var oldValue = $row.find(".cart-plus-minus-box").val();
+                    const $div = $(".qtybutton");
+                    $div.css({
+                        'pointer-events': 'none',
+                        'opacity': '0.5'
+                    });
 
-                    var newVal = $button.hasClass('inc') ? parseInt(oldValue) + 1 : Math.max(0, parseInt(oldValue) - 1);
+                    var $button = $(this);
+                    var $row = $button.closest('tr');
+                    var oldValue = parseInt($row.find(".cart-plus-minus-box").val());
+                    var newVal = oldValue;
+
+                    if (!$button.hasClass('inc')) {
+                        if (oldValue === 1) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Careful',
+                                text: 'This action will delete this Laptop from cart, are you sure?',
+                                confirmButtonText: 'Delete Laptop',
+                                cancelButtonText: 'Cancel',
+                                showCancelButton: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    newVal = 0;  
+                                    // $row.remove(); 
+                                    updateCartTotal(); 
+                                } else {
+                                    newVal = 1;
+                                    $row.find(".cart-plus-minus-box").val(newVal); 
+                                }
+
+                                var unitPriceText = $row.find(".unit_price").text();
+                                var unitPrice = parseFloat(unitPriceText);
+
+                                var totalAfter = newVal * unitPrice;
+                                $row.find(".total_price").text(totalAfter.toFixed(2));
+
+                                updateCartTotal();
+
+                                if (result.isConfirmed) {
+                                    window.location.href = "{{ url('cart') }}/" + parseInt($row.find(".detail-btn").text()) + "/" + newVal;
+                                }
+                            });
+                        } else {
+                            newVal = oldValue - 1; 
+                            window.location.href = "{{ url('cart') }}/" + parseInt($row.find(".detail-btn").text()) + "/" + newVal;
+                        }
+                    } else {
+                        newVal = oldValue + 1; 
+                        window.location.href = "{{ url('cart') }}/" + parseInt($row.find(".detail-btn").text()) + "/" + newVal;
+                    }
+
                     $row.find(".cart-plus-minus-box").val(newVal);
 
                     var unitPriceText = $row.find(".unit_price").text();
                     var unitPrice = parseFloat(unitPriceText);
-
                     var totalAfter = newVal * unitPrice;
                     $row.find(".total_price").text(totalAfter.toFixed(2));
 
                     updateCartTotal();
+
+                    setTimeout(() => {
+                        $div.css({
+                            'pointer-events': 'auto',
+                            'opacity': '1'
+                        });
+                    }, 2500);
                 });
             }
         });
