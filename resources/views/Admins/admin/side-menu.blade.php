@@ -30,7 +30,7 @@
 
         {{-- Orders --}}
         <li class="menu-item pt-20 pb-20 ml-auto mr-auto mt-auto mb-auto">
-            <a href="">
+            <a href="{{ route('admin-showOrder')}}">
                 <i class="fa-solid fa-box-open mr-4"></i><span class="label-item">Orders</span>
             </a>
         </li>

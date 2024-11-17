@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\CartController;
 use App\Models\Admin\Account;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin\Laptop;
 use App\Models\Admin\Brand;
+use App\Models\Admin\Payment;
 use App\Models\Wishlist;
 
 class PagesController extends Controller
@@ -31,13 +33,14 @@ class PagesController extends Controller
     public function getSingleLaptop(int $id)
     {
         $laptop = Laptop::findOrFail($id);
-
         $laptop->brand_name = $laptop->brand->name;
-
         $images = $laptop->images()->pluck('image_url');
         $laptop->images_url = $images;
 
-        return view('single-product', compact('laptop'));
+        $laptops = Laptop::where('brand_id', $laptop->brand_id)
+            ->where('id', '!=', $laptop->id)->get();
+
+        return view('single-product', compact('laptop', 'laptops'));
     }
 
     public function getLaptopByName($name)
@@ -57,6 +60,14 @@ class PagesController extends Controller
         return view('about');
     }
 
+    public function getDetailLaptop(int $id)
+    {
+        $laptop = Laptop::where('id', $id)->First();
+        // $laptop->brand_name = $laptop->brand->name;
+        unset($laptop->desciption);
+        return response()->json($laptop);
+    }
+
     public function getContact()
     {
         return view('contact');
@@ -71,7 +82,11 @@ class PagesController extends Controller
 
     public function getCheckout()
     {
-        return view('checkout');
+        $cartController = new CartController();
+        $cartResponse = $cartController->getCart();
+        $cart = json_decode($cartResponse->getContent());
+        $payments = Payment::all();
+        return view('checkout', compact('payments', 'cart'));
     }
 
     public function getCart()

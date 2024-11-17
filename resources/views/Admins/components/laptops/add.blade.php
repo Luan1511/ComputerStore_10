@@ -81,19 +81,19 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="image" class="form-label">Main image</label>
-                    <input type="file" class="form-control" id="image" name="image" style="height: 61px">
+                    <input type="file" class="form-control" id="image" name="images[]" style="height: 61px">
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="image" class="form-label">Sub images</label>
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="file" class="form-control" id="image_1" name="image_1" style="height: 61px; padding: 6px; font-size: 7px">
+                            <input type="file" class="form-control" id="image_1" name="images[]" style="height: 61px; padding: 6px; font-size: 7px">
                         </div>
                         <div class="col-md-4">
-                            <input type="file" class="form-control" id="image_2" name="image_2" style="height: 61px; padding: 6px; font-size: 7px">
+                            <input type="file" class="form-control" id="image_2" name="images[]" style="height: 61px; padding: 6px; font-size: 7px">
                         </div>
                         <div class="col-md-4">
-                            <input type="file" class="form-control" id="image_3" name="image_3" style="height: 61px; padding: 6px; font-size: 7px">
+                            <input type="file" class="form-control" id="image_3" name="images[]" style="height: 61px; padding: 6px; font-size: 7px">
                         </div>
                     </div>
                 </div>

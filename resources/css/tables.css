@@ -20,6 +20,17 @@
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+.success-btn {
+    margin-top: 10px;
+    margin-bottom: 10px !important;
+    padding: 10px 10px;
+    border-radius: 5px;
+    background-color: rgb(43, 204, 150);
+    color: white !important;
+    border: 1px solid lightgray;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
 .detail-btn {
     margin: 0 7px;
     margin-top: 10px;
@@ -70,3 +81,39 @@
     }
 }
 
+.wishlist-btn:hover {
+    color: white;
+}
+
+.detail-laptop-table {
+    th {
+        width: 35% !important;
+    }
+
+    border: solid 1px lightgray;
+
+    tr, td, th {
+        border: solid 1px lightgray !important;
+        padding: 10px;
+    }
+
+    .total_price {
+        color: rgb(45, 48, 144);
+        font-size: large;
+        font-weight: 500;
+    }
+}
+
+.add-to-cart:hover{
+    color: white !important;
+}
+
+.wishlist-detail:hover {
+    color: #90e0ef !important;
+}
+
+.laptop_relative {
+    img {
+        max-width: 200px;
+    }
+}

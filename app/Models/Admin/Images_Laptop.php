@@ -15,7 +15,7 @@ class Images_Laptop extends Model
     protected $fillable = [
         'id',
         'image_url',
-        'id_laptop',
+        'laptop_id',
     ];
 
     public function images_laptop()

@@ -368,3 +368,27 @@
         font-size: 18px;
     }
 }
+
+.success-btn {
+    margin-top: 10px;
+    margin-bottom: 10px !important;
+    padding: 10px 10px;
+    border-radius: 5px;
+    background-color: rgb(43, 204, 150);
+    color: white !important;
+    border: 1px solid lightgray;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+#laptops-order-table {
+    border: solid 1px lightgray;
+
+    tr, td, th {
+        border: solid 1px lightgray !important;
+        padding: 10px;
+    }
+
+    img {
+        width: 70px !important;
+    }
+}

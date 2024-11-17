@@ -11,10 +11,12 @@ use App\Http\Controllers\Admin\LaptopController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishListController;
 use App\Http\Middleware\AuthAdmin;
@@ -47,6 +49,7 @@ Route::get('wishlist/{id}/delete', [WishListController::class, 'remove'])->name(
 Route::get('cart/{id}', [PagesController::class, 'getCart'])->name('cart-page');
 Route::get('getCart', [CartController::class, 'getCart'])->name('getCart');
 Route::get('cart/{id}/addSingle', [CartController::class, 'addSingle'])->name('addSingleToCart');
+Route::get('cart/add/{id}/{qty}', [CartController::class, 'addByQuantity'])->name('addMultiToCart');
 Route::get('cart/{id}/{qty}', [CartController::class, 'updateQuantity'])->name('updateQuantity');
 Route::get('cart/{id}/delete', [CartController::class, 'remove'])->name('removeFromCart');
 
@@ -56,17 +59,22 @@ Route::get('login', [LoginController::class, 'getLogin'])->name('login-page');
 Route::post('login', [LoginController::class, 'postLogin'])->name('post-login');
 Route::get('register', [LoginController::class, 'getRegister'])->name('register-page');
 Route::post('register', [LoginController::class, 'postRegister'])->name('post-register');
-Route::get('profile', [PagesController::class, 'getProfile'])->name('profile-page');
+// Route::get('profile', [PagesController::class, 'getProfile'])->name('profile-page');
+Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('profile-page');
+Route::put('profile/{id}', [ProfileController::class, 'update'])->name('user-update');
 Route::get('logout', [LoginController::class, 'getLogout'])->name('logout');
 Route::post('check_login', [PagesController::class, 'check_login']);
 Route::get('loginAdmin', [LoginController::class, 'getLoginAdmin'])->name('loginAdmin');
 Route::post('loginAdmin', [LoginController::class, 'postLoginAdmin'])->name('loginAdmin');
 Route::post('send-email', [ContactController::class, 'sendEmail'])->name('send.email');
 
+// Order
+Route::post('checkout/place-order', [OrderController::class, 'placeOrder'])->name('place-order');
 
 // Single Laptop
 Route::get('laptop/{id}', [PagesController::class, 'getSingleLaptop'])->name('single-laptop');
 Route::get('laptop/search/{name}', [PagesController::class, 'getLaptopByName'])->name('single-laptop-name');
+Route::get('laptop/{id}/getDetail', [PagesController::class, 'getDetailLaptop'])->name('getDetailLaptop');
 
 // Language
 Route::get('lang/{locale}', function ($locale) {
@@ -101,6 +109,18 @@ Route::middleware('admin')->group(function () {
             Route::get('get', [AccountController::class, 'getAccount'])->name('admin-getAccount');
             Route::get('show', [AccountController::class, 'showAccount'])->name('admin-showAccount');
             Route::get('{id}/delete', [AccountController::class, 'destroy'])->name('admin-destroyAccount');
+        });
+
+        // Orders
+        Route::prefix('order')->group(function () {
+            Route::get('get', [OrderController::class, 'getOrder'])->name('admin-getOrder');
+            Route::get('show', [OrderController::class, 'showOrder'])->name('admin-showOrder');
+            Route::get('{id}/detail', [OrderController::class, 'detail'])->name('admin-detailOrder'); 
+
+            // Actions
+            Route::get('{id}/deny', [OrderController::class, 'deny'])->name('admin-denyOrder');
+            Route::get('{id}/delete', [OrderController::class, 'delete'])->name('admin-deleteOrder');
+            Route::get('{id}/approve', [OrderController::class, 'approve'])->name('admin-approveOrder');
         });
 
         // Laptop

@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function index()
-    {
-        $user = Auth::user();
-        $wishlist = Cart::where('customer_id', $user->id)->with('laptop')->get();
-        return view('wishlist.index', compact('wishlist'));
-    }
+    // public function index()
+    // {
+    //     $user = Auth::user();
+    //     $cart = Cart::where('customer_id', $user->id)->with('laptop')->get();
+    //     return view('wishlist.index', compact('cart'));
+    // }
 
     public function getCart()
     {
@@ -59,6 +59,28 @@ class CartController extends Controller
             'customer_id' => $user->id,
             'laptop_id' => $laptop_id,
             'quantity' => 1
+        ]);
+
+        return redirect()->back()->with('status', 'addedCart');
+    }
+
+    public function addByQuantity(int $laptop_id, int $qty)
+    {
+        $user = Auth::user();
+
+        if ($this->checkLaptopInCart($laptop_id)) {
+            $item = Cart::where('customer_id', $user->id)->where('laptop_id', $laptop_id)->first();
+            $oldQty = $item->quantity;
+            Cart::where('customer_id', $user->id)->where('laptop_id', $laptop_id)->update([
+                'quantity' => $oldQty + $qty
+            ]);
+            return redirect()->back()->with('status', 'plused');
+        }
+
+        Cart::firstOrCreate([
+            'customer_id' => $user->id,
+            'laptop_id' => $laptop_id,
+            'quantity' => $qty
         ]);
 
         return redirect()->back()->with('status', 'addedCart');

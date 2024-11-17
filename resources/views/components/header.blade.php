@@ -10,7 +10,7 @@
                         <ul class="phone-wrap">
                             @auth
                                 <li><span style="font-size: 15px;">{{ __('messages.welcome') }} </span><a
-                                        href="{{ route('profile-page') }}"
+                                        href="{{ url('/profile/' . Auth::user()->id) }}"
                                         style="font-weight: 500; font-size: 18px; color: #0363CD">{{ Auth::user()->name }}</a>
                                 </li>
                             @else
@@ -29,14 +29,16 @@
                                 <div class="ht-setting-trigger"><span>Option</span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
-                                        @guest
-                                            <li><a href="{{ route('login-page') }}">Sign In</a></li>
-                                        @endguest
                                         @auth
-                                            <li><a href="{{ route('profile-page') }}">My Account</a></li>
-                                            <li><a href="{{ route('admin-dashboard-page') }}">Admin</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
-                                            <li><a onclick="showLogoutAlert()">Logout</a></li>
+                                            <li><a href="{{ url('/profile/' . Auth::user()->id) }}">My Account</a></li>
+                                        @else
+                                            <li><a href="{{ route('login-page') }}">Sign In</a></li>
+                                            <li><a href="{{ route('register-page') }}">Resgister</a></li>
+                                        @endauth
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="{{ route('admin-dashboard-page') }}">Admin</a></li>
+                                        @auth
+                                            <li><a href="{{ route('logout') }}">Logout</a></li>
                                         @endauth
                                     </ul>
                                 </div>
@@ -221,7 +223,6 @@
                                         </li>
                                         <li><a href="index.html">Other Pages</a>
                                             <ul>
-                                                <li><a href={{ route('login-page') }}>My Account</a></li>
                                                 <li><a href={{ route('register-page') }}>Checkout</a></li>
                                                 <li><a href="compare.html">Compare</a></li>
                                                 <li><a href="wishlist.html">Wishlist</a></li>
@@ -362,7 +363,7 @@
     $(document).on('click', '.search-item', function() {
         $('#search-input').val($(this).text());
         $('#search-results').hide();
-        window.location.href = "{{ url('laptop/search')}}/" + $(this).text(); 
+        window.location.href = "{{ url('laptop/search') }}/" + $(this).text();
     });
 </script>
 <style>

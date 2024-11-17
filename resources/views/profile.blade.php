@@ -48,8 +48,13 @@
                         </div>
                         <div class="mb-2 row">
                             <div class="col-md-11">
-                                <input type="text" class="form-control border-bottom-only" id="email"
-                                    placeholder="Email">
+                                @if (Auth::check())
+                                    <input type="text" class="form-control bang" id="email"
+                                        value="{{ Auth::user()->email }}">
+                                @else
+                                    <input type="text" class="form-control border-bottom-only" id="email"
+                                        placeholder="Email">
+                                @endif
                             </div>
                         </div>
                         <div class="mb-2 row">

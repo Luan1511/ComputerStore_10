@@ -11,4 +11,5 @@ return [
     'delete_confirm' => 'Are you sure you want to delete this item?',
     'item_added' => 'Item added to your cart.',
     'item_removed' => 'Item removed from your cart.',
+    'other_laptop' => 'Other products in the same brand:'
 ];

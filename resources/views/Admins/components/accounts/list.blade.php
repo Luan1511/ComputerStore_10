@@ -74,7 +74,6 @@
                 ],
                 initComplete: function() {
                     $('.dataTables_info').hide();
-                    $('.dataTables_info').hide();
                 }
             });
         });

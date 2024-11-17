@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Images_Laptop;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use App\Models\Admin\Laptop;
@@ -77,16 +78,19 @@ class LaptopController extends Controller
                 'price' => 'required|numeric|min:0',
                 'stock' => 'required|integer|min:0',
                 'description' => 'nullable|string',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3074',
+                'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3074',
             ]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }
 
-        if ($request->hasFile('image')) {
-            $originalFileName = $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('images', $originalFileName, 'public');
+        if ($request->hasFile('images')) {
+            if ($request->file('images')[0]) {
+                $originalFileName = $request->file('images')[0]->getClientOriginalName();
+                $imagePath = $request->file('images')[0]->storeAs('images', $originalFileName, 'public');
+            }
         }
+
 
         $laptop = new Laptop([
             'name' => $request->name,
@@ -106,12 +110,44 @@ class LaptopController extends Controller
 
         $laptop->save();
 
+        for ($i = 0; $i < count($request->file('images')); $i++) {
+            if ($request->hasFile('images')) {
+                if ($request->file("images")[$i]) {
+                    $image = $request->file("images")[$i];
+                    $originalName = $request->file("images")[$i]->getClientOriginalName();
+                    $imagePath = $image->storeAs('images', $originalName, 'public');
+
+                    $laptopImage = new Images_Laptop();
+                    $laptopImage->laptop_id = $laptop->id;
+                    $laptopImage->image_url = $imagePath;
+                    $laptopImage->save();
+                }
+            }
+        }
+
         return redirect()->route('admin-showLaptop')->with('status', 'Laptop Added');
     }
 
     public function destroy(int $id)
     {
         $laptop = Laptop::findOrFail($id);
+
+        $images_laptop = Images_Laptop::where('laptop_id', $id)->get();
+        foreach ($images_laptop as $image) {
+            if ($image->image_url) {
+                $fullPath = public_path('storage/' . $image->image_url);
+                if (File::exists($fullPath)) {
+                    try {
+                        File::delete($fullPath);
+                    } catch (\Exception $e) {
+                        Log::error('Failed to delete image: ' . $e->getMessage());
+                    }
+                } else {
+                    Log::warning('Image file not found: ' . $fullPath);
+                }
+            }
+            $image->delete();
+        }
 
         if ($laptop->img) {
             $fullPath = public_path('storage/' . $laptop->img);

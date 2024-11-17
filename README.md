@@ -7,6 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+# Order status:
+1: not approved yet
+2: approved - delivering
+3: denied
+4: delivered
+
 id, name, img, price, quantity, total
 
 ## About Laravel
