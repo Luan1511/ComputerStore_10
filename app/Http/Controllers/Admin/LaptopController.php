@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Laptop;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class LaptopController extends Controller
 {
@@ -42,6 +43,19 @@ class LaptopController extends Controller
             });
 
         return response()->json(['data' => $laptops]);
+    }
+
+    public function getNewLaptop(){
+        $weeks = 2;
+        $newProductsByWeeks = Laptop::where('created_at', '>=', Carbon::now()->subWeeks($weeks))->get();
+
+        return $newProductsByWeeks;
+    }
+
+    public function getBestSellerLaptop(){
+        $bestSeller = Laptop::where('sell', '>=', 15)->get();
+
+        return $bestSeller;
     }
 
     public function showDetailLaptop(int $id)

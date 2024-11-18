@@ -198,7 +198,7 @@
                         <nav>
                             <ul>
                                 <li><a href="{{ route('home-page') }}">Home</a></li>
-                                <li class="megamenu-holder"><a href="">Shop</a></li>
+                                <li class="megamenu-holder"><a href="{{ route('product-page')}}">Shop</a></li>
                                 <li class="megamenu-static-holder"><a href="">Pages</a>
                                     <ul class="megamenu hb-megamenu">
                                         <li><a href="blog-left-sidebar.html">Blog Layouts</a>

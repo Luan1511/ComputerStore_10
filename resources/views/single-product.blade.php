@@ -48,11 +48,11 @@
                             <span class="product-details-ref">Brand: {{ $laptop->brand->name }}</span>
                             <div class="rating-box pt-20">
                                 <ul class="rating rating-with-review-item">
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li class="no-star"><i class="fa fa-star"></i></li>
+                                    <li class="no-star"><i class="fa fa-star"></i></li>
                                     <li class="review-item"><a href="#">Read Review</a></li>
                                     <li class="review-item"><a href="#">Write Review</a></li>
                                 </ul>
@@ -154,11 +154,11 @@
                             <div class="comment-review">
                                 <span>Grade</span>
                                 <ul class="rating">
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li class="no-star"><i class="fa fa-star"></i></li>
+                                    <li class="no-star"><i class="fa fa-star"></i></li>
                                 </ul>
                             </div>
                             <div class="comment-author-infos pt-25">
@@ -211,11 +211,11 @@
                                                     </h5>
                                                     <div class="rating-box">
                                                         <ul class="rating">
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li class="no-star"><i class="fa fa-star"></i></li>
+                                                            <li class="no-star"><i class="fa fa-star"></i></li>
                                                         </ul>
                                                     </div>
                                                 </div>

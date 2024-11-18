@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\LaptopController;
 use App\Http\Controllers\CartController;
 use App\Models\Admin\Account;
 use App\Models\User;
@@ -27,7 +28,11 @@ class PagesController extends Controller
     public function getHome()
     {
         $laptops = Laptop::all();
-        return view('home', compact('laptops'));
+        $laptopController = new LaptopController();
+        $newLaptops = $laptopController->getNewLaptop();
+        $bestSellerLaptops = $laptopController->getBestSellerLaptop();
+
+        return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops'));
     }
 
     public function getSingleLaptop(int $id)
@@ -41,6 +46,54 @@ class PagesController extends Controller
             ->where('id', '!=', $laptop->id)->get();
 
         return view('single-product', compact('laptop', 'laptops'));
+    }
+
+    // Search in product page
+    public function searchInPage(Request $request)
+    {
+        $searchBrand = $request->query('search_brand', []);
+        $searchPriceSort = $request->query('search_price_sort');
+        $searchScreenSize = $request->query('search_screen_size', []);
+        $searchStock = $request->query('search_stock');
+        $searchQuery = $request->query('search');
+
+        $laptops = Laptop::when($searchQuery, function ($queryBuilder) use ($searchQuery) {
+            return $queryBuilder->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('description', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('os', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('type', 'like', '%' . $searchQuery . '%');
+            });
+        })
+            ->when(!empty($searchBrand), function ($queryBuilder) use ($searchBrand) {
+                return $queryBuilder->whereIn('brand_id', $searchBrand);
+            })
+            ->when(!empty($searchScreenSize), function ($queryBuilder) use ($searchScreenSize) {
+                return $queryBuilder->whereIn('screen_size', $searchScreenSize);
+            })
+            ->when($searchStock, function ($queryBuilder) use ($searchStock) {
+                if ($searchStock[0] == 'in') {
+                    return $queryBuilder->where('stock', '>=', 1);
+                } else {
+                    return $queryBuilder->where('stock', '<', 1);
+                }
+            })
+            ->when($searchPriceSort, function ($queryBuilder) use ($searchPriceSort) {
+                if ($searchPriceSort[0] == 'increa') {
+                    return $queryBuilder->orderBy('price', 'asc');
+                } else {
+                    return $queryBuilder->orderBy('price', 'desc');
+                }
+            })
+            ->get()
+            ->map(function ($laptop) {
+                $laptop->brand_name = $laptop->brand->name;
+                return $laptop;
+            });
+
+        $brands = Brand::all();
+
+        return view('components.laptop-list-page', compact('laptops', 'brands'));
     }
 
     public function getLaptopByName($name)
@@ -73,6 +126,16 @@ class PagesController extends Controller
         return view('contact');
     }
 
+    public function getProductPage()
+    {
+        $laptops = Laptop::get()->map(function ($laptop) {
+            $laptop->brand_name = $laptop->brand->name;
+            return $laptop;
+        });
+        $brands = Brand::all();
+        return view('product-page', compact('laptops', 'brands'));
+    }
+
     public function getWishlist(int $id)
     {
         $customer = User::find($id);
@@ -99,6 +162,7 @@ class PagesController extends Controller
         return view('profile');
     }
 
+    // Search in search bar
     public function search(Request $request)
     {
         $search = $request->input('search');

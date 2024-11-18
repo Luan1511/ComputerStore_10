@@ -30,10 +30,12 @@ class Laptop extends Model
         'price',
         'stock',
         'description',
+        'img',
+        'rating',
+        'type',
         'created_at',
         'updated_at',
-        'img',
-        'rating'
+        
     ];
 
     public function brand()
@@ -56,3 +58,4 @@ class Laptop extends Model
         return $this->hasMany(Cart::class, 'id', 'id');
     }
 }
+

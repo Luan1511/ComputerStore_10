@@ -39,6 +39,10 @@ Route::get('/', [PagesController::class, 'getHome'])->name('home-page');
 Route::get('about', [PagesController::class, 'getAbout'])->name('about-page');
 Route::get('contact', [PagesController::class, 'getContact'])->name('contact-page');
 
+// Products page
+Route::get('product-page', [PagesController::class, 'getProductPage'])->name('product-page');
+Route::get('/product-page/search', [PagesController::class, 'searchInPage'])->name('search-page');
+
 // Wishlist routes
 Route::get('wishlist/{id}', [PagesController::class, 'getWishlist'])->name('wishlist-page');
 Route::get('getWishlist', [WishListController::class, 'getWishlist'])->name('getWishlist');
