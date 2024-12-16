@@ -241,6 +241,8 @@
     padding: 15px;
     margin-bottom: 15px;
 	border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
 
     img {
         border-radius: 50%;
@@ -248,6 +250,9 @@
 
     .comment-content {
         padding-left: 10px;
+        font-size: 15px;
+        font-weight: 450;
+        margin: 10px 0;
     }
     
     .comment-date {
@@ -259,5 +264,16 @@
     .comment-user {
         color: #3063cd;
         font-weight: 500;
+
+        img {
+            margin-right: 5px !important;
+        }
+    }
+
+    .star {
+
+        i {
+            color: rgb(255, 200, 0);
+        }
     }
 }

@@ -54,6 +54,9 @@ class PagesController extends Controller
         $laptops = Laptop::where('brand_id', $laptop->brand_id)
             ->where('id', '!=', $laptop->id)->get();
 
+        $ratingController = new RatingController();
+        $ratingController->rating($id);
+
         return view('single-product', compact('laptop', 'laptops'));
     }
 

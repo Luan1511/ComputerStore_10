@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin\Brand;
 use App\Models\Cart;
 use App\Models\Comment;
+use App\Models\LicenseComment;
 use App\Models\Wishlist;
 
 class Laptop extends Model
@@ -61,6 +62,11 @@ class Laptop extends Model
     public function comment()
     {
         return $this->hasMany(Comment::class, 'laptop_id', 'id');
+    }
+
+    public function license()
+    {
+        return $this->hasMany(LicenseComment::class, 'laptop_id', 'id');
     }
 }
 

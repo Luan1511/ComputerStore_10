@@ -27,7 +27,12 @@ class RatingController extends Controller
             $rating += (float) $comment->rating;
             $counter++;
         }
-        $rating /= $counter;
+        
+        if ($counter === 0) {
+            $rating = 0;
+        } else {
+            $rating /= $counter;
+        }
 
         $laptop = Laptop::findOrFail($laptop_id);
         $laptop->rating = $rating;

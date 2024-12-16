@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin\Order;
+use App\Models\LicenseComment;
 use App\Models\Point;
 use App\Models\User;
 use App\Models\Voucher;
@@ -119,6 +120,14 @@ class ProfileController extends Controller
 
         $point = Point::findOrFail(auth()->id());
         $point->update(['point' => $point->point + (int)$purchase->total_price * 0.01]);
+
+        $subOrders = $purchase->subOrder;
+        foreach ($subOrders as $subOrder) {
+            LicenseComment::create([
+                'user_id' => auth()->id(),
+                'laptop_id' => $subOrder->laptop->id,
+            ]);
+        }
 
         return redirect()->back()
             ->with('status', 'Received Successfully');

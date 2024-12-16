@@ -112,7 +112,7 @@
                 </div>
             </div>
             <div class="tab-content">
-                <div id="detail-laptop" class="tab-pane show" role="tabpanel">
+                <div id="detail-laptop" class="tab-pane active show" role="tabpanel">
                     <div class="product-description" style="overflow: auto">
                         <table class="detail-laptop-table cart-table" style="width: 100%">
                             <tbody>
@@ -152,7 +152,7 @@
                         </table>
                     </div>
                 </div>
-                <div id="review-laptop" class="tab-pane active" role="tabpanel">
+                <div id="review-laptop" class="tab-pane" role="tabpanel">
                     @php
                         $ratingCount = [];
                         for ($i = 1; $i <= 5; $i++) {
@@ -171,6 +171,9 @@
                             <input type="hidden" id="rating-val">
                             <div class="list_rating" style="width: 60%; padding: 20px">
                                 @for ($i = 1; $i <= 5; $i++)
+                                    @php
+                                        $percent = $ratingCount[$i] * 100 / $laptop->comment()->count();
+                                    @endphp
                                     <div class="item_rating" style="display: flex; align-items: center">
 
                                         <div style="width: 10%; font-size: 14px ">
@@ -178,20 +181,28 @@
                                         </div>
                                         <div style="width: 70%; margin: 0 20px">
                                             <span
-                                                style="width: 100%;height: 8px;display: block;border: 1px solid #dedede;border-radius:5px; background-color: #dedede "><b
-                                                    style="width: 30%; background-color:#f25800; display: block;border-radius:5px; height: 100%;"></b></span>
+                                                style="width: 100%;height: 8px;display: block;border: 1px solid #dedede;border-radius:5px; background-color: #dedede ">
+                                                <b
+                                                    style="width: {{ $percent }}%; background-color:#f25800; display: block;border-radius:5px; height: 100%;"></b>
+                                            </span>
                                         </div style="width: 20%">
                                         <div>
-                                            <a href="">{{$ratingCount[$i]}} comments</a>
+                                            <a href="">{{ $ratingCount[$i] }} comments</a>
                                         </div>
                                     </div>
                                 @endfor
                             </div>
                             <div style="width: 20%">
-                                <a href="#" class="js_rating_action"
-                                    style="width: 200px; background: #288ad6;padding: 10px;color: white; border-radius: 5px">Create
-                                    your
-                                    review</a>
+                                @if (Auth::user()->comment->count() < 1 && Auth::user()->license->count() > 0)
+                                    <a href="#" class="js_rating_action"
+                                        style="width: 200px; background: #288ad6;padding: 10px;color: white; border-radius: 5px">Create
+                                        your
+                                        review</a>
+                                @elseif (Auth::user()->comment->count() > 0)
+                                    <a href="#" class="js_rating_action"
+                                        style="width: 200px; background: #288ad6;padding: 10px;color: white; border-radius: 5px; opacity: 20% !important; pointer-events: none !important; cursor: not-allowed;">You
+                                        already commented</a>
+                                @endif
                             </div>
                         </div>
                         <?php

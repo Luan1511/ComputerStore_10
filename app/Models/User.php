@@ -82,4 +82,8 @@ class User extends Authenticatable
     public function comment(){
         return $this->hasMany(Comment::class, 'customer_id', 'id');
     }
+
+    public function license(){
+        return $this->hasMany(LicenseComment::class, 'user_id', 'id');
+    }
 }
