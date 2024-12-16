@@ -1,29 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Admin\Order;
+use App\Models\Point;
 use App\Models\User;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function getProfile(){
+    public function getProfile()
+    {
         return view('profile');
     }
 
-    public function edit(int $id)
+    public function profileView(int $id)
     {
-        // Lấy thông tin người dùng từ database
-        $user = Auth::user(); // Lấy thông tin người dùng đã đăng nhập
-        return view('profile', compact('user')); // Truyền biến $user vào view
-        // Trả về view và truyền biến $user vào view
-
+        $user = Auth::user();
+        return view('profile', compact('user'));
     }
 
     public function update(Request $request, int $id)
     {
-        // Kiểm tra dữ liệu đầu vào (validation)
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -63,6 +64,84 @@ class ProfileController extends Controller
 
         // Trả về thông báo thành công
         return redirect()->route('profile-page', ['id' => $user->id])
-                         ->with('status', 'Customer Updated Successfully');
+            ->with('status', 'Customer Updated Successfully');
+    }
+
+    public function purchaseView()
+    {
+        $purchases = Order::where('customer_id', auth()->id())
+            ->where('status', 1)
+            ->with('subOrder.laptop')->get();
+
+        return view('users.purchase', compact('purchases'));
+    }
+
+    public function purchaseMaking()
+    {
+        $purchases = Order::where('customer_id', auth()->id())
+            ->where('status', 1)
+            ->with('subOrder.laptop')->get();
+
+        return view('users.render-purchase', compact('purchases'));
+    }
+
+    public function purchaseDelivering()
+    {
+        $purchases = Order::where('customer_id', auth()->id())
+            ->where('status', 2)
+            ->with('subOrder.laptop')->get();
+
+        return view('users.render-purchase', compact('purchases'));
+    }
+
+    public function purchaseCompleted()
+    {
+        $purchases = Order::where('customer_id', auth()->id())
+            ->where('status', 4)
+            ->with('subOrder.laptop')->get();
+
+        return view('users.render-purchase', compact('purchases'));
+    }
+
+    public function purchaseDenied()
+    {
+        $purchases = Order::where('customer_id', auth()->id())
+            ->where('status', 3)
+            ->with('subOrder.laptop')->get();
+
+        return view('users.render-purchase', compact('purchases'));
+    }
+
+    public function purchaseReceived($id)
+    {
+        $purchase = Order::findOrFail($id);
+        $purchase->update(['status' => 4]);
+
+        $point = Point::findOrFail(auth()->id());
+        $point->update(['point' => $point->point + (int)$purchase->total_price * 0.01]);
+
+        return redirect()->back()
+            ->with('status', 'Received Successfully');
+    }
+
+    public function createVoucher($discount)
+    {
+        $code = bin2hex(random_bytes(10 / 2));
+        Voucher::create([
+            'code' => $code,
+            'user_id' => auth()->id(),
+            'discount' => $discount,
+            'is_used' => 0,
+        ]);
+
+        $point = Point::where('user_id', auth()->id())->first();
+        $point->update(['point' => $point->point - $discount * 100]);
+
+        return redirect()->back()->with(
+            [
+                'status' => 'Created Successfully',
+                'code' => $code
+            ]
+        );
     }
 }

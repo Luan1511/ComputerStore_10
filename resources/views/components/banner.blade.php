@@ -50,16 +50,18 @@
             <!-- Slider Area End Here -->
             <!-- Begin Li Banner Area -->
             <div class="col-lg-4 col-md-4 text-center pt-xs-30">
-                <div class="li-banner">
-                    <a href="#">
-                        <img src="images/banner/1_1.jpg" alt="">
-                    </a>
-                </div>
-                <div class="li-banner mt-15 mt-sm-30 mt-xs-30">
-                    <a href="#">
-                        <img src="images/banner/1_2.jpg" alt="">
-                    </a>
-                </div>
+                @foreach ($bannerAds as $bannerAd)
+                    <div class="li-banner">
+                        <a href="#">
+                            <img src="{{ asset('storage/' . $bannerAd->image) }}" alt="">
+                        </a>
+                    </div>
+                    <div class="li-banner mt-15 mt-sm-30 mt-xs-30">
+                        <a href="#">
+                            <img src="images/banner/1_2.jpg" alt="">
+                        </a>
+                    </div>
+                @endforeach
             </div>
             <!-- Li Banner Area End Here -->
         </div>
@@ -68,15 +70,15 @@
 
 <script>
     $(".slider-active").owlCarousel({
-		loop: true,
-		margin: 0,
-		nav: true,
-		autoplay: true,
-		items: 1,
-		autoplayTimeout: 10000,
-		navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
-		dots: true,
-		autoHeight: true,
-		lazyLoad: true
-	});
+        loop: true,
+        margin: 0,
+        nav: true,
+        autoplay: true,
+        items: 1,
+        autoplayTimeout: 10000,
+        navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+        dots: true,
+        autoHeight: true,
+        lazyLoad: true
+    });
 </script>

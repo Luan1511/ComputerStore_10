@@ -1796,7 +1796,7 @@ textarea:focus {
 	transition: all 0.3s ease-in-out;
 	color: #242424;
 }
-.hb-menu nav > ul > li:nth-child(n+3) > a::after {
+.hb-menu nav > ul > li:nth-child(0) > a::after {
 	content: '\f107'!important;
 }
 .hb-menu nav > ul > li:nth-child(n+4) > a::after {
@@ -5456,5 +5456,52 @@ span.required {
   display: none;
 }
 /*----------------------------------------------------------------------------------------------------*/
-/*------------------------------------------> The End <-----------------------------------------------*/
+/*------------------------------------------> Custom <-----------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------*/
+.voucher-fld {
+    
+	#coupon_code {
+		border-radius: 5px;
+		border: dotted 1px #0363CD;
+	}
+}
+
+.list_start i:hover {
+	cursor: pointer;
+}
+
+.list_text {
+	display: inline-block;
+	margin-left: 10px;
+	position: relative;
+	background: #52b858;
+	color: #fff;
+	padding: 2px 8px;
+	box-sizing: border-box;
+	font-size: 12px;
+	border-radius: 2px;
+	display: none;
+}
+
+.list_text::after {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(82, 184, 88, 0);
+	border-right-color: #52b858;
+	border-width: 6px;
+	margin-top: -6px;
+}
+
+.list_start .rating_active {
+	color: #ff9705;
+}
+
+.hide {
+	display: none !important;
+}

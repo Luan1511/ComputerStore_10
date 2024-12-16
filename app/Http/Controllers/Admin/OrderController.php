@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Order;
 use App\Models\Cart;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,7 @@ class OrderController extends Controller
         $address = $request->input('address');
         // $email = $request->input('email');
         $phone = $request->input('phone');
+        $totalPrice = $request->input('total');
         $cartItems = $request->input('cart');
         $paymentMethodId = $request->input('payment_method_id');
 
@@ -27,7 +29,8 @@ class OrderController extends Controller
         $order->status = 1;
         $order->phone = $phone;
         $order->payment_method = $paymentMethodId;
-        $order->total_price = collect($cartItems)->sum('total_price');
+        // $order->total_price = collect($cartItems)->sum('total_price');
+        $order->total_price = $totalPrice;
         $order->created_at = now();
         $order->save();
 
@@ -43,6 +46,24 @@ class OrderController extends Controller
         Cart::where('customer_id', $user->id)->delete();
 
         return response()->json(['success' => true]);
+    }
+
+    public function applyVoucher(Request $request)
+    {
+        $voucherCode = $request->input('coupon_code');
+
+        $voucher = Voucher::where('code', $voucherCode)->where('is_used', 0)->first();
+
+        if (!$voucher) {
+            return response()->json(['success' => false, 'message' => 'Invalid or used voucher']);
+        }
+
+        $voucher->update(['is_used' => 1]);
+
+        return response()->json([
+            'success' => true,
+            'discount' => $voucher->discount, 
+        ]);
     }
 
     public function getOrder()
@@ -91,6 +112,20 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $order->update(['status' => 2]);
+
         return redirect()->route('admin-showOrder')->with('status', true);
+    }
+
+    public function gotOrder(int $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 4]);
+
+        $laptops = $order->subOrder()->get();
+        foreach ($laptops as $laptop) {
+            $laptop->update(['status' => 4]);
+        }
+
+        // return redirect()->route('admin-showOrder')->with('status', true);
     }
 }

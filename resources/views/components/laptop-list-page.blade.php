@@ -1,5 +1,5 @@
 @foreach ($laptops as $laptop)
-    <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
+    <div class="col-lg-4 col-md-4 col-sm-6 mt-40 laptop-item">
         <!-- single-product-wrap start -->
         <div class="single-product-wrap">
             <div class="product-image">

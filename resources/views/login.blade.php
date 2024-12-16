@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
-                                    <a href="#">Forgotten password?</a>
+                                    <a href="{{route('forgot_password')}}">Forgotten password?</a>
                                 </div>
 
                                 <!-- Login button -->

@@ -62,4 +62,24 @@ class User extends Authenticatable
     public function order(){
         return $this->hasMany(Order::class, 'customer_id', 'id');
     }
+    
+    public function message(){
+        return $this->hasMany(Message::class, 'user_id', 'id');
+    }
+
+    public function admin(){
+        return $this->hasOne(User::class, 'user_id', 'id');
+    }
+
+    public function point(){
+        return $this->hasOne(Point::class, 'user_id', 'id');
+    }
+
+    public function voucher(){
+        return $this->hasMany(Voucher::class, 'user_id', 'id');
+    }
+
+    public function comment(){
+        return $this->hasMany(Comment::class, 'customer_id', 'id');
+    }
 }

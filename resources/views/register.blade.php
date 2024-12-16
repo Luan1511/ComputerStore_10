@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="col-md-6 mb-20">
                                     <label>Confirm Password</label>
-                                    <input class="mb-0" type="password" placeholder="Confirm Password">
+                                    <input class="mb-0" type="password" name="confirm_password" placeholder="Confirm Password">
                                 </div>
                                 <div class="col-12">
                                     <button class="register-button mt-0">Register</button>

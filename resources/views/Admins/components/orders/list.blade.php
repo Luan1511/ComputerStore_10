@@ -56,6 +56,8 @@
                                 return '<span class="badge badge-warning">Not approved yet</span>';
                             } else if (data == 2) {
                                 return '<span class="badge badge-primary">Approved</span>';
+                            } else if (data == 4) {
+                                return '<span class="badge badge-primary">Competed</span>';
                             }
                             // else if (data == 'shipped') {
                             //     return '<span class="badge badge-info">Shipped</span>';

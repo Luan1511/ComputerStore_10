@@ -17,52 +17,12 @@
     <!--Checkout Area Strat-->
     <div class="checkout-area pt-60 pb-30">
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-12">
                     <div class="coupon-accordion">
-                        <!--Accordion Start-->
-                        {{-- <h3>Returning customer? <span id="showlogin">Click here to login</span></h3>
-                        <div id="checkout-login" class="coupon-content">
-                            <div class="coupon-info">
-                                <p class="coupon-text">Quisque gravida turpis sit amet nulla posuere lacinia. Cras sed est
-                                    sit amet ipsum luctus.</p>
-                                <form action="#">
-                                    <p class="form-row-first">
-                                        <label>Username or email <span class="required">*</span></label>
-                                        <input type="text">
-                                    </p>
-                                    <p class="form-row-last">
-                                        <label>Password <span class="required">*</span></label>
-                                        <input type="text">
-                                    </p>
-                                    <p class="form-row">
-                                        <input value="Login" type="submit">
-                                        <label>
-                                            <input type="checkbox">
-                                            Remember me
-                                        </label>
-                                    </p>
-                                    <p class="lost-password"><a href="#">Lost your password?</a></p>
-                                </form>
-                            </div>
-                        </div> --}}
-                        <!--Accordion End-->
-                        <!--Accordion Start-->
-                        {{-- <h3>Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
-                        <div id="checkout_coupon" class="coupon-checkout-content">
-                            <div class="coupon-info">
-                                <form action="#">
-                                    <p class="checkout-coupon">
-                                        <input placeholder="Coupon code" type="text">
-                                        <input value="Apply Coupon" type="submit">
-                                    </p>
-                                </form>
-                            </div>
-                        </div> --}}
-                        <!--Accordion End-->
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="col-lg-6 col-12">
                     <form action="#">
@@ -120,25 +80,36 @@
                                 </thead>
                                 <tbody>
                                     <tr class="cart_item">
-                                        <td class="cart-product-name">Vourcher</td>
-                                        <td class="cart-product-total"><span class="amount">$</span><span>0</span></td>
+                                        <td class="cart-product-name">Voucher</td>
+                                        <td class="cart-product-total"><span class="amount"></span><span
+                                                id="voucher-discount">0%</span></td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr class="cart-subtotal">
                                         <th>Cart Subtotal</th>
                                         <td><span class="amount">$</span><span
-                                                class="cart-subtotal">{{ $cart->total_price }}</span></td>
+                                                id="cart-subtotal">{{ $cart->total_price }}</span></td>
                                     </tr>
                                     <tr class="order-total">
                                         <th>Order Total</th>
-                                        <td><strong><span
-                                                    class="amount">$</span><span>{{ $cart->total_price }}</span></strong>
+                                        <td>
+                                            <strong>
+                                                <span class="amount">$</span><span
+                                                    id="order-total">{{ $cart->total_price }}</span>
+                                            </strong>
                                         </td>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
+
+                        <div class="voucher-fld d-flex" style="font-size: 12px !important">
+                            <input type="text" id="coupon_code" class="input-text" placeholder="Coupon code"
+                                value="">
+                            <input type="button" class="btn btn-primary apply-coupon col-3" value="Apply">
+                        </div>
+
                         <div class="payment-method">
                             <div class="payment-accordion">
                                 <div id="accordion">
@@ -148,7 +119,7 @@
                                         <div class="card">
                                             <div class="card-header" id="#payment-1">
                                                 <h5 class="panel-title d-flex" style="align-items: center">
-                                                    <input id="{{$payment->id}}" type="checkbox"
+                                                    <input id="{{ $payment->id }}" type="checkbox"
                                                         style="width: 20px; margin-right: 10px">
                                                     <a class="" data-toggle="collapse" data-target="#collapseOne"
                                                         aria-expanded="true" aria-controls="collapseOne">
@@ -223,8 +194,13 @@
             const phone = document.querySelector('input[type="number"]').value;
 
             if (!name || !address || !email || !phone) {
-                // alert('Please fill in all required fields');
                 alert(name + ' ' + address + ' ' + email + ' ' + phone);
+                return;
+            }
+
+            const total = document.getElementById('order-total').innerText.trim();
+            if (!total) {
+                alert('Order total is missing.');
                 return;
             }
 
@@ -245,9 +221,10 @@
                     },
                     body: JSON.stringify({
                         name,
-                        address, 
+                        address,
                         email,
                         phone,
+                        total,
                         cart: cartData,
                         payment_method_id: paymentMethodId
                     })
@@ -256,12 +233,54 @@
                 .then(data => {
                     if (data.success) {
                         alert('Order placed successfully!');
-                        window.location.href = "{{ url('cart') }}/" + {{Auth::user()->id}};
+                        window.location.href = "{{ url('cart') }}/" + {{ Auth::user()->id }};
                     } else {
                         alert('Failed to place order');
                     }
                 })
                 .catch(error => console.error('Error:', error));
         }
+
+        // VOucher
+        document.querySelector('.apply-coupon').addEventListener('click', function() {
+            const couponCode = document.querySelector('#coupon_code').value;
+
+            if (!couponCode) {
+                alert('Please enter a voucher code');
+                return;
+            }
+
+            fetch("{{ route('apply-voucher') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        coupon_code: couponCode
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const discount = data.discount;
+                        const subtotal = parseFloat(document.querySelector('#cart-subtotal').textContent);
+                        const newTotal = (subtotal - subtotal * discount / 100);
+
+                        document.querySelector('#voucher-discount').textContent = discount + '%';
+                        document.querySelector('#order-total').textContent = newTotal.toFixed(2);
+
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'The voucher was applied successfully!',
+                            timer: 900,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        alert(data.message || 'Invalid voucher');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
     </script>
 @endsection

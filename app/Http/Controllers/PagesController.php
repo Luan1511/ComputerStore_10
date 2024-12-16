@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\LaptopController;
 use App\Http\Controllers\CartController;
 use App\Models\Admin\Account;
+use App\Models\Admin\Banner;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin\Laptop;
@@ -31,8 +32,16 @@ class PagesController extends Controller
         $laptopController = new LaptopController();
         $newLaptops = $laptopController->getNewLaptop();
         $bestSellerLaptops = $laptopController->getBestSellerLaptop();
+        $bannerAds = Banner::where('type', 'advertiser')->get();
 
-        return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops'));
+        try {
+            if (Auth::user()->authority == 1) {
+                $users = User::where('authority', '!=', 1)->get();
+                return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'users', 'bannerAds'));
+            }
+        } catch (\Throwable $th) {}
+
+        return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'bannerAds'));
     }
 
     public function getSingleLaptop(int $id)
@@ -96,6 +105,74 @@ class PagesController extends Controller
         return view('components.laptop-list-page', compact('laptops', 'brands'));
     }
 
+    public function getLaptopCompare($id)
+    {
+        $laptops = Laptop::with('brand:id,name')->where('id', '!=', $id)
+            ->select([
+                'id',
+                'name',
+                'brand_id',
+                'processor',
+                'ram',
+                'rom',
+                'screen_size',
+                'graphics_card',
+                'battery',
+                'os',
+                'price',
+                'stock',
+                'description',
+                'created_at',
+                'updated_at',
+                'img',
+                'rating'
+            ])->get()
+            ->map(function ($laptop) {
+                $laptop->brand_name = $laptop->brand->name;
+                $laptop->img_url = asset('storage/' . $laptop->img);
+                unset($laptop->brand);
+                return $laptop;
+            });
+
+        $brands = Brand::all();
+
+        return view('components.render-laptop', compact('laptops', 'brands'));
+    }
+
+    public function comparePage($id_1, $id_2)
+    {
+        $laptops = Laptop::with('brand:id,name')->whereIn('id', [$id_1, $id_2])
+            ->select([
+                'id',
+                'name',
+                'brand_id',
+                'processor',
+                'ram',
+                'rom',
+                'screen_size',
+                'graphics_card',
+                'battery',
+                'os',
+                'price',
+                'stock',
+                'description',
+                'created_at',
+                'updated_at',
+                'img',
+                'rating'
+            ])->get()
+            ->map(function ($laptop) {
+                $laptop->brand_name = $laptop->brand->name;
+                $laptop->img_url = asset('storage/' . $laptop->img);
+                unset($laptop->brand);
+                return $laptop;
+            });
+
+        // $brands = Brand::all();
+
+        return view('compare-laptop-page', compact('laptops'));
+    }
+
     public function getLaptopByName($name)
     {
         $laptop = Laptop::where('name', $name)->firstOrFail();
@@ -105,7 +182,10 @@ class PagesController extends Controller
         $images = $laptop->images()->pluck('image_url');
         $laptop->images_url = $images;
 
-        return view('single-product', compact('laptop'));
+        $laptops = Laptop::where('brand_id', $laptop->brand_id)
+            ->where('id', '!=', $laptop->id)->get();
+
+        return view('single-product', compact('laptop', 'laptops'));
     }
 
     public function getAbout()

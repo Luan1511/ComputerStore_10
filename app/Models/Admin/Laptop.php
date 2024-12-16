@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Admin\Brand;
 use App\Models\Cart;
+use App\Models\Comment;
 use App\Models\Wishlist;
 
 class Laptop extends Model
@@ -35,7 +36,6 @@ class Laptop extends Model
         'type',
         'created_at',
         'updated_at',
-        
     ];
 
     public function brand()
@@ -56,6 +56,11 @@ class Laptop extends Model
     public function cart()
     {
         return $this->hasMany(Cart::class, 'id', 'id');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'laptop_id', 'id');
     }
 }
 

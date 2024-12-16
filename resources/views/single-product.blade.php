@@ -53,8 +53,6 @@
                                     <li><i class="fa fa-star"></i></li>
                                     <li class="no-star"><i class="fa fa-star"></i></li>
                                     <li class="no-star"><i class="fa fa-star"></i></li>
-                                    <li class="review-item"><a href="#">Read Review</a></li>
-                                    <li class="review-item"><a href="#">Write Review</a></li>
                                 </ul>
                             </div>
                             <div class="price-box pt-20">
@@ -62,8 +60,10 @@
                             </div>
                             <div class="product-desc">
                                 <p>
-                                    <span>
-                                        {{ $laptop->description }}
+                                    <span class="li-blog-blockquote">
+                                        <blockquote>
+                                            {{ $laptop->description }}
+                                        </blockquote>
                                     </span>
                                 </p>
                             </div>
@@ -81,9 +81,12 @@
                                 </form>
                             </div>
                             <div class="product-additional-info pt-25">
-                                <a class="wishlist-btn wishlist-detail" href="wishlist.html"><i
+                                <a class="wishlist-btn wishlist-detail single-action-btn" href="wishlist.html"><i
                                         class="fa fa-heart-o"></i>Add to
                                     wishlist</a>
+                                <a class="wishlist-btn wishlist-detail single-action-btn" style="cursor: pointer"
+                                    onclick="displayComparePanel()"><i class="fa fa-compress"
+                                        aria-hidden="true"></i>Compare</a>
                             </div>
                         </div>
                     </div>
@@ -99,16 +102,17 @@
                 <div class="col-lg-12">
                     <div class="li-product-tab">
                         <ul class="nav li-product-menu">
-                            <li><a class="active" data-toggle="tab" href="#product-details"><span>Product Details</span></a>
+                            <li><a class="active" data-toggle="tab" onclick="displayDetail()"><span>Product
+                                        Details</span></a>
                             </li>
-                            <li><a data-toggle="tab" href="#reviews"><span>Reviews</span></a></li>
+                            <li><a data-toggle="tab" onclick="displayReview()"><span>Reviews</span></a></li>
                         </ul>
                     </div>
                     <!-- Begin Li's Tab Menu Content Area -->
                 </div>
             </div>
             <div class="tab-content">
-                <div id="detail-laptop" class="tab-pane active show" role="tabpanel">
+                <div id="detail-laptop" class="tab-pane show" role="tabpanel">
                     <div class="product-description" style="overflow: auto">
                         <table class="detail-laptop-table cart-table" style="width: 100%">
                             <tbody>
@@ -148,31 +152,82 @@
                         </table>
                     </div>
                 </div>
-                <div id="review-laptop" class="tab-pane" role="tabpanel">
-                    <div class="product-reviews">
-                        <div class="product-details-comment-block">
-                            <div class="comment-review">
-                                <span>Grade</span>
-                                <ul class="rating">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                </ul>
+                <div id="review-laptop" class="tab-pane active" role="tabpanel">
+                    @php
+                        $ratingCount = [];
+                        for ($i = 1; $i <= 5; $i++) {
+                            $ratingCount[$i] = $laptop->comment()->where('rating', $i)->count();
+                        }
+                    @endphp
+                    <div class="component_rating" style="margin-bottom: 20px">
+                        <div class="componet_rating_content"
+                            style="display: flex;align-items: center;border-radius: 5px;border:1px solid #dedede ">
+                            <div class="rating_item" style="width: 20%; position: relative;">
+                                <span class="fa fa-star"
+                                    style="font-size: 100px;display: block;color: #ff9705; margin: 0 auto; text-align: center;">
+                                </span><b
+                                    style="position: absolute; top: 40%; left: 45%; transform: translateX(-50) translateY(-50);color: white; font-size: 20px">{{ $laptop->rating }}</b>
                             </div>
-                            <div class="comment-author-infos pt-25">
-                                <span>HTML 5</span>
-                                <em>01-12-18</em>
+                            <input type="hidden" id="rating-val">
+                            <div class="list_rating" style="width: 60%; padding: 20px">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <div class="item_rating" style="display: flex; align-items: center">
+
+                                        <div style="width: 10%; font-size: 14px ">
+                                            {{ $i }}<span class="fa fa-star"></span>
+                                        </div>
+                                        <div style="width: 70%; margin: 0 20px">
+                                            <span
+                                                style="width: 100%;height: 8px;display: block;border: 1px solid #dedede;border-radius:5px; background-color: #dedede "><b
+                                                    style="width: 30%; background-color:#f25800; display: block;border-radius:5px; height: 100%;"></b></span>
+                                        </div style="width: 20%">
+                                        <div>
+                                            <a href="">{{$ratingCount[$i]}} comments</a>
+                                        </div>
+                                    </div>
+                                @endfor
                             </div>
-                            <div class="comment-details">
-                                <h4 class="title-block">Demo</h4>
-                                <p>Plaza</p>
+                            <div style="width: 20%">
+                                <a href="#" class="js_rating_action"
+                                    style="width: 200px; background: #288ad6;padding: 10px;color: white; border-radius: 5px">Create
+                                    your
+                                    review</a>
                             </div>
-                            <div class="review-btn">
-                                <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write
-                                    Your Review!</a>
+                        </div>
+                        <?php
+                        $listRatingText = [
+                            1 => 'Very Bad',
+                            2 => 'Bad',
+                            3 => 'Okay',
+                            4 => 'Good',
+                            5 => 'Excellent',
+                        ];
+                        ?>
+
+                        <div class="form_rating hide">
+                            <div style="display: flex; margin-top: 15px; font-size: 15px">
+                                <p style="margin-bottom:0 ">Choose your review</p>
+                                <span style="margin: 0 15px" class="list_start">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <i class="fa fa-star" data-key="{{ $i }}"></i>
+                                    @endfor
+                                </span>
+                                <span class="list_text"></span>
                             </div>
+                            <div style="margin-top: 15px">
+                                <textarea name="" class="form-control" id="content-review" cols="30" rows="3"></textarea>
+                            </div>
+
+                            <div style="margin-top: 15px">
+                                <a class="js_rating_product"
+                                    style="width: 200px; background: #288ad6;padding: 10px ;color: white; border-radius: 5px;">Submit
+                                    your
+                                    review</a>
+                            </div>
+                        </div>
+
+                        <div class="list-review">
+                            @include('components.render-comment-laptop')
                         </div>
                     </div>
                 </div>
@@ -199,7 +254,8 @@
                                     <div class="single-product-wrap laptop_relative">
                                         <div class="product-image">
                                             <a href="single-product.html">
-                                                <img src="{{asset('storage/' . $laptopB->img)}}" alt="Li's Product Image">
+                                                <img src="{{ asset('storage/' . $laptopB->img) }}"
+                                                    alt="Li's Product Image">
                                             </a>
                                             <span class="sticker">New</span>
                                         </div>
@@ -207,7 +263,7 @@
                                             <div class="product_desc_info">
                                                 <div class="product-review">
                                                     <h5 class="manufacturer">
-                                                        <a href="product-details.html">{{$laptopB->brand->name}}</a>
+                                                        <a href="product-details.html">{{ $laptopB->brand->name }}</a>
                                                     </h5>
                                                     <div class="rating-box">
                                                         <ul class="rating">
@@ -219,18 +275,22 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                <h4><a class="product_name" href="single-product.html">{{$laptopB->name}}</a></h4>
+                                                <h4><a class="product_name"
+                                                        href="single-product.html">{{ $laptopB->name }}</a></h4>
                                                 <div class="price-box">
-                                                    <span class="new-price">${{$laptopB->price}}</span>
+                                                    <span class="new-price">${{ $laptopB->price }}</span>
                                                 </div>
                                             </div>
                                             <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="{{ url('cart/' . $laptopB->id . '/addSingle')}}">Add to cart</a></li>
+                                                    <li class="add-cart active"><a
+                                                            href="{{ url('cart/' . $laptopB->id . '/addSingle') }}">Add to
+                                                            cart</a></li>
                                                     <li><a href="#" title="quick view" class="quick-view-btn"
                                                             data-toggle="modal" data-target="#exampleModalCenter"><i
                                                                 class="fa fa-eye"></i></a></li>
-                                                    <li><a class="links-details" href="{{ url('wishlist/' . $laptopB->id . '/add') }}"><i
+                                                    <li><a class="links-details"
+                                                            href="{{ url('wishlist/' . $laptopB->id . '/add') }}"><i
                                                                 class="fa fa-heart-o"></i></a></li>
                                                 </ul>
                                             </div>
@@ -243,6 +303,14 @@
                     </div>
                 </div>
                 <!-- Li's Section Area End Here -->
+            </div>
+        </div>
+
+        {{-- Compare --}}
+        <div class="compare-panel">
+            <a><i class="fa fa-times-circle" aria-hidden="true" onclick="displayComparePanel()"></i></a>
+            <div class="laptop-list-container row" id="laptop-list-compare">
+                @include('components.render-laptop')
             </div>
         </div>
     </section>
@@ -367,5 +435,130 @@
             var $quantity = $(".cart-plus-minus-box").val();
             window.location.href = "{{ url('cart/add') }}/" + $laptopId + "/" + parseInt($quantity);
         }
+
+        // Display compare panel
+        function displayComparePanel() {
+            $('.compare-panel').toggleClass('display-compare');
+            fetchLaptop();
+        }
+
+        // List compare
+        function fetchLaptop() {
+            $.ajax({
+                url: 'fetch/compare/' + {{ $laptop->id }},
+                method: 'GET',
+                success: function(response) {
+                    $('#laptop-list-compare').html(response);
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr);
+                }
+            });
+        }
+
+        // Choose compare
+        $(document).on('click', '#choose-laptop-btn', function() {
+            var laptop_chosen = $(this).data('chosen-laptop-id');
+
+            window.location.href = 'compare/' + {{ $laptop->id }} + '/' + laptop_chosen;
+
+        });
+
+        function displayReview() {
+            $("#review-laptop").addClass('active');
+            $("#detail-laptop").removeClass('active');
+
+            $.ajax({
+                url: 'comment/fetch',
+                type: 'GET',
+                success: function(response) {
+                    $('.list-review').html(response);
+                },
+                error: function(xhr) {
+                    console.error('Error fetching messages:', xhr.responseText);
+                }
+            });
+        }
+
+        function displayDetail() {
+            $("#review-laptop").removeClass('active');
+            $("#detail-laptop").addClass('active');
+        }
+
+        $(function() {
+            let listStart = $(".list_start .fa");
+            $listRatingText = {
+                1: 'Very Bad',
+                2: 'Bad',
+                3: 'Okay',
+                4: 'Good',
+                5: 'Excellent',
+            }
+            listStart.mouseover(function() {
+                let $this = $(this);
+                let number = $this.attr('data-key');
+                listStart.removeClass('rating_active');
+
+                $(".number_rating").val(number);
+                $.each(listStart, function(key, value) {
+                    if (key + 1 <= number) {
+                        $(this).addClass('rating_active')
+                    }
+                });
+
+                $(".list_text").text('').text($listRatingText[$this.attr('data-key')]).show();
+                $("#rating-val").val($this.attr('data-key'));
+                console.log($this.attr('data-key'))
+            });
+
+            $(".js_rating_action").click(function(event) {
+                event.preventDefault();
+                console.log("click star");
+                if ($(".form_rating").hasClass('hide')) {
+                    $(".form_rating").addClass('active').removeClass('hide')
+                } else {
+                    $(".form_rating").addClass('hide').removeClass('active')
+                }
+            })
+
+            $(".js_rating_product").click(function(e) {
+                event.preventDefault();
+                let content = document.querySelector('#content-review').value;
+                let rating = parseInt($("#rating-val").val());
+
+                console.log(content, $("#rating-val").val());
+
+                try {
+                    fetch("{{ url('comment/post') }}", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                laptop_id: {{ $laptop->id }},
+                                content,
+                                rating
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    title: "Success!",
+                                    text: data.message,
+                                    icon: "success",
+                                    button: "OK"
+                                });
+                                location.reload();
+                            } else {
+                                alert('Failed to post comment');
+                            }
+                        })
+                } catch (SyntaxError) {
+
+                }
+            });
+        });
     </script>
 @endsection

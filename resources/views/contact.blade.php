@@ -39,12 +39,13 @@
                 </div>
                 <div class="col-lg-6 col-md-12 order-2 order-lg-1">
                     <div class="contact-form-content pt-sm-55 pt-xs-55">
-                        <h3 class="contact-page-title">Đang lỗi đừng đụng 😇</h3>
+                        <h3 class="contact-page-title">Advertising contact</h3>
                         <div class="contact-form">
-                            <form id="contact-form" action="{{ route('send.email') }}" method="POST">
+                            <form id="contact-form" action="{{ route('send.email') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Your Name <span class="required">*</span></label>
+                                    <label>Your Company<span class="required">*</span></label>
                                     <input type="text" name="customerName" id="customername" required>
                                 </div>
                                 <div class="form-group">
@@ -63,6 +64,11 @@
                                     <label>Email App Password <span class="required">*</span></label>
                                     <input type="password" name="emailAppPassword" id="emailAppPassword" required>
                                 </div> --}}
+                                <div class="form-group mb-30">
+                                    <label for="image">Upload Image:</label>
+                                    <input type="file" id="image" name="image" accept="image/*"
+                                        style="height: 75px; padding-top: 8px">
+                                </div>
                                 <div class="form-group">
                                     <button type="submit" class="li-btn-3" name="submit">Send</button>
                                 </div>

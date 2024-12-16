@@ -45,14 +45,16 @@ class LaptopController extends Controller
         return response()->json(['data' => $laptops]);
     }
 
-    public function getNewLaptop(){
+    public function getNewLaptop()
+    {
         $weeks = 2;
         $newProductsByWeeks = Laptop::where('created_at', '>=', Carbon::now()->subWeeks($weeks))->get();
 
         return $newProductsByWeeks;
     }
 
-    public function getBestSellerLaptop(){
+    public function getBestSellerLaptop()
+    {
         $bestSeller = Laptop::where('sell', '>=', 15)->get();
 
         return $bestSeller;
