@@ -12,20 +12,20 @@
             <!-- Sidebar menu -->
             <div class="col-md-2">
                 <div class="list-group shadow-sm rounded-3 p-2 sidebar-menu">
-                    <a href="{{ url('user/purchase') }}" class="list-group-item list-group-item-action">
+                    <a href="{{ url('user/purchase') }}" id="purchase-nav" class="list-group-item list-group-item-action">
                         <i class="bi bi-card-list"></i> Purchase History
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="{{url('user/profile')}}" id="account-nav" class="list-group-item list-group-item-action">
                         <i class="bi bi-person"></i> Your account
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="{{url('user/voucher')}}" class="list-group-item list-group-item-action" id="voucher-nav">
                         <i class="bi bi-person"></i> Your vouchers
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="#" class="list-group-item list-group-item-action" id="support-nav">
                         <i class="bi bi-telephone"></i> Support
                         {{-- <span class="badge bg-danger text-white">NEW</span> --}}
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="{{route('logout')}}" class="list-group-item list-group-item-action">
                         <i class="bi bi-box-arrow-right"></i> Log out of account
                     </a>
                 </div>
@@ -78,7 +78,7 @@
                     <p>Get 7% off your next purchase</p>
                 </div>
                 @if (Auth::user()->point->point >= 700)
-                    <a href="" class="brand-btn pl-20 pr-20">700</a>
+                    <a href="{{ url('user/voucher/create/7') }}" class="brand-btn pl-20 pr-20">700</a>
                 @else
                     <a class="brand-btn disable-btn pl-20 pr-20">700</a>
                 @endif
@@ -90,7 +90,7 @@
                     <p>Get 10% off your next purchase</p>
                 </div>
                 @if (Auth::user()->point->point >= 1000)
-                    <a onclick="testSwal()" class="brand-btn pl-20 pr-20">1000</a>
+                    <a href="{{ url('user/voucher/create/10') }}" class="brand-btn pl-20 pr-20">1000</a>
                 @else
                     <a class="brand-btn disable-btn pl-20 pr-20">1000</a>
                 @endif

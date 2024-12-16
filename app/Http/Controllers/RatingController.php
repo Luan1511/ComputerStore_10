@@ -9,8 +9,8 @@ use PhpParser\Node\Expr\FuncCall;
 
 class RatingController extends Controller
 {
-    public function getAllComment(){
-        $comments = Comment::all();
+    public function getAllComment($id){
+        $comments = Comment::where('laptop_id', $id)->get();
 
         return view ('components.render-comment-laptop', compact('comments'));
     }

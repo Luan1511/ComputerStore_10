@@ -18,7 +18,7 @@ class ProfileController extends Controller
         return view('profile');
     }
 
-    public function profileView(int $id)
+    public function profileView()
     {
         $user = Auth::user();
         return view('profile', compact('user'));
@@ -118,15 +118,18 @@ class ProfileController extends Controller
         $purchase = Order::findOrFail($id);
         $purchase->update(['status' => 4]);
 
-        $point = Point::findOrFail(auth()->id());
-        $point->update(['point' => $point->point + (int)$purchase->total_price * 0.01]);
+        $point = Point::where('user_id', auth()->id())->first();
+        $point->update(['point' => $point->point + (int)($purchase->total_price * 0.1)]);
 
         $subOrders = $purchase->subOrder;
         foreach ($subOrders as $subOrder) {
-            LicenseComment::create([
-                'user_id' => auth()->id(),
-                'laptop_id' => $subOrder->laptop->id,
-            ]);
+            $license = LicenseComment::where('user_id', auth()->id())->where('laptop_id', $subOrder->laptop->id)->get();
+            if ($license->count() < 1) {
+                LicenseComment::create([
+                    'user_id' => auth()->id(),
+                    'laptop_id' => $subOrder->laptop->id,
+                ]);
+            }
         }
 
         return redirect()->back()
@@ -141,6 +144,7 @@ class ProfileController extends Controller
             'user_id' => auth()->id(),
             'discount' => $discount,
             'is_used' => 0,
+            'expiration_date' => now()->modify('+30 days'),
         ]);
 
         $point = Point::where('user_id', auth()->id())->first();
@@ -152,5 +156,13 @@ class ProfileController extends Controller
                 'code' => $code
             ]
         );
+    }
+
+    public function voucherView()
+    {
+        $vouchers = Voucher::where('user_id', auth()->id())
+            ->where('is_used', 0)->get();
+
+        return view('users.voucher', compact('vouchers'));
     }
 }

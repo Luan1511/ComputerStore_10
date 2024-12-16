@@ -172,7 +172,11 @@
                             <div class="list_rating" style="width: 60%; padding: 20px">
                                 @for ($i = 1; $i <= 5; $i++)
                                     @php
-                                        $percent = $ratingCount[$i] * 100 / $laptop->comment()->count();
+                                        if ($laptop->comment()->count() != 0) {
+                                            $percent = $ratingCount[$i] * 100 / $laptop->comment()->count();
+                                        } else {
+                                            $percent = 0;
+                                        }
                                     @endphp
                                     <div class="item_rating" style="display: flex; align-items: center">
 
@@ -193,15 +197,19 @@
                                 @endfor
                             </div>
                             <div style="width: 20%">
-                                @if (Auth::user()->comment->count() < 1 && Auth::user()->license->count() > 0)
+                                @if (Auth::user()->comment()->where('laptop_id', $laptop->id)->count() < 1 && Auth::user()->license()->where('laptop_id', $laptop->id)->count() === 1)
                                     <a href="#" class="js_rating_action"
                                         style="width: 200px; background: #288ad6;padding: 10px;color: white; border-radius: 5px">Create
                                         your
                                         review</a>
-                                @elseif (Auth::user()->comment->count() > 0)
+                                @elseif (Auth::user()->comment()->where('laptop_id', $laptop->id)->count() > 0)
                                     <a href="#" class="js_rating_action"
-                                        style="width: 200px; background: #288ad6;padding: 10px;color: white; border-radius: 5px; opacity: 20% !important; pointer-events: none !important; cursor: not-allowed;">You
+                                        style="width: 200px; background: #288ad6;padding: 10px;color: white; border-radius: 5px; opacity: 70% !important; pointer-events: none !important; cursor: not-allowed;">You
                                         already commented</a>
+                                @elseif (Auth::user()->license()->where('laptop_id', $laptop->id)->count() < 1)
+                                    <a href="#" class="js_rating_action"
+                                        style="width: 200px; background: #288ad6;padding: 10px;color: white; border-radius: 5px; opacity: 70% !important; pointer-events: none !important; cursor: not-allowed;">You
+                                        have to buy first</a>
                                 @endif
                             </div>
                         </div>
@@ -480,7 +488,7 @@
             $("#detail-laptop").removeClass('active');
 
             $.ajax({
-                url: 'comment/fetch',
+                url: {{$laptop->id}} + 'comment/fetch',
                 type: 'GET',
                 success: function(response) {
                     $('.list-review').html(response);

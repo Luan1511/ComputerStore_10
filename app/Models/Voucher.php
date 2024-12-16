@@ -17,6 +17,7 @@ class Voucher extends Model
         'code',
         'discount',
         'is_used',
+        'expiration_date',
     ];
 
     public function user(){

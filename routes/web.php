@@ -108,7 +108,7 @@ Route::prefix('chatting')->group(function () {
 
 // Router User
 Route::prefix('user')->group(function () {
-    Route::get('/profile/{id}', [ProfileController::class, 'profileView'])->name('profile-page');
+    Route::get('/profile', [ProfileController::class, 'profileView'])->name('profile-page');
     Route::put('profile/{id}', [ProfileController::class, 'update'])->name('user-update');
     Route::get('purchase', [ProfileController::class, 'purchaseView']);
     Route::get('purchase/making', [ProfileController::class, 'purchaseMaking']);
@@ -118,6 +118,7 @@ Route::prefix('user')->group(function () {
     Route::get('purchase/received/{id}', [ProfileController::class, 'purchaseReceived']);
     // Voucher
     Route::get('voucher/create/{discount}', [ProfileController::class, 'createVoucher']);
+    Route::get('voucher', [ProfileController::class, 'voucherView']);
 });
 
 // Router Admin
@@ -192,7 +193,7 @@ Route::post('forgot-password', [LoginController::class, 'check_forgot_password']
 Route::get('reset-password/{token}', [LoginController::class, 'reset_password'])->name('reset_password');
 Route::post('reset-password/{tokenn}', [LoginController::class, 'check_reset_password'])->name('check_forgot_password');
 
-Route::get('laptop/comment/fetch', [RatingController::class, 'getAllComment'])->name('comment-section');
+Route::get('laptop/{id}comment/fetch', [RatingController::class, 'getAllComment'])->name('comment-section');
 Route::get('comment/{id}', [RatingController::class, 'getComment'])->name('comment-page');
 // Route::group(['prefix' => 'ajax', 'middleware' => 'CheckLoginUser'], function () {
     Route::post('comment/post', [RatingController::class, 'saveRating'])->name('post.rating.product');

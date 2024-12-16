@@ -10,7 +10,7 @@
                         <ul class="phone-wrap">
                             @auth
                                 <li><span style="font-size: 15px;">{{ __('messages.welcome') }} </span><a
-                                        href="{{ url('user/profile/' . Auth::user()->id) }}"
+                                        href="{{ url('user/profile') }}"
                                         style="font-weight: 500; font-size: 18px; color: #0363CD">{{ Auth::user()->name }}</a>
                                 </li>
                             @else
@@ -30,7 +30,7 @@
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
                                         @auth
-                                            <li><a href="{{ url('user/profile/' . Auth::user()->id) }}">My Account</a></li>
+                                            <li><a href="{{ url('user/profile') }}">My Account</a></li>
                                         @else
                                             <li><a href="{{ route('login-page') }}">Sign In</a></li>
                                             <li><a href="{{ route('register-page') }}">Resgister</a></li>

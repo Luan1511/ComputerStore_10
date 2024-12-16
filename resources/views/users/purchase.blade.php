@@ -118,5 +118,12 @@
                 }
             });
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            $('#purchase-nav').addClass('active-nav-user');
+            $('#account-nav').removeClass('active-nav-user');
+            $('#voucher-nav').removeClass('active-nav-user');
+            $('#support-nav').removeClass('active-nav-user');
+        });
     </script>
 @endsection

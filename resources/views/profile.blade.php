@@ -61,6 +61,11 @@
     </form>
 
     <script>
-
+        document.addEventListener('DOMContentLoaded', function() {
+            $('#purchase-nav').removeClass('active-nav-user');
+            $('#account-nav').addClass('active-nav-user');
+            $('#voucher-nav').removeClass('active-nav-user');
+            $('#support-nav').removeClass('active-nav-user');
+        });
     </script>
 @endsection
