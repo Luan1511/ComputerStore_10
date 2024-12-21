@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\Banner;
+use App\Http\Controllers\Admin\BannerController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -178,6 +180,17 @@ Route::middleware('admin')->group(function () {
             Route::get('{id}/delete', [PaymentController::class, 'destroy'])->name('admin-destroyPayment');
             Route::get('{id}/edit', [PaymentController::class, 'edit'])->name('admin-editPayment');
             Route::put('{id}/edit', [PaymentController::class, 'update'])->name('admin-updatePayment');
+        });
+
+        // Banner
+        Route::prefix('banner')->group(function () {
+            Route::get('getAdsBanner', [BannerController::class, 'getAdsBanner'])->name('admin-getAdsBanner');
+            Route::get('show', [BannerController::class, 'showBanner'])->name('admin-showBanner');
+            Route::post('update', [BannerController::class, 'updateBanners'])->name('admin-addBanner');
+            Route::post('addHandle', [BannerController::class, 'addBannerHandle'])->name('admin-addBanner-handle');
+            Route::get('{id}/delete', [BannerController::class, 'destroy'])->name('admin-destroyBanner');
+            Route::get('{id}/edit', [BannerController::class, 'edit'])->name('admin-editBanner');
+            Route::put('{id}/edit', [BannerController::class, 'update'])->name('admin-updateBanner');
         });
     });
 });

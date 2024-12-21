@@ -42,11 +42,11 @@
             </a>
         </li>
 
-        {{-- <li class="menu-item pt-20 pb-20 ml-auto mr-auto mt-auto mb-auto">
-            <a href="">
-                <i class="fa-solid fa-bars"></i>
+        <li class="menu-item pt-20 pb-20 ml-auto mr-auto mt-auto mb-auto">
+            <a href="{{ route('admin-showBanner')}}">
+                <i class="fa-solid fa-screwdriver-wrench mr-4"></i><span class="label-item">Banners</span>
             </a>
-        </li> --}}
+        </li>
     </ul>
 
     <div class="text-center mt-40">

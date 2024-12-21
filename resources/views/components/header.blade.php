@@ -12,6 +12,11 @@
                                 <li><span style="font-size: 15px;">{{ __('messages.welcome') }} </span><a
                                         href="{{ url('user/profile') }}"
                                         style="font-weight: 500; font-size: 18px; color: #0363CD">{{ Auth::user()->name }}</a>
+                                    @auth
+                                        @if (Auth::user()->authority == 1)
+                                            <span>(Admin)</span>
+                                        @endif
+                                    @endauth
                                 </li>
                             @else
                                 <li><span style="font-size: 15px;">Welcome Guest</span></li>
@@ -198,7 +203,7 @@
                         <nav>
                             <ul>
                                 <li><a href="{{ route('home-page') }}">Home</a></li>
-                                <li class="megamenu-holder"><a href="{{ route('product-page')}}">Shop</a></li>
+                                <li class="megamenu-holder"><a href="{{ route('product-page') }}">Shop</a></li>
                                 <li><a href="{{ route('about-page') }}">About Us</a></li>
                                 <li><a href="{{ route('contact-page') }}">Contact</a></li>
                                 {{-- <li><a href="shop-left-sidebar.html">Accessories</a></li> --}}

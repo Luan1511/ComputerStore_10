@@ -213,15 +213,15 @@ class LaptopController extends Controller
 
         $laptop = Laptop::findOrFail($id);
 
-        if ($laptop->image == null) {
+        if ($request->image == null) {
             $imagePath = $laptop->img;
         } else {
             if ($request->hasFile('image')) {
                 $originalFileName = $request->file('image')->getClientOriginalName();
                 $imagePath = $request->file('image')->storeAs('images', $originalFileName, 'public');
 
-                if (File::exists($laptop->image)) {
-                    File::delete($laptop->image);
+                if (File::exists($laptop->img)) {
+                    File::delete($laptop->img);
                 }
             }
         }

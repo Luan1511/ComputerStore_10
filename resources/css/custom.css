@@ -237,10 +237,10 @@
 }
 
 .comment-item {
-	border: 1px dashed rgb(194, 194, 194);
+    border: 1px dashed rgb(194, 194, 194);
     padding: 15px;
     margin-bottom: 15px;
-	border-radius: 5px;
+    border-radius: 5px;
     display: flex;
     justify-content: space-between;
 
@@ -254,7 +254,7 @@
         font-weight: 450;
         margin: 10px 0;
     }
-    
+
     .comment-date {
         font-size: 10px;
         color: gray;
@@ -271,7 +271,6 @@
     }
 
     .star {
-
         i {
             color: rgb(255, 200, 0);
         }
@@ -281,4 +280,42 @@
 .active-nav-user {
     color: #61cfd3;
     font-weight: 450;
+}
+
+/* Banner styling */
+.banner {
+    position: fixed;
+    bottom: 10%;
+    right: 10%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 300px;
+    text-align: center;
+}
+ 
+.hidden {
+    display: none;
+}
+
+.banner-content img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+ 
+#close-banner {
+    position: absolute;
+    top: -5px;
+    right: 0px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
 }

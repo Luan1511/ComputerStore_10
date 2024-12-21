@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin\Laptop;
 use App\Models\Admin\Brand;
+use App\Models\Admin\Order;
 use App\Models\Admin\Payment;
 use App\Models\Wishlist;
 
@@ -32,16 +33,20 @@ class PagesController extends Controller
         $laptopController = new LaptopController();
         $newLaptops = $laptopController->getNewLaptop();
         $bestSellerLaptops = $laptopController->getBestSellerLaptop();
-        $bannerAds = Banner::where('type', 'advertiser')->get();
+        $topBanner = Banner::where('type', 'top')->first();
+        $bottomBanner = Banner::where('type', 'bottom')->first();
+        $leftBanners = Banner::where('type', 'left')->get();
+        $adsBanners = Banner::where('type', 'advertiser')->get()->pluck('image')->toArray(); 
 
         try {
             if (Auth::user()->authority == 1) {
                 $users = User::where('authority', '!=', 1)->get();
-                return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'users', 'bannerAds'));
+                return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'users', 'topBanner', 'bottomBanner', 'leftBanners', 'adsBanners'));
             }
-        } catch (\Throwable $th) {}
+        } catch (\Throwable $th) {
+        }
 
-        return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'bannerAds'));
+        return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'topBanner', 'bottomBanner', 'leftBanners', 'adsBanners'));
     }
 
     public function getSingleLaptop(int $id)
@@ -260,10 +265,32 @@ class PagesController extends Controller
     // Admin
     public function getAdminDashboard()
     {
+        $topSellingLaptops = Laptop::orderBy('sell', 'desc')->take(10)->get(['name', 'sell']);
+        $sellCounts = $topSellingLaptops->pluck('sell')->toArray();
+        $sellNames = $topSellingLaptops->pluck('name')->toArray();
+
+        $startOfWeek = now()->startOfWeek();
+        $endOfWeek = now()->endOfWeek();
+        $dailyRevenue = [];
+        for ($day = 0; $day < 7; $day++) {
+            $currentDay = $startOfWeek->copy()->addDays($day);
+            $revenue = Order::where('status', 4)
+                ->whereDate('created_at', $currentDay->toDateString())
+                ->sum('total_price');
+            $dailyRevenue[] = $revenue;
+        }
+
+        $monthlyRevenue = Order::where('status', 4)
+            ->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])
+            ->sum('total_price');
+        $annualRevenue = Order::where('status', 4)
+            ->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])
+            ->sum('total_price');
         $userCount = User::where('authority', 2)->count();
         $laptopCount = Laptop::count();
         $brandCount = Brand::count();
+        $orderCount = Order::count();
 
-        return view(('Admins.dashboard'), compact('userCount', 'laptopCount', 'brandCount'));
+        return view(('Admins.dashboard'), compact('userCount', 'laptopCount', 'brandCount', 'orderCount', 'sellCounts', 'sellNames', 'dailyRevenue', 'monthlyRevenue', 'annualRevenue'));
     }
 }

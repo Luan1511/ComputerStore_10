@@ -26,46 +26,56 @@ class ProfileController extends Controller
 
     public function update(Request $request, int $id)
     {
+        // dd($request->all());
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'gender' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
-            'address' => 'required|string|max:500',
-            'birthday' => 'required|date',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3074',
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'gender' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:526',
+            'birthday' => 'nullable|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $user = User::findOrFail($id);
 
-        // Xử lý hình ảnh
         if ($request->hasFile('image')) {
             $originalFileName = $request->file('image')->getClientOriginalName();
-            $imagePath = $request->file('image')->storeAs('images', $originalFileName, 'public');
+            $imagePath = $request->file('image')->storeAs('images/User', $originalFileName, 'public');
 
-            // Xóa ảnh cũ nếu tồn tại
             if ($user->img && File::exists(public_path('storage/' . $user->img))) {
                 File::delete(public_path('storage/' . $user->img));
             }
         } else {
-            // Giữ nguyên ảnh cũ nếu không có ảnh mới
             $imagePath = $user->img;
         }
 
-        // Cập nhật thông tin người dùng
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'gender' => $request->gender,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'birthday' => $request->birthday,
-            'img' => $imagePath
-        ]);
+        $updateData = [];
+        if ($request->name) {
+            $updateData['name'] = $request->name;
+        }
+        if ($request->email) {
+            $updateData['email'] = $request->email;
+        }
+        if ($request->gender) {
+            $updateData['gender'] = $request->gender;
+        }
+        if ($request->phone) {
+            $updateData['phone'] = $request->phone;
+        }
+        if ($request->address) {
+            $updateData['address'] = $request->address;
+        }
+        if ($request->birthday) {
+            $updateData['birthday'] = $request->birthday;
+        }
+        if (isset($imagePath)) { 
+            $updateData['img'] = $imagePath;
+        }
+        $user->update($updateData);
 
-        // Trả về thông báo thành công
         return redirect()->route('profile-page', ['id' => $user->id])
-            ->with('status', 'Customer Updated Successfully');
+            ->with('status', 'Updated');
     }
 
     public function purchaseView()

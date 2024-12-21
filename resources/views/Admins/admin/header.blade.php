@@ -25,7 +25,11 @@
         </li>
 
         <li>
-            <i class="fa-solid fa-circle-user" style="font-size: 25px"></i>
+            @if (Auth::user()->img != null)
+                <img src="{{asset('storage/' . Auth::user()->img)}}" alt="" height="25px" width="25px" style="border-radius: 50%">
+            @else
+                <i class="fa-solid fa-circle-user" style="font-size: 25px"></i>
+            @endif
         </li>
     </ul>
 

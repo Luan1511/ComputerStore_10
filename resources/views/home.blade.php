@@ -49,6 +49,12 @@
         @endif
     @endauth
 
+    <div id="ad-banner" class="banner hidden">
+        <div class="banner-content">
+            <img id="banner-image" src="image1.jpg" alt="Ad" />
+            <button id="close-banner">×</button>
+        </div>
+    </div>
 
     <script>
         $(".slider-active").owlCarousel({
@@ -165,13 +171,13 @@
             Swal.fire({
                 title: 'Welcome!',
                 text: 'This is a notification with an image and a link.',
-                imageUrl: 'https://img.freepik.com/free-vector/merry-christmas-wallpaper-design_79603-2129.jpg',  
-                imageWidth: 350, 
-                imageHeight: 300, 
+                imageUrl: 'https://img.freepik.com/free-vector/merry-christmas-wallpaper-design_79603-2129.jpg',
+                imageWidth: 350,
+                imageHeight: 300,
                 html: `
         <p>Click <a href="https://example.com" target="_blank" style="color: blue; text-decoration: underline;">here</a> to visit the page.</p>
     `,
-                showConfirmButton: true,  
+                showConfirmButton: true,
                 confirmButtonText: 'Close'
             });
         });
@@ -190,5 +196,55 @@
                 }
             });
         }
+
+        // Ads banners
+        document.addEventListener("DOMContentLoaded", function() {
+            const banner = document.getElementById("ad-banner");
+            const closeBannerButton = document.getElementById("close-banner");
+
+            const showBanner = () => {
+                banner.classList.remove("hidden");
+            };
+
+            const hideBanner = () => {
+                banner.classList.add("hidden");
+            };
+
+            showBanner();
+
+            closeBannerButton.addEventListener("click", hideBanner);
+
+            setInterval(showBanner, 5 * 60 * 1000);
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const banner = document.getElementById("ad-banner");
+            const closeBannerButton = document.getElementById("close-banner");
+            const bannerImage = document.getElementById("banner-image");
+ 
+            const images = @json($adsBanners);
+
+            let currentImageIndex = 0;
+ 
+            const showBanner = () => {
+                banner.classList.remove("hidden");
+            };
+ 
+            const hideBanner = () => {
+                banner.classList.add("hidden");
+            };
+ 
+            const switchImage = () => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                bannerImage.src = 'storage/' + images[currentImageIndex];
+            }; 
+            showBanner();
+ 
+            setInterval(switchImage, 3000);
+ 
+            closeBannerButton.addEventListener("click", hideBanner);
+ 
+            setInterval(showBanner, 3 * 60 * 1000);
+        });
     </script>
 @endsection
