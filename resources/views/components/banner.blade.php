@@ -63,12 +63,20 @@
             <div class="col-lg-4 col-md-4 text-center pt-xs-30">
                 <div class="li-banner">
                     <a href="#">
-                        <img src="{{ asset('storage/' . $topBanner->image) }}" alt="">
+                        @if (isset($topBanner->image))
+                            <img src="{{ asset('storage/' . $topBanner->image) }}" alt="">
+                        @else
+                            <img src="" alt="Top banner">
+                        @endif
                     </a>
                 </div>
                 <div class="li-banner mt-15 mt-sm-30 mt-xs-30">
                     <a href="#">
-                        <img src="{{ asset('storage/' . $bottomBanner->image) }}" alt="">
+                        @if (isset($bottomBanner->image))
+                            <img src="{{ asset('storage/' . $bottomBanner->image) }}" alt="">
+                        @else
+                            <img src="" alt="Bottom banner">
+                        @endif
                     </a>
                 </div>
             </div>
