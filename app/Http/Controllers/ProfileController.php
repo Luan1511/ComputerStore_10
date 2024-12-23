@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
- 
+
 use App\Models\Admin\Order;
 use App\Models\LicenseComment;
 use App\Models\Point;
@@ -69,7 +69,7 @@ class ProfileController extends Controller
         if ($request->birthday) {
             $updateData['birthday'] = $request->birthday;
         }
-        if (isset($imagePath)) { 
+        if (isset($imagePath)) {
             $updateData['img'] = $imagePath;
         }
         $user->update($updateData);
@@ -142,9 +142,10 @@ class ProfileController extends Controller
             }
 
             $laptop = $subOrder->laptop;
-            if ($laptop->sell != null)$laptop->update(['sell' => $laptop->sell + $subOrder->quantity]);
-            else $laptop->update(['sell' => $subOrder->quantity]);
-            $laptop->update(['stock' => $laptop->stock - $subOrder->quantity]);
+            $laptop->update([
+                'stock' => $laptop->stock - $subOrder->quantity,
+                'sell' => $laptop->sell + $subOrder->quantity
+            ]);
         }
 
         // Notification::create([

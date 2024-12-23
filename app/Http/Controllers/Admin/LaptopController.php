@@ -55,7 +55,7 @@ class LaptopController extends Controller
 
     public function getBestSellerLaptop()
     {
-        $bestSeller = Laptop::where('sell', '>=', 15)->get();
+        $bestSeller = Laptop::orderBy('sell', 'asc')->get();
 
         return $bestSeller;
     }
@@ -120,6 +120,7 @@ class LaptopController extends Controller
             'os' => $request->os,
             'price' => $request->price,
             'stock' => $request->stock,
+            'sell' => 0,
             'description' => $request->description,
             'img' => $imagePath
         ]);

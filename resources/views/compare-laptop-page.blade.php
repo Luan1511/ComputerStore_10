@@ -26,7 +26,7 @@
             <table id="compare-table" class="mr-auto ml-auto">
                 <tr>
                     <td
-                        style="border-top: solid 1px white !important; border-left: solid 1px white !important; border-bottom: solid 1px white !important">
+                        style="border-top: solid 1px white !important; border-left: solid 1px white !important; border-bottom: solid 1px white !important; width: 25% !important">
                         <a class="white-btn" onclick="displayComparePanel()">Compare with another one</a>
                     </td>
                     @foreach ($laptops as $laptop)

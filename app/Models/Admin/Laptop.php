@@ -31,6 +31,7 @@ class Laptop extends Model
         'os',
         'price',
         'stock',
+        'sell',
         'description',
         'img',
         'rating',

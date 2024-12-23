@@ -31,19 +31,19 @@
                         <ul class="ht-menu">
                             <!-- Begin Option Area -->
                             <li>
-                                <div class="ht-setting-trigger"><span>Option</span></div>
+                                <div class="ht-setting-trigger"><span>{{ __('messages.option') }} </span></div>
                                 <div class="setting ht-setting">
                                     <ul class="ht-setting-list">
                                         @auth
-                                            <li><a href="{{ url('user/profile') }}">My Account</a></li>
+                                            <li><a href="{{ url('user/profile') }}">{{ __('messages.myaccount') }}</a></li>
                                         @else
-                                            <li><a href="{{ route('login-page') }}">Sign In</a></li>
-                                            <li><a href="{{ route('register-page') }}">Resgister</a></li>
+                                            <li><a href="{{ route('login-page') }}">{{ __('messages.signin') }}</a></li>
+                                            <li><a href="{{ route('register-page') }}">{{ __('messages.resgister') }}</a></li>
                                         @endauth
                                         <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="{{ route('admin-dashboard-page') }}">Admin</a></li>
+                                        <li><a href="{{ route('admin-dashboard-page') }}">{{ __('messages.admin') }}</a></li>
                                         @auth
-                                            <li><a href="{{ route('logout') }}">Logout</a></li>
+                                            <li><a href="{{ route('logout') }}">{{ __('messages.logout') }}</a></li>
                                         @endauth
                                     </ul>
                                 </div>
@@ -51,7 +51,7 @@
                             <!-- Option Area End Here -->
                             <!-- Begin Language Area -->
                             <li>
-                                <span class="language-selector-wrapper">Language :</span>
+                                <span class="language-selector-wrapper">{{ __('messages.language') }}:</span>
                                 <div class="ht-language-trigger"><span>{{ session('locale', 'English') }}</span></div>
                                 <div class="language ht-language">
                                     <ul class="ht-setting-list">
@@ -202,10 +202,10 @@
                     <div class="hb-menu">
                         <nav>
                             <ul>
-                                <li><a href="{{ route('home-page') }}">Home</a></li>
-                                <li class="megamenu-holder"><a href="{{ route('product-page') }}">Shop</a></li>
-                                <li><a href="{{ route('about-page') }}">About Us</a></li>
-                                <li><a href="{{ route('contact-page') }}">Contact</a></li>
+                                <li><a href="{{ route('home-page') }}">{{ __('messages.home') }}</a></li>
+                                <li class="megamenu-holder"><a href="{{ route('product-page') }}">{{ __('messages.product') }}</a></li>
+                                <li><a href="{{ route('about-page') }}">{{ __('messages.about') }}</a></li>
+                                <li><a href="{{ route('contact-page') }}">{{ __('messages.contact') }}</a></li>
                                 {{-- <li><a href="shop-left-sidebar.html">Accessories</a></li> --}}
                             </ul>
                         </nav>

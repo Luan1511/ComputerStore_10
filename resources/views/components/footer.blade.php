@@ -12,8 +12,8 @@
                                 <img src="{{asset('images/shipping-icon/1.png')}}" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
-                                <h2>Free Delivery</h2>
-                                <p>And free returns. See checkout for delivery dates.</p>
+                                <h2>{{ __('messages.freedelivery') }}</h2>
+                                <p>{{ __('messages.free') }}</p>
                             </div>
                         </div>
                     </div>
@@ -25,8 +25,8 @@
                                 <img src="{{asset('images/shipping-icon/2.png')}}" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
-                                <h2>Safe Payment</h2>
-                                <p>Pay with the world's most popular and secure payment methods.</p>
+                                <h2>{{ __('messages.safepayment') }}</h2>
+                                <p>{{ __('messages.safe') }}</p>
                             </div>
                         </div>
                     </div>
@@ -38,8 +38,8 @@
                                 <img src="{{asset('images/shipping-icon/3.png')}}" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
-                                <h2>Shop with Confidence</h2>
-                                <p>Our Buyer Protection covers your purchasefrom click to delivery.</p>
+                                <h2>{{ __('messages.shopwith') }}</h2>
+                                <p>{{__('messages.confidence')}}.</p>
                             </div>
                         </div>
                     </div>
@@ -51,8 +51,8 @@
                                 <img src="{{asset('images/shipping-icon/4.png')}}" alt="Shipping Icon">
                             </div>
                             <div class="shipping-text">
-                                <h2>24/7 Help Center</h2>
-                                <p>Have a question? Call a Specialist or chat online.</p>
+                                <h2>24/7 {{ __('messages.helpcenter') }}</h2>
+                                <p>{{ __('messages.question') }}</p>
                             </div>
                         </div>
                     </div>
@@ -73,17 +73,17 @@
                         <div class="footer-logo">
                             <img src="{{asset('images/LuNi_logo.png')}}" alt="Footer Logo">
                             <p class="info">
-                                We are from 23AI <br>
-                                VietNam-Korea University
+                                {{ __('messages.weare') }}<br>
+                                {{ __('messages.uni') }}
                             </p>
                         </div>
                         <ul class="des">
                             <li>
-                                <span>Address: </span>
+                                <span> {{ __('messages.address') }}: </span>
                                 Tran Dai Nghia, Hoa Hai, Ngu Hanh Son, Da Nang
                             </li>
                             <li>
-                                <span>Phone: </span>
+                                <span>{{ __('messages.phone') }}: </span>
                                 <div class="col-1">
                                     <a href="mailto://luanpvc.23ai@vku.udn.vn">0389376692(Luan)</a>
                                     <a href="mailto://nhinh.23ai@vku.udn.vn">0818943707(Nhi)</a>
@@ -104,10 +104,10 @@
                         <div class="footer-block">
                             <h3 class="footer-block-title">Product</h3>
                             <ul>
-                                <li><a href="#">Prices drop</a></li>
-                                <li><a href="#">New products</a></li>
-                                <li><a href="#">Best sales</a></li>
-                                <li><a href="#">Contact us</a></li>
+                                <li><a href="#">{{ __('messages.pricesdrop') }}</a></li>
+                                <li><a href="#">{{ __('messages.new') }}</a></li>
+                                <li><a href="#">{{ __('messages.bestseller') }}</a></li>
+                                <li><a href="#">{{ __('messages.contact') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -115,10 +115,10 @@
                     <!-- Begin Footer Block Area -->
                     <div class="col-lg-2 col-md-3 col-sm-6">
                         <div class="footer-block">
-                            <h3 class="footer-block-title">Our company</h3>
+                            <h3 class="footer-block-title">{{ __('messages.ourcompany') }}</h3>
                             <ul>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Our school</a></li>
+                                <li><a href="#">{{ __('messages.about') }}</a></li>
+                                <li><a href="#">{{ __('messages.ourschool') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                     <!-- Begin Footer Block Area -->
                     <div class="col-lg-4">
                         <div class="footer-block">
-                            <h3 class="footer-block-title">Follow Us</h3>
+                            <h3 class="footer-block-title">{{ __('messages.followus') }}</h3>
                             <ul class="social-link">
                                 <li class="rss">
                                     <a href="https://rss.com/" data-toggle="tooltip" target="_blank" title="RSS">

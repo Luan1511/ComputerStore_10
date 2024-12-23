@@ -1,5 +1,4 @@
 <?php
-
 return [
     'welcome' => 'Welcome',
     'login_success' => 'You have successfully logged in.',
@@ -11,5 +10,36 @@ return [
     'delete_confirm' => 'Are you sure you want to delete this item?',
     'item_added' => 'Item added to your cart.',
     'item_removed' => 'Item removed from your cart.',
-    'other_laptop' => 'Other products in the same brand:'
+    'other_laptop' => 'Other products in the same brand:',
+    'option' => 'Option',
+    'myaccount' => 'My Account',
+    'signin' => 'Sign in',
+    'resgister' => 'Resgister',
+    'admin' => 'Admin',
+    'logout' => 'Logout',
+    'language' => 'Language',
+    'home' => 'Home',
+    'product' => 'Product',
+    'about' => 'About',
+    'contact' => 'Contact',
+    'newarrival' => 'New arrival',
+    'bestseller' => 'Bestseller',
+    'freedelivery' => 'Free Delivery',
+    'free' => 'And free returns. See checkout for delivery dates.',
+    'safepayment' => 'Safe Payment',
+    'safe' => "Pay with the world's most popular and secure payment methods.",
+    'shopwith' => 'Shop with Confidence',
+    'confidence' => 'Our Buyer Protection covers your purchasefrom click to delivery',
+    'helpcenter' => 'Help Center',
+    'question' => 'Have a question? Call a Specialist or chat online.',
+    'weare' => 'We are from 23AI',
+    'uni' => 'VietNam-Korea University',
+    'address' => 'Address',
+    'phone' => 'Phone',
+    'pricesdrop' => 'Prices drop',
+    'new' => 'New products',
+    'ourcompany' => 'Our Company',
+    'ourschool' => 'Our School',
+    'followus' => 'Follow Us'
+
 ];

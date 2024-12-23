@@ -83,7 +83,7 @@
                                 </form>
                             </div>
                             <div class="product-additional-info pt-25">
-                                <a class="wishlist-btn wishlist-detail single-action-btn" href="wishlist.html"><i
+                                <a class="wishlist-btn wishlist-detail single-action-btn" href="{{ url('wishlist/' . $laptop->id . '/add') }}"><i
                                         class="fa fa-heart-o"></i>Add to
                                     wishlist</a>
                                 <a class="wishlist-btn wishlist-detail single-action-btn" style="cursor: pointer"

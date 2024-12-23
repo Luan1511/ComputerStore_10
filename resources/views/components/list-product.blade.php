@@ -5,9 +5,9 @@
                 <div class="li-product-tab">
                     <ul class="nav li-product-menu">
                         <li><a id="new_arrival-tab" class="active" data-toggle="tab" href="#li-new-product"
-                                onclick="toggleTabLaptop()"><span>New Arrival</span></a></li>
+                                onclick="toggleTabLaptop()"><span>{{ __('messages.newarrival') }}</span></a></li>
                         <li><a id="best_seller-tab" data-toggle="tab" href="#li-bestseller-product"
-                                onclick="toggleTabLaptop()"><span>Bestseller</span></a></li>
+                                onclick="toggleTabLaptop()"><span>{{ __('messages.bestseller') }}</span></a></li>
                     </ul>
                 </div>
                 <!-- Begin Li's Tab Menu Content Area -->
@@ -221,7 +221,7 @@
                     text: 'Laptop has been plused to your Laptop quantity.',
                     timer: 2000,
                     showConfirmButton: false
-                });  
+                });
             @elseif (session('status') === 'Out stock')
                 Swal.fire({
                     icon: 'warning',
