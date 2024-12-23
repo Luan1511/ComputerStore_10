@@ -29,7 +29,7 @@ class AdminNotification extends Model
     protected static function booted()
     {
         static::addGlobalScope('adminNotify', function ($query) { 
-            $query->where('is_read', 0);
+            // $query->where('is_read', 0);
         });
     }
 }

@@ -13,12 +13,14 @@ use App\Http\Controllers\Admin\LaptopController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\NotifyController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PusherController;
 use App\Http\Controllers\RatingController;
@@ -105,6 +107,15 @@ Route::prefix('chatting')->group(function () {
     Route::post('/receive', [PusherController::class, 'receive']);
     Route::get('/messages', [PusherController::class, 'fetchMessages'])->name('messages.fetch');
     Route::get('/messages/{id}', [PusherController::class, 'fetchMessagesAdmin_user']);
+});
+
+Route::prefix('notify')->group(function () {
+    Route::get('/', [NotifyController::class, 'getNoti']);
+    Route::get('/read/{id}', [NotifyController::class, 'readNoti']);
+    Route::get('/delete/{id}', [NotifyController::class, 'removeNoti']);
+    // Route::post('/receive', [NotifyController::class, 'receive']);
+    // Route::get('/messages', [NotifyController::class, 'fetchMessages'])->name('messages.fetch');
+    // Route::get('/messages/{id}', [NotifyController::class, 'fetchMessagesAdmin_user']);
 });
 
 

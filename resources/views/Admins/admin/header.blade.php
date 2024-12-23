@@ -20,18 +20,19 @@
         </li>
 
         <li>
-            <i class="fa-solid fa-bell"></i>
-            <span class="number-alert">{{ \App\Models\Admin\AdminNotification::count() }}</span>
+            <i class="fa-solid fa-bell" onclick="toggleNotify()"></i>
+            <span class="number-alert">{{ \App\Models\Admin\AdminNotification::where('is_read', 0)->count() }}</span>
             <div class="notify-panel">
                 @foreach (\App\Models\Admin\AdminNotification::all() as $notification)
                     @if ($notification->type == 'New Order')
-                        <div class="notify-item" style="background-color: #a9ebf6">
+                        <div class="notify-item" style="background-color: #a9ebf6"
+                            data-noti-id="{{ $notification->id }}" onclick="readNoti()">
                             @if ($notification->is_read == 0)
                                 <div class="read-item"></div>
                             @endif
                             <div class="notify-icon">
-                                <i class="fa-solid fa-bell" style="background-color: rgb(55, 102, 231);"></i>
-                                <i class="fa-solid fa-trash"></i>
+                                <i class="fa-solid fa-trash" onclick="deleteNoti()"
+                                    data-noti-id="{{ $notification->id }}"></i>
                                 @if (isset($notification->created_at))
                                     <div class="notify-time">{{ $notification->created_at->diffForHumans() }}</div>
                                 @endif
@@ -41,13 +42,13 @@
                             </div>
                         </div>
                     @elseif ($notification->type == 'Advertiser banner')
-                        <div class="notify-item" style="background-color: rgb(247, 247, 121)">
+                        <div class="notify-item" style="background-color: rgb(247, 247, 121)"
+                            data-noti-id="{{ $notification->id }}">
                             @if ($notification->is_read == 0)
                                 <div class="read-item"></div>
                             @endif
                             <div class="notify-icon">
-                                <i class="fa-solid fa-bell" style="background-color: rgb(55, 102, 231);"></i>
-                                <i class="fa-solid fa-trash"></i>
+                                <i class="fa-solid fa-trash" data-noti-id="{{ $notification->id }}"></i>
                                 @if (isset($notification->created_at))
                                     <div class="notify-time">{{ $notification->created_at->diffForHumans() }}</div>
                                 @endif
@@ -76,15 +77,43 @@
 </div>
 
 <script>
-    // $(function() {
-    //     var availableTags = [
-    //         "Hà Nội",
-    //         "Hồ Chí Minh",
-    //         "Đà Nẵng",
-    //         "Cần Thơ"
-    //     ];
-    //     $("#search-input").autocomplete({
-    //         source: availableTags
-    //     });
-    // });
+    $(document).ready(function() {
+        $('.notify-item').click(function(e) {
+            e.preventDefault();
+
+            var notiID = $(this).data('noti-id');
+
+            $.ajax({
+                url: 'notify/read/' + notiID,
+                type: 'GET',
+                success: function(response) {
+                    $('.notify-panel').load(location.href + ' .notify-panel > *');
+                },
+                error: function(xhr) {
+                    console.error('Error fetching notifications:', xhr.responseText);
+                }
+            });
+        });
+
+        $('.fa-trash').click(function(e) {
+            e.preventDefault();
+
+            var notiID = $(this).data('noti-id');
+
+            $.ajax({
+                url: 'notify/delete/' + notiID,
+                type: 'GET',
+                success: function(response) {
+                    $('.notify-panel').load(location.href + ' .notify-panel > *');
+                },
+                error: function(xhr) {
+                    console.error('Error fetching notifications:', xhr.responseText);
+                }
+            });
+        });
+    });
+
+    function toggleNotify() {
+        $('.notify-panel').toggleClass('display-notify');
+    }
 </script>

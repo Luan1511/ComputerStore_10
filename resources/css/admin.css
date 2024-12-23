@@ -658,7 +658,7 @@
 .notify-panel {
     position: fixed;
     top: 75px;
-    right: 5px;
+    right: -305px;
     width: 300px;
     height: 500px;
     border-radius: 5px;
@@ -677,14 +677,6 @@
     gap: 7px;
     /* opacity: 1; */
     /* visibility: visible; */
-
-    .unread-noti .adsBanner {
-        background-color: rgb(245, 245, 245);
-        color: rgb(219, 50, 50);
-        border-radius: 5px;
-        font-weight: 450;
-        margin-bottom: 5px;
-    }
 
     .notify-item {
         position: relative;
@@ -741,3 +733,6 @@
     }
 }
 
+.display-notify {
+    right: 5px !important;
+}
