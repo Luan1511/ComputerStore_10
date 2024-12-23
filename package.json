@@ -14,7 +14,9 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.8",
+        "bower-npm-resolver": "^0.11.0",
         "chart.js": "^4.4.7",
+        "flatpickr": "^4.6.13",
         "jquery": "^3.7.1",
         "popper": "^1.0.1"
     }

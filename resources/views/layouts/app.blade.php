@@ -27,6 +27,7 @@
     <script src="https://kit.fontawesome.com/6e70409343.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
 </head>
 
 <body>
@@ -46,8 +47,7 @@
 
     <div class="event-container">
         @if (date('m') == 11 || date('m') == 12)
-            <audio src="{{ asset('storage/audios/we-wish-you-a-merry-christmas-126685.mp3') }}" hidden
-                loop></audio>
+            <audio src="{{ asset('storage/audios/we-wish-you-a-merry-christmas-126685.mp3') }}" hidden loop></audio>
             <div class="main-snow">
                 <div class="initial-snow ">
                     @for ($i = 0; $i < 50; $i++)

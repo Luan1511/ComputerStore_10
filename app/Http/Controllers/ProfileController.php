@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\AdminNotification;
 use App\Models\Admin\Order;
 use App\Models\LicenseComment;
 use App\Models\Point;
@@ -187,5 +188,48 @@ class ProfileController extends Controller
             ->where('is_used', 0)->get();
 
         return view('users.voucher', compact('vouchers'));
+    }
+
+    public function reportView()
+    {
+        return view('users.report');
+    }
+
+    public function createReport(Request $request)
+    {
+        $request->validate([
+            'content' => 'required|string|max:255',
+            'report_type' => 'required|string|max:255',
+            'date' => 'nullable|date',
+            // 'report_type' => 'required|string|max:255',
+        ]);
+
+        $report = [
+            'content' => $request->date . ' | ' . $request->report_type . ' | ' . $request->content,
+            'user_id' => auth()->id(),
+            'type' => 'Error report',
+            'is_read' => 0,
+        ];
+        AdminNotification::create($report);
+        return redirect()->back()->with('status', 'Report Successfully');
+
+        // $code = bin2hex(random_bytes(10 / 2));
+        // Voucher::create([
+        //     'code' => $code,
+        //     'user_id' => auth()->id(),
+        //     'discount' => $discount,
+        //     'is_used' => 0,
+        //     'expiration_date' => now()->modify('+30 days'),
+        // ]);
+
+        // $point = Point::where('user_id', auth()->id())->first();
+        // $point->update(['point' => $point->point - $discount * 100]);
+
+        // return redirect()->back()->with(
+        //     [
+        //         'status' => 'Created Successfully',
+        //         'code' => $code
+        //     ]
+        // );
     }
 }

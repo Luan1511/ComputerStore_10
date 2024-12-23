@@ -52,6 +52,22 @@
                                 <a href="">{{ $notification->content }}</a>
                             </div>
                         </div>
+                    @elseif ($notification->type == 'Error report')
+                        <div class="notify-item" style="background-color: rgb(253, 137, 137)"
+                            data-noti-id="{{ $notification->id }}">
+                            @if ($notification->is_read == 0)
+                                <div class="read-item"></div>
+                            @endif
+                            <div class="notify-icon">
+                                <i class="fa-solid fa-trash" data-noti-id="{{ $notification->id }}"></i>
+                                @if (isset($notification->created_at))
+                                    <div class="notify-time">{{ $notification->created_at->diffForHumans() }}</div>
+                                @endif
+                            </div>
+                            <div class="notify-content">
+                                <a href="">{{ $notification->content }}</a>
+                            </div>
+                        </div>
                     @endif
                 @endforeach
                 {{-- <div class="notify-btn">

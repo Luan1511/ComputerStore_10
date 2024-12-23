@@ -21,8 +21,8 @@
                     <a href="{{url('user/voucher')}}" class="list-group-item list-group-item-action" id="voucher-nav">
                         <i class="bi bi-person"></i> Your vouchers
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action" id="support-nav">
-                        <i class="bi bi-telephone"></i> Support
+                    <a href="{{url('user/report')}}" class="list-group-item list-group-item-action" id="report-nav">
+                        <i class="bi bi-telephone"></i> Report
                         {{-- <span class="badge bg-danger text-white">NEW</span> --}}
                     </a>
                     <a href="{{route('logout')}}" class="list-group-item list-group-item-action">
@@ -34,7 +34,7 @@
                     @php
                         if (isset(Auth::user()->point->point)) {
                             echo '<a onclick="displayVoucherPanel()" style="color: #0363cd">' .
-                                Auth::user()->point->point .
+                                Auth::user()->point->point . 
                                 '</a>';
                         } else {
                             echo '<iframe src="' . route('error.point') . '" style="display:none"></iframe>';
@@ -118,6 +118,14 @@
                     navigator.clipboard.writeText(textToCopy).then(() => {
                         Swal.fire("Success!", "The code was copied!", "success");
                     });
+                });
+            @elseif (session('status') === 'Report Successfully')
+                Swal.fire({
+                    title: "Success!",
+                    text: "Thank you for the report!",
+                    icon: "success",
+                    buttons: true,
+                    confirmButtonText: "Thank",
                 });
             @endif
         });

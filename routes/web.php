@@ -124,6 +124,7 @@ Route::prefix('notify')->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('/profile', [ProfileController::class, 'profileView'])->name('profile-page');
     Route::put('profile/{id}', [ProfileController::class, 'update'])->name('user-update');
+    // Purchase
     Route::get('purchase', [ProfileController::class, 'purchaseView']);
     Route::get('purchase/making', [ProfileController::class, 'purchaseMaking']);
     Route::get('purchase/delivering', [ProfileController::class, 'purchaseDelivering']);
@@ -133,6 +134,11 @@ Route::prefix('user')->group(function () {
     // Voucher
     Route::get('voucher/create/{discount}', [ProfileController::class, 'createVoucher']);
     Route::get('voucher', [ProfileController::class, 'voucherView']);
+    // Report
+    Route::get('report', [ProfileController::class,'reportView']);
+    Route::post('report/create', [ProfileController::class, 'createReport'])->name('createReportHandle');
+    // Route::post('report/createHandle', [ProfileController::class, 'createReportHandle'])->name('createReportHandle');
+    // Route::get('report/view/{id}', [ProfileController::class, 'viewReport']);
 });
 
 // Router Admin
