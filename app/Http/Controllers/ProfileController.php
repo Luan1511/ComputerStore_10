@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+ 
 use App\Models\Admin\Order;
 use App\Models\LicenseComment;
 use App\Models\Point;
@@ -140,7 +140,19 @@ class ProfileController extends Controller
                     'laptop_id' => $subOrder->laptop->id,
                 ]);
             }
+
+            $laptop = $subOrder->laptop;
+            if ($laptop->sell != null)$laptop->update(['sell' => $laptop->sell + $subOrder->quantity]);
+            else $laptop->update(['sell' => $subOrder->quantity]);
+            $laptop->update(['stock' => $laptop->stock - $subOrder->quantity]);
         }
+
+        // Notification::create([
+        //     'user_id' => auth()->id(),
+        //     'type' => 'Order received',
+        //     'content' => 'Got a new order',
+        //     'is_read' => 0,
+        // ]);
 
         return redirect()->back()
             ->with('status', 'Received Successfully');

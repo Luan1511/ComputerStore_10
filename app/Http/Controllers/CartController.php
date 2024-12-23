@@ -46,6 +46,10 @@ class CartController extends Controller
     {
         $user = Auth::user();
 
+        if (Laptop::find($laptop_id)->stock == Cart::where('customer_id', $user->id)->where('laptop_id', $laptop_id)->pluck('quantity')->first()){
+            return redirect()->back()->with('status', 'Out stock');
+        }
+
         if ($this->checkLaptopInCart($laptop_id)) {
             $item = Cart::where('customer_id', $user->id)->where('laptop_id', $laptop_id)->first();
             $oldQty = $item->quantity;
@@ -66,6 +70,10 @@ class CartController extends Controller
 
     public function addByQuantity(int $laptop_id, int $qty)
     {
+        if (Laptop::find($laptop_id)->stock < $qty){
+            return redirect()->back()->with('status', 'Out stock');
+        }
+
         $user = Auth::user();
 
         if ($this->checkLaptopInCart($laptop_id)) {
@@ -88,6 +96,10 @@ class CartController extends Controller
 
     public function updateQuantity($laptop_id, $quantity)
     {
+        if (Laptop::find($laptop_id)->stock < $quantity) {
+            return redirect()->back()->with('status', 'Out stock');
+        }
+
         $user = Auth::user();
 
         // if ($this->checkLaptopInCart($laptop_id)) {

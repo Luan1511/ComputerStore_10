@@ -59,6 +59,11 @@ class Laptop extends Model
         return $this->hasMany(Cart::class, 'id', 'id');
     }
 
+    public function subOrder()
+    {
+        return $this->hasMany(Sub_Order::class, 'laptop_id', 'id');
+    }
+
     public function comment()
     {
         return $this->hasMany(Comment::class, 'laptop_id', 'id');
@@ -68,5 +73,17 @@ class Laptop extends Model
     {
         return $this->hasMany(LicenseComment::class, 'laptop_id', 'id');
     }
-}
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::deleting(function ($laptop) {
+            $laptop->wishlist()->delete();
+            $laptop->cart()->delete();
+            $laptop->subOrder()->delete();
+            $laptop->images()->delete();
+            $laptop->comment()->delete();
+            $laptop->license()->delete();
+        });
+    }
+}

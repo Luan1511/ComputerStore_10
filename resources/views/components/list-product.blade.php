@@ -221,6 +221,13 @@
                     text: 'Laptop has been plused to your Laptop quantity.',
                     timer: 2000,
                     showConfirmButton: false
+                });  
+            @elseif (session('status') === 'Out stock')
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Out of stock!',
+                    timer: 2000,
+                    showConfirmButton: false
                 });
             @endif
         });

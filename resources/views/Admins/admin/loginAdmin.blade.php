@@ -6,7 +6,7 @@
         <div class="container">
             <div class="breadcrumb-content">
                 <ul>
-                    <li><a href="{{ route('home-page')}}">Home</a></li>
+                    <li><a href="{{ route('home-page') }}">Home</a></li>
                     <li class="active">Login</li>
                 </ul>
             </div>
@@ -21,7 +21,7 @@
                 <div class="col-lg-3"></div>
                 <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb-30">
                     <!-- Login Form -->
-                    <form action="{{route('loginAdmin')}}" method="POST">
+                    <form action="{{ route('loginAdmin') }}" method="POST">
                         @csrf
                         <div class="login-form">
                             <h4 class="login-title">Login Admin</h4>
@@ -38,7 +38,8 @@
                                 <!-- Email input -->
                                 <div class="col-md-12 col-12 mb-20">
                                     <label>Email Address*</label>
-                                    <input class="mb-0" type="email" name="email" placeholder="Email Address" required>
+                                    <input class="mb-0" type="email" name="email" placeholder="Email Address"
+                                        required>
                                 </div>
 
                                 <!-- Password input -->
@@ -55,7 +56,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
-                                    <a href="{{route('forgot_password')}}">Forgotten password?</a>
+                                    <a href="{{ route('forgot_password') }}">Forgotten password?</a>
                                 </div>
 
                                 <!-- Login button -->
@@ -67,12 +68,12 @@
 
                     </form>
 
-                    {{-- <!-- Display login error message if exists -->
-                    @if(session('login_error'))
+                    <!-- Display login error message if exists -->
+                    @if (session('error'))
                         <div class="alert alert-danger mt-3">
-                            {{ session('login_error') }}
+                            {{ session('error') }}
                         </div>
-                    @endif --}}
+                    @endif
                 </div>
             </div>
         </div>

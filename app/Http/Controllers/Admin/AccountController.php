@@ -19,6 +19,7 @@ class AccountController extends Controller
             'email',
             'phone',
             'address',
+            'authority',
             'birthday',
             'img',
         ])->get()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\AdminNotification;
 use App\Models\Admin\Order;
 use App\Models\Cart;
 use App\Models\Voucher;
@@ -44,6 +45,13 @@ class OrderController extends Controller
         }
 
         Cart::where('customer_id', $user->id)->delete();
+
+        AdminNotification::create([
+            'user_id' => $user->id,
+            'type' => 'New Order',
+            'content' => 'Got a new order',
+            'is_read' => 0,
+        ]);
 
         return response()->json(['success' => true]);
     }
@@ -103,8 +111,8 @@ class OrderController extends Controller
 
     public function delete(int $id)
     {
-        $order = Order::findOrFail($id);
-        $order->delete();
+        Order::find($id)->delete();
+        
         return redirect()->route('admin-showOrder')->with('status', true);
     }
 

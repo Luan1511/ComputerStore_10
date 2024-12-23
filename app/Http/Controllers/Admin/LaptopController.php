@@ -146,39 +146,43 @@ class LaptopController extends Controller
 
     public function destroy(int $id)
     {
-        $laptop = Laptop::findOrFail($id);
+        // $laptop = Laptop::findOrFail($id);
 
-        $images_laptop = Images_Laptop::where('laptop_id', $id)->get();
-        foreach ($images_laptop as $image) {
-            if ($image->image_url) {
-                $fullPath = public_path('storage/' . $image->image_url);
-                if (File::exists($fullPath)) {
-                    try {
-                        File::delete($fullPath);
-                    } catch (\Exception $e) {
-                        Log::error('Failed to delete image: ' . $e->getMessage());
-                    }
-                } else {
-                    Log::warning('Image file not found: ' . $fullPath);
-                }
-            }
-            $image->delete();
-        }
 
-        if ($laptop->img) {
-            $fullPath = public_path('storage/' . $laptop->img);
-            if (File::exists($fullPath)) {
-                try {
-                    File::delete($fullPath);
-                } catch (\Exception $e) {
-                    Log::error('Failed to delete image: ' . $e->getMessage());
-                }
-            } else {
-                Log::warning('Image file not found: ' . $fullPath);
-            }
-        }
 
-        $laptop->delete();
+        // $images_laptop = Images_Laptop::where('laptop_id', $id)->get();
+        // foreach ($images_laptop as $image) {
+        //     if ($image->image_url) {
+        //         $fullPath = public_path('storage/' . $image->image_url);
+        //         if (File::exists($fullPath)) {
+        //             try {
+        //                 File::delete($fullPath);
+        //             } catch (\Exception $e) {
+        //                 Log::error('Failed to delete image: ' . $e->getMessage());
+        //             }
+        //         } else {
+        //             Log::warning('Image file not found: ' . $fullPath);
+        //         }
+        //     }
+        //     $image->delete();
+        // }
+
+        // if ($laptop->img) {
+        //     $fullPath = public_path('storage/' . $laptop->img);
+        //     if (File::exists($fullPath)) {
+        //         try {
+        //             File::delete($fullPath);
+        //         } catch (\Exception $e) {
+        //             Log::error('Failed to delete image: ' . $e->getMessage());
+        //         }
+        //     } else {
+        //         Log::warning('Image file not found: ' . $fullPath);
+        //     }
+        // }
+
+        // $laptop->delete();
+
+        Laptop::find($id)->delete();
 
         return redirect()->back()->with('status', 'Laptop Deleted');
     }

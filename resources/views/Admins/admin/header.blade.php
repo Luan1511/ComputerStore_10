@@ -21,18 +21,58 @@
 
         <li>
             <i class="fa-solid fa-bell"></i>
-            <span class="number-alert">1</span>
+            <span class="number-alert">{{ \App\Models\Admin\AdminNotification::count() }}</span>
+            <div class="notify-panel">
+                @foreach (\App\Models\Admin\AdminNotification::all() as $notification)
+                    @if ($notification->type == 'New Order')
+                        <div class="notify-item" style="background-color: #a9ebf6">
+                            @if ($notification->is_read == 0)
+                                <div class="read-item"></div>
+                            @endif
+                            <div class="notify-icon">
+                                <i class="fa-solid fa-bell" style="background-color: rgb(55, 102, 231);"></i>
+                                <i class="fa-solid fa-trash"></i>
+                                @if (isset($notification->created_at))
+                                    <div class="notify-time">{{ $notification->created_at->diffForHumans() }}</div>
+                                @endif
+                            </div>
+                            <div class="notify-content">
+                                <a href="">{{ $notification->content }}</a>
+                            </div>
+                        </div>
+                    @elseif ($notification->type == 'Advertiser banner')
+                        <div class="notify-item" style="background-color: rgb(247, 247, 121)">
+                            @if ($notification->is_read == 0)
+                                <div class="read-item"></div>
+                            @endif
+                            <div class="notify-icon">
+                                <i class="fa-solid fa-bell" style="background-color: rgb(55, 102, 231);"></i>
+                                <i class="fa-solid fa-trash"></i>
+                                @if (isset($notification->created_at))
+                                    <div class="notify-time">{{ $notification->created_at->diffForHumans() }}</div>
+                                @endif
+                            </div>
+                            <div class="notify-content">
+                                <a href="">{{ $notification->content }}</a>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+                {{-- <div class="notify-btn">
+                    <a href="">Xem tất cả</a>
+                </div> --}}
+            </div>
         </li>
 
         <li>
             @if (Auth::user()->img != null)
-                <img src="{{asset('storage/' . Auth::user()->img)}}" alt="" height="25px" width="25px" style="border-radius: 50%">
+                <img src="{{ asset('storage/' . Auth::user()->img) }}" alt="" height="25px" width="25px"
+                    style="border-radius: 50%">
             @else
                 <i class="fa-solid fa-circle-user" style="font-size: 25px"></i>
             @endif
         </li>
     </ul>
-
 </div>
 
 <script>

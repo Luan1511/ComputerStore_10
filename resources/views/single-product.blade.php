@@ -48,11 +48,13 @@
                             <span class="product-details-ref">Brand: {{ $laptop->brand->name }}</span>
                             <div class="rating-box pt-20">
                                 <ul class="rating rating-with-review-item">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li class="no-star"><i class="fa fa-star"></i></li>
-                                    <li class="no-star"><i class="fa fa-star"></i></li>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $laptop->rating)
+                                            <li><i class="fa fa-star"></i></li>
+                                        @else
+                                            <li class="no-star"><i class="fa fa-star"></i></li>
+                                        @endif
+                                    @endfor
                                 </ul>
                             </div>
                             <div class="price-box pt-20">
@@ -173,7 +175,7 @@
                                 @for ($i = 1; $i <= 5; $i++)
                                     @php
                                         if ($laptop->comment()->count() != 0) {
-                                            $percent = $ratingCount[$i] * 100 / $laptop->comment()->count();
+                                            $percent = ($ratingCount[$i] * 100) / $laptop->comment()->count();
                                         } else {
                                             $percent = 0;
                                         }
@@ -197,7 +199,8 @@
                                 @endfor
                             </div>
                             <div style="width: 20%">
-                                @if (Auth::user()->comment()->where('laptop_id', $laptop->id)->count() < 1 && Auth::user()->license()->where('laptop_id', $laptop->id)->count() === 1)
+                                @if (Auth::user()->comment()->where('laptop_id', $laptop->id)->count() < 1 &&
+                                        Auth::user()->license()->where('laptop_id', $laptop->id)->count() === 1)
                                     <a href="#" class="js_rating_action"
                                         style="width: 200px; background: #288ad6;padding: 10px;color: white; border-radius: 5px">Create
                                         your
@@ -286,11 +289,13 @@
                                                     </h5>
                                                     <div class="rating-box">
                                                         <ul class="rating">
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star"></i></li>
-                                                            <li class="no-star"><i class="fa fa-star"></i></li>
+                                                            @for ($i = 1; $i <= 5; $i++)
+                                                                @if ($i <= $laptopB->rating)
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                @else
+                                                                    <li class="no-star"><i class="fa fa-star"></i></li>
+                                                                @endif
+                                                            @endfor
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -488,7 +493,7 @@
             $("#detail-laptop").removeClass('active');
 
             $.ajax({
-                url: {{$laptop->id}} + 'comment/fetch',
+                url: {{ $laptop->id }} + 'comment/fetch',
                 type: 'GET',
                 success: function(response) {
                     $('.list-review').html(response);

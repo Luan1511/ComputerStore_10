@@ -210,12 +210,12 @@
                                 showCancelButton: true
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    newVal = 0;  
+                                    newVal = 0;
                                     // $row.remove(); 
-                                    updateCartTotal(); 
+                                    updateCartTotal();
                                 } else {
                                     newVal = 1;
-                                    $row.find(".cart-plus-minus-box").val(newVal); 
+                                    $row.find(".cart-plus-minus-box").val(newVal);
                                 }
 
                                 var unitPriceText = $row.find(".unit_price").text();
@@ -227,16 +227,19 @@
                                 updateCartTotal();
 
                                 if (result.isConfirmed) {
-                                    window.location.href = "{{ url('cart') }}/" + parseInt($row.find(".detail-btn").text()) + "/" + newVal;
+                                    window.location.href = "{{ url('cart') }}/" + parseInt($row
+                                        .find(".detail-btn").text()) + "/" + newVal;
                                 }
                             });
                         } else {
-                            newVal = oldValue - 1; 
-                            window.location.href = "{{ url('cart') }}/" + parseInt($row.find(".detail-btn").text()) + "/" + newVal;
+                            newVal = oldValue - 1;
+                            window.location.href = "{{ url('cart') }}/" + parseInt($row.find(
+                                ".detail-btn").text()) + "/" + newVal;
                         }
                     } else {
-                        newVal = oldValue + 1; 
-                        window.location.href = "{{ url('cart') }}/" + parseInt($row.find(".detail-btn").text()) + "/" + newVal;
+                        newVal = oldValue + 1;
+                        window.location.href = "{{ url('cart') }}/" + parseInt($row.find(".detail-btn")
+                            .text()) + "/" + newVal;
                     }
 
                     $row.find(".cart-plus-minus-box").val(newVal);
@@ -256,6 +259,23 @@
                     }, 2500);
                 });
             }
+
+            @if (session('status') === 'Out stock')
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Out of stock!',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            @elseif (session('status') === 'existed')
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Already Exists!',
+                    text: 'Laptop is already in your wishlist.',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            @endif
         });
     </script>
 @endsection

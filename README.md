@@ -13,6 +13,8 @@ $newProductsByWeeks = Product::where('created_at', '>=', Carbon::now()->subWeeks
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+
+
 # Order status:
 1: not approved yet
 2: approved - delivering
@@ -20,6 +22,31 @@ $newProductsByWeeks = Product::where('created_at', '>=', Carbon::now()->subWeeks
 4: delivered
 
 id, name, img, price, quantity, total
+
+document.addEventListener('DOMContentLoaded', function() {
+                @if (session('status') === 'Received Successfully')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Received Successfully!',
+                        text: 'Thank you for your purchase',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                @elseif (session('status') === 'existed')
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Already Exists!',
+                        text: 'Laptop is already in your wishlist.',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                @endif
+            });
+
+
+
+
+
 
 ## About Laravel
 

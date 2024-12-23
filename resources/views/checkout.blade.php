@@ -25,7 +25,7 @@
             </div> --}}
             <div class="row">
                 <div class="col-lg-6 col-12">
-                    <form action="#">
+                    <form action="#" method="POST">
                         <div class="checkbox-form">
                             <h3>Billing Details</h3>
                             <div class="row">

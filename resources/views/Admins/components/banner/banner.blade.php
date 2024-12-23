@@ -34,24 +34,38 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        @foreach ($leftBanners as $leftBanner)
-                            <tr>
-                                <td><img src="{{ asset('storage/' . $leftBanner->image) }}" alt=""></td>
-                                <td style="width: 25%"><a href="{{ url('admin/banner/delete/' . $leftBanner->id) }}"
-                                        class="delete-btn">Delete</a></td>
-                            </tr>
-                        @endforeach
+                        @if (isset($leftBanners))
+                            @foreach ($leftBanners as $leftBanner)
+                                <tr>
+                                    @if ($leftBanner->image)
+                                        <td><img src="{{ asset('storage/' . $leftBanner->image) }}" alt=""></td>
+                                    @else
+                                        <td><img src="" alt="Banner"></td>
+                                    @endif
+                                    <td style="width: 25%"><a href="{{ url('admin/banner/delete/' . $leftBanner->id) }}"
+                                            class="delete-btn">Delete</a></td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </table>
                 </div>
                 <input type="file" id="left" name="left">
             </div>
             <div class="right-banner">
                 <div class="top-banner">
-                    <img src="{{ asset('storage/' . $topBanner->image) }}" alt="Top-right banner">
+                    @if (isset($topBanner->image))
+                        <img src="{{ asset('storage/' . $topBanner->image) }}" alt="Top-right banner">
+                    @else
+                        <img src="" alt="Top-right banner">
+                    @endif
                     <input type="file" id="top" name="top">
                 </div>
                 <div class="bottom-banner">
-                    <img src="{{ asset('storage/' . $bottomBanner->image) }}" alt="Bottom-right banner">
+                    @if (isset($bottomBanner->image))
+                        <img src="{{ asset('storage/' . $bottomBanner->image) }}" alt="Bottom-right banner">
+                    @else
+                        <img src="" alt="Bottom-right banner">
+                    @endif
                     <input type="file" id="bottom" name="bottom">
                 </div>
             </div>
@@ -191,15 +205,16 @@
                 autoWidth: true,
                 processing: true,
                 serverSide: false,
-                paging: false,  
-                searching: false, 
-                info: false,  
+                paging: false,
+                searching: false,
+                info: false,
                 lengthChange: false,
                 ajax: '{{ route('admin-getAdsBanner') }}',
                 columns: [{
                         data: 'image',
                         render: function(data, type, row) {
-                            return '<img src="{{ asset("storage/") }}/' + data + '" height="80px" width="120px">';
+                            return '<img src="{{ asset('storage/') }}/' + data +
+                                '" height="80px" width="120px">';
                         }
                     },
                     {

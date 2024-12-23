@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin\Banner;
+use App\Models\Admin\AdminNotification;
+use App\Models\Admin\Banner; 
 use App\Models\Point;
 use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
@@ -51,6 +52,13 @@ class ContactController extends Controller
 
             $point = Point::findOrFail(auth()->id());
             $point->update(['point' => $point->point + 50]);
+
+            AdminNotification::create([
+                'user_id' => auth()->id(),
+                'type' => 'Advertiser banner',
+                'content' => 'Got a new advertiser banner',
+                'is_read' => 0,
+            ]);
 
             return redirect()->back()->with('success', 'Your message has been sent successfully!');
         } catch (\Exception $e) {

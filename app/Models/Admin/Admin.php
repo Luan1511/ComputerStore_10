@@ -30,4 +30,6 @@ class Admin extends Model
     {
         return $this->hasMany(Message::class, 'admin_id', 'id');
     }
+
+    
 }

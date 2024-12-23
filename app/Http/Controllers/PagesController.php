@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Mail; 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\LaptopController;
 use App\Http\Controllers\CartController;
 use App\Models\Admin\Account;
+use App\Models\Admin\AdminNotification;
 use App\Models\Admin\Banner;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin\Laptop;
-use App\Models\Admin\Brand;
+use App\Models\Admin\Brand; 
 use App\Models\Admin\Order;
 use App\Models\Admin\Payment;
 use App\Models\Wishlist;
@@ -29,14 +29,14 @@ class PagesController extends Controller
 
     public function getHome()
     {
-        $laptops = Laptop::all();
+        $laptops = Laptop::where('stock', '>=', 1)->get();
         $laptopController = new LaptopController();
         $newLaptops = $laptopController->getNewLaptop();
         $bestSellerLaptops = $laptopController->getBestSellerLaptop();
         $topBanner = Banner::where('type', 'top')->first();
         $bottomBanner = Banner::where('type', 'bottom')->first();
         $leftBanners = Banner::where('type', 'left')->get();
-        $adsBanners = Banner::where('type', 'advertiser')->get()->pluck('image')->toArray(); 
+        $adsBanners = Banner::where('type', 'advertiser')->get()->pluck('image')->toArray();
 
         try {
             if (Auth::user()->authority == 1) {
@@ -290,7 +290,19 @@ class PagesController extends Controller
         $laptopCount = Laptop::count();
         $brandCount = Brand::count();
         $orderCount = Order::count();
+        $notifyCount = AdminNotification::where('is_read', 0)->count();
 
-        return view(('Admins.dashboard'), compact('userCount', 'laptopCount', 'brandCount', 'orderCount', 'sellCounts', 'sellNames', 'dailyRevenue', 'monthlyRevenue', 'annualRevenue'));
+        return view(('Admins.dashboard'), compact(
+            'userCount',
+            'laptopCount',
+            'brandCount',
+            'orderCount',
+            'sellCounts',
+            'sellNames',
+            'dailyRevenue',
+            'monthlyRevenue',
+            'annualRevenue',
+            'notifyCount'
+        ));
     }
 }

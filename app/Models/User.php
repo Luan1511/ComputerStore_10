@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Admin\AdminNotification; 
 use App\Models\Admin\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -86,5 +87,27 @@ class User extends Authenticatable
 
     public function license(){
         return $this->hasMany(LicenseComment::class, 'user_id', 'id');
+    }
+
+    public function noti_sent(){
+        return $this->hasMany(AdminNotification::class, 'user_id', 'id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->wishlist()->delete();
+            $user->cart()->delete();
+            $user->order()->delete();
+            $user->message()->delete();
+            $user->admin()->delete();
+            $user->point()->delete();
+            $user->voucher()->delete();
+            $user->comment()->delete();
+            $user->license()->delete();
+            $user->noti_sent()->delete();
+        });
     }
 }

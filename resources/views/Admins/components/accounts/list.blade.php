@@ -11,7 +11,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Address</th>
-                    <th>Birthday</th>
+                    <th>Role</th>
                     <th>Image</th>
                     <th>Action</th>
                 </tr>
@@ -49,7 +49,17 @@
                         data: 'address'
                     },
                     {
-                        data: 'birthday'
+                        data: 'authority',
+                        render: function(data, type, row) {
+                            switch (data) {
+                                case 1:
+                                    return '<i class="fa-solid fa-user-tie" style="font-size: 25px; text-align: center; color: #3063cd"></i>';
+                                    break;
+                                case 2:
+                                    return '<i class="fa-solid fa-user" style="font-size: 25px; text-align: center"></i>';
+                                    break;
+                            }
+                        }
                     },
                     {
                         data: 'img_url',

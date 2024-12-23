@@ -136,9 +136,13 @@ class LoginController extends Controller
             'email' => $req->email,
             'token' => $token
         ];
-        if (PasswordToken::create($tokenData)) {
-            Mail::to($req->email)->send(new ForgotPassword($user, $token));
-            return redirect()->back()->with('ok', 'Send email successfully, please check email to continue');
+        try {
+            if (PasswordToken::create($tokenData)) {
+                Mail::to($req->email)->send(new ForgotPassword($user, $token));
+                return redirect()->back()->with('ok', 'Send email successfully, please check email to continue');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('no', 'Something eror, please try again');
         }
         return redirect()->back()->with('no', 'Something eror, please try again');
     }
