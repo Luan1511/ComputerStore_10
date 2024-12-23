@@ -51,12 +51,12 @@
 
     <div class="text-center mt-40">
         <a href="{{ route('home-page') }}" class="text-center ml-auto mr-auto"
-            style="width: 100%; font-size: 30px; background-color: rgba(255, 255, 255, 0.472); border-radius: 100%; padding: 15px; color: black">
+            style="width: 100%; font-size: 30px; background-color: rgba(255, 255, 255, 0.472); border-radius: 100%; padding: 15px 17px; color: black">
             <i class="fa-solid fa-house"></i>
         </a>
         <div class="mt-30"></div>
         <a class="text-center ml-auto mr-auto" onclick="toggleMenu()"
-            style="width: 100%; font-size: 30px; background-color: rgba(255, 255, 255, 0.472); border-radius: 50%; padding: 15px; color: black">
+            style="width: 100%; font-size: 30px; background-color: rgba(255, 255, 255, 0.472); border-radius: 50%; padding: 15px 18px; color: black">
             <i class="fa-solid fa-circle-left"></i>
         </a>
     </div>

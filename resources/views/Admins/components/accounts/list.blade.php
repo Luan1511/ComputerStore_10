@@ -31,10 +31,6 @@
                 ajax: '{{ route('admin-getAccount') }}',
                 columns: [{
                         data: 'id',
-                        render: function(data, type, row) {
-                            return '<a class="detail-btn" href="' + '{{ url('admin/account') }}' +
-                                '/' + data + '/detail">' + data + '</a>';
-                        }
                     },
                     {
                         data: 'name'
@@ -65,7 +61,7 @@
                         data: 'img_url',
                         render: function(data, type, row) {
                             if (data && data.trim() !== '') {
-                                return '<img src="{{ asset("") }}' + data + '" alt="account image" width="100" height="100">';
+                                return '<img src="{{ asset("storage") }}/' + data + '" alt="account image" width="100" height="100">';
                             } else {
                                 return '<div>(Empty)</div>';
                             }

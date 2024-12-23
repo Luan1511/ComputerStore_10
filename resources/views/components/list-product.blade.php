@@ -1,12 +1,15 @@
+@php
+    use Carbon\Carbon;
+@endphp
 <div class="product-area pt-60 pb-50">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="li-product-tab">
                     <ul class="nav li-product-menu">
-                        <li><a id="new_arrival-tab" class="active" data-toggle="tab" href="#li-new-product"
+                        <li><a id="new_arrival-tab" class="active" data-toggle="tab" style="cursor: pointer"
                                 onclick="toggleTabLaptop()"><span>{{ __('messages.newarrival') }}</span></a></li>
-                        <li><a id="best_seller-tab" data-toggle="tab" href="#li-bestseller-product"
+                        <li><a id="best_seller-tab" data-toggle="tab" style="cursor: pointer"
                                 onclick="toggleTabLaptop()"><span>{{ __('messages.bestseller') }}</span></a></li>
                     </ul>
                 </div>
@@ -27,14 +30,16 @@
                                             <img src="{{ asset('storage/' . $laptop->img) }}" alt="Current Image"
                                                 style="height: auto; margin: 0 auto; margin-top: 10px;">
                                         </a>
-                                        <span class="sticker">New</span>
+                                        @if (\Carbon\Carbon::parse($laptop->created_at)->gt(\Carbon\Carbon::now()->subWeeks(2)))
+                                            <span class="sticker">New</span>
+                                        @endif
                                     </div>
                                     <div class="product_desc">
                                         <div class="product_desc_info">
                                             <div class="product-review">
                                                 <h5 class="manufacturer">
                                                     <a
-                                                        href="shop-left-sidebar.html">{{ $laptop->brand->name ?? 'No Brand' }}</a>
+                                                        href="{{ route('search-filter', ['search' => 'lenovó']) }}">{{ $laptop->brand->name ?? 'No Brand' }}</a>
                                                 </h5>
                                                 <div class="rating-box">
                                                     <ul class="rating">
@@ -71,7 +76,7 @@
                                                 </div>
                                             </div>
                                             <h4><a class="product_name"
-                                                    href="single-product.html">{{ $laptop->name }}</a>
+                                                    href="{{url('laptop/' .$laptop->id)}}">{{ $laptop->name }}</a>
                                             </h4>
                                             <div class="price-box">
                                                 <span class="new-price">${{ $laptop->price }}</span>
@@ -111,7 +116,9 @@
                                             <img src="{{ asset('storage/' . $laptop->img) }}" alt="Current Image"
                                                 style="height: auto; margin: 0 auto; margin-top: 10px;">
                                         </a>
-                                        <span class="sticker">New</span>
+                                        @if (\Carbon\Carbon::parse($laptop->created_at)->gt(\Carbon\Carbon::now()->subWeeks(2)))
+                                            <span class="sticker">New</span>
+                                        @endif
                                     </div>
                                     <div class="product_desc">
                                         <div class="product_desc_info">
@@ -155,7 +162,7 @@
                                                 </div>
                                             </div>
                                             <h4><a class="product_name"
-                                                    href="single-product.html">{{ $laptop->name }}</a>
+                                                    href="{{('laptop/' .$laptop->id)}}">{{ $laptop->name }}</a>
                                             </h4>
                                             <div class="price-box">
                                                 <span class="new-price">${{ $laptop->price }}</span>
@@ -297,5 +304,4 @@
         $("#new_arrival-tab").toggleClass("active");
         $("#best_seller-tab").toggleClass("active");
     }
-
 </script>

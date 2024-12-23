@@ -113,6 +113,54 @@ class PagesController extends Controller
         return view('components.laptop-list-page', compact('laptops', 'brands'));
     }
 
+    // Search in single page
+    public function searchInSinglePage(Request $request)
+    {
+        $searchBrand = $request->query('search_brand', []);
+        $searchPriceSort = $request->query('search_price_sort');
+        $searchScreenSize = $request->query('search_screen_size', []);
+        $searchStock = $request->query('search_stock');
+        $searchQuery = $request->query('search');
+
+        $laptops = Laptop::when($searchQuery, function ($queryBuilder) use ($searchQuery) {
+            return $queryBuilder->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('description', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('os', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('type', 'like', '%' . $searchQuery . '%');
+            });
+        })
+            ->when(!empty($searchBrand), function ($queryBuilder) use ($searchBrand) {
+                return $queryBuilder->whereIn('brand_id', $searchBrand);
+            })
+            ->when(!empty($searchScreenSize), function ($queryBuilder) use ($searchScreenSize) {
+                return $queryBuilder->whereIn('screen_size', $searchScreenSize);
+            })
+            ->when($searchStock, function ($queryBuilder) use ($searchStock) {
+                if ($searchStock[0] == 'in') {
+                    return $queryBuilder->where('stock', '>=', 1);
+                } else {
+                    return $queryBuilder->where('stock', '<', 1);
+                }
+            })
+            ->when($searchPriceSort, function ($queryBuilder) use ($searchPriceSort) {
+                if ($searchPriceSort[0] == 'increa') {
+                    return $queryBuilder->orderBy('price', 'asc');
+                } else {
+                    return $queryBuilder->orderBy('price', 'desc');
+                }
+            })
+            ->get()
+            ->map(function ($laptop) {
+                $laptop->brand_name = $laptop->brand->name;
+                return $laptop;
+            });
+
+        $brands = Brand::all();
+
+        return view('product-page', compact('laptops', 'brands'));
+    }
+
     public function getLaptopCompare($id)
     {
         $laptops = Laptop::with('brand:id,name')->where('id', '!=', $id)

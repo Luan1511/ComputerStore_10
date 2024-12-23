@@ -8,20 +8,20 @@
                 <h4>Order Details</h4>
                 <div>
                     @if ($order->status == 1)
-                        <a class="btn edit-btn me-2">
+                        <a class="btn edit-btn me-2" href="{{url('order/' . $order->id . '/approve')}}">
                             <i class="fas fa-edit me-1"></i> Approve
                         </a>
-                        <a class="btn delete-btn">
+                        <a class="btn delete-btn" href="{{url('order/' . $order->id . '/deny')}}">
                             <i class="fas fa-trash me-1"></i> Deny
                         </a>
                     @elseif ($order->status == 2)
                         <div>(Delivering)</div>
                     @elseif ($order->status == 3)
-                        <a class="btn delete-btn">
+                        <a class="btn delete-btn" href="{{url('order/' . $order->id . '/delete')}}">
                             <i class="fas fa-trash me-1"></i> Delete
                         </a>
                     @elseif ($order->status == 4)
-                        <a class="btn delete-btn">
+                        <a class="btn delete-btn" href="{{url('order/' . $order->id . '/delete')}}">
                             <i class="fas fa-trash me-1"></i> Delete
                         </a>
                     @endif

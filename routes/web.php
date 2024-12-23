@@ -49,6 +49,7 @@ Route::get('contact', [PagesController::class, 'getContact'])->name('contact-pag
 // Products page
 Route::get('product-page', [PagesController::class, 'getProductPage'])->name('product-page');
 Route::get('/product-page/search', [PagesController::class, 'searchInPage'])->name('search-page');
+Route::get('/product/search', [PagesController::class, 'searchInSinglePage'])->name('search-filter');
 
 // Wishlist routes
 Route::get('wishlist/{id}', [PagesController::class, 'getWishlist'])->name('wishlist-page');
@@ -161,6 +162,8 @@ Route::middleware('admin')->group(function () {
         // Orders
         Route::prefix('order')->group(function () {
             Route::get('get', [OrderController::class, 'getOrder'])->name('admin-getOrder');
+            Route::get('getNotApproved', [OrderController::class, 'getOrderNotApproved'])->name('admin-getOrderNotApproved');
+            Route::get('getApproved', [OrderController::class, 'getOrderApproved'])->name('admin-getOrderApproved');
             Route::get('show', [OrderController::class, 'showOrder'])->name('admin-showOrder');
             Route::get('{id}/detail', [OrderController::class, 'detail'])->name('admin-detailOrder');
 

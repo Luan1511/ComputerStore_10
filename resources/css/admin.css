@@ -53,11 +53,11 @@
     }
 
     .number-alert {
-        font-size: 9px;
+        font-size: 11px;
         position: relative;
-        top: -7px;
-        left: -7px;
-        padding: 1px 4px;
+        top: -14px;
+        left: -10px;
+        padding: 2px 4px;
         border-radius: 5px;
         color: white;
         background-color: rgb(201, 100, 100);
@@ -247,9 +247,9 @@
 .title-content {
     width: 100%;
     padding: 15px;
-    font-weight: 500;
-    font-size: 17px;
+    font-size: 20px;
     margin-bottom: 20px;
+    font-weight: 600;
     border-bottom: 1px solid lightgray;
 }
 
@@ -400,7 +400,7 @@
     }
 
     img {
-        width: 70px !important;
+        width: 170px !important;
     }
 }
 
@@ -735,4 +735,9 @@
 
 .display-notify {
     right: 5px !important;
+}
+
+.fa-bell:hover {
+    color: #0363cd;
+    transition: 0.5s;
 }

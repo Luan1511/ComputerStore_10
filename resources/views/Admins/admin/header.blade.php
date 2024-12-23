@@ -13,14 +13,9 @@
     </div>
 
     {{-- Items --}}
-    <ul class="d-flex space-x-cus">
-        <li class="d-flex">
-            <input type="search" id="search-input">
-            <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
-        </li>
-
+    <ul class="d-flex space-x-cus"> 
         <li>
-            <i class="fa-solid fa-bell" onclick="toggleNotify()"></i>
+            <i class="fa-solid fa-bell" style="font-size: 25px; cursor: pointer;" onclick="toggleNotify()"></i>
             <span class="number-alert">{{ \App\Models\Admin\AdminNotification::where('is_read', 0)->count() }}</span>
             <div class="notify-panel">
                 @foreach (\App\Models\Admin\AdminNotification::all() as $notification)
@@ -66,11 +61,15 @@
         </li>
 
         <li>
+            <b style="font-size: 18px">Admin: <i style="color:#0363cd; cursor: pointer;" onclick="profile()">{{Auth::user()->name}}</i></b>
+        </li>
+
+        <li>
             @if (Auth::user()->img != null)
-                <img src="{{ asset('storage/' . Auth::user()->img) }}" alt="" height="25px" width="25px"
-                    style="border-radius: 50%">
+                <img src="{{ asset('storage/' . Auth::user()->img) }}" alt="" height="40px" width="40px" onclick="profile()" 
+                    style="border-radius: 50%; cursor: pointer;">
             @else
-                <i class="fa-solid fa-circle-user" style="font-size: 25px"></i>
+                <i class="fa-solid fa-circle-user" style="font-size: 25px; cursor: pointer;" onclick="profile()"></i>
             @endif
         </li>
     </ul>
@@ -115,5 +114,9 @@
 
     function toggleNotify() {
         $('.notify-panel').toggleClass('display-notify');
+    }
+
+    function profile() {
+        window.location.href = 'user/profile';
     }
 </script>

@@ -89,6 +89,36 @@ class OrderController extends Controller
         return response()->json(['data' => $orders]);
     }
 
+    public function getOrderNotApproved()
+    {
+        $orders = Order::select([
+            'id',
+            'name',
+            'phone',
+            'address',
+            'status',
+            'total_price',
+            'created_at',
+        ])->where('status', 1)->get();
+
+        return response()->json(['data' => $orders]);
+    }
+
+    public function getOrderApproved()
+    {
+        $orders = Order::select([
+            'id',
+            'name',
+            'phone',
+            'address',
+            'status',
+            'total_price',
+            'created_at',
+        ])->where('status', 2)->get();
+
+        return response()->json(['data' => $orders]);
+    }
+
     public function showOrder()
     {
         $this->getOrder();
