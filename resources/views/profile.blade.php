@@ -9,7 +9,7 @@
     </button>
 </div> --}}
 
-    <form action="{{ route('user-update', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('user-update', ['id' => Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="avatar-container">

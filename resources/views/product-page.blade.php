@@ -8,7 +8,7 @@
             <div class="breadcrumb-content">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li class="active">Contact</li>
+                    <li class="active">Product</li>
                 </ul>
             </div>
         </div>
@@ -32,21 +32,14 @@
                     <div class="shop-top-bar mt-30">
                         <div class="shop-bar-inner">
                             <div class="toolbar-amount">
-                                <span>Showing 1 to 9 of 15</span>
+                                <span>Laptop list</span>
                             </div>
                         </div>
                         <!-- product-select-box start -->
                         <div class="product-select-box">
                             <div class="product-short">
-                                <p>Sort By:</p>
+                                {{-- <p>Sort By:</p> --}}
                                 <select class="nice-select">
-                                    <option value="trending">Relevance</option>
-                                    <option value="sales">Name (A - Z)</option>
-                                    <option value="sales">Name (Z - A)</option>
-                                    <option value="rating">Price (Low &gt; High)</option>
-                                    <option value="date">Rating (Lowest)</option>
-                                    <option value="price-asc">Model (A - Z)</option>
-                                    <option value="price-asc">Model (Z - A)</option>
                                 </select>
                             </div>
                         </div>
@@ -64,24 +57,8 @@
                                 </div>
                             </div>
                             <div class="paginatoin-area">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 pt-xs-15">
-                                        <p>Showing 1-12 of 13 item(s)</p>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <ul class="pagination-box pt-xs-20 pb-xs-15">
-                                            <li><a href="#" class="Previous"><i class="fa fa-chevron-left"></i>
-                                                    Previous</a>
-                                            </li>
-                                            <li class="active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li>
-                                                <a href="#" class="Next"> Next <i
-                                                        class="fa fa-chevron-right"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <div class="row" style="justify-content: center">
+                                    @copyright by Luan-Nhi
                                 </div>
                             </div>
                         </div>

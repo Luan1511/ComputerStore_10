@@ -319,3 +319,29 @@
     font-size: 1.5rem;
     cursor: pointer;
 }
+
+.brand-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #3063cd; */
+    height: 100px;
+    width: 100%;
+    gap: 20px;
+
+    .brand-head {
+        /* background-color: #61cfd3; */
+        height: 100%;
+        width: 23%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .laptop-list {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+}

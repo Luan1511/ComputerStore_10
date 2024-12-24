@@ -207,10 +207,7 @@ Route::middleware('admin')->group(function () {
             Route::get('getAdsBanner', [BannerController::class, 'getAdsBanner'])->name('admin-getAdsBanner');
             Route::get('show', [BannerController::class, 'showBanner'])->name('admin-showBanner');
             Route::post('update', [BannerController::class, 'updateBanners'])->name('admin-addBanner');
-            Route::post('addHandle', [BannerController::class, 'addBannerHandle'])->name('admin-addBanner-handle');
-            Route::get('{id}/delete', [BannerController::class, 'destroy'])->name('admin-destroyBanner');
-            Route::get('{id}/edit', [BannerController::class, 'edit'])->name('admin-editBanner');
-            Route::put('{id}/edit', [BannerController::class, 'update'])->name('admin-updateBanner');
+            Route::get('delete/{id}', [BannerController::class, 'destroy'])->name('admin-destroyBanner');
         });
     });
 });

@@ -11,6 +11,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Logo</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -32,6 +33,13 @@
                     },
                     {
                         data: 'name'
+                    },
+                    {
+                        data: 'image',
+                        render: function(data, type, row) {
+                            return '<img src="{{asset("storage")}}/' + data +
+                                '" alt="laptop image" height="100px">';
+                        }
                     },
                     {
                         data: 'id',

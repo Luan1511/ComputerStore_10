@@ -72,14 +72,11 @@ class LoginController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:4',
             'confirm_password' => 'required|same:password',
-        ], [
-            'name.required' => 'Not null',
-            'email.required' => 'Not null',
-            'password.required' => 'Not null',
-            'confirm_password.required' => 'Not null',
-        ]);
+        ],);
+        
         $data = $req->only('name', 'email');
         $data['password'] = bcrypt($req->password);
+        $data['authority'] = 2;
 
         if ($acc = User::create($data)) {
             Mail::to($acc->email)->send(new VerifyAccount($acc));

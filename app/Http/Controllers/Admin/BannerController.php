@@ -14,6 +14,7 @@ class BannerController extends Controller
         $adsBanner = Banner::where('type', 'advertiser')->get();
         return response()->json(['data' => $adsBanner]);
     }
+
     public function showBanner()
     {
         $leftBanners = Banner::where('type', 'left')->get();
@@ -101,5 +102,12 @@ class BannerController extends Controller
             'success' => true,
             'message' => 'Images uploaded successfully!',
         ]);
+    }
+
+    public function destroy($id)
+    {
+        Banner::findOrFail($id)->delete();
+
+        return redirect()->back()->with('status', 'Deleted');
     }
 }

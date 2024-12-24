@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail; 
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\LaptopController;
 use App\Http\Controllers\CartController;
@@ -15,7 +15,7 @@ use App\Models\Admin\Banner;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin\Laptop;
-use App\Models\Admin\Brand; 
+use App\Models\Admin\Brand;
 use App\Models\Admin\Order;
 use App\Models\Admin\Payment;
 use App\Models\Wishlist;
@@ -30,6 +30,7 @@ class PagesController extends Controller
     public function getHome()
     {
         $laptops = Laptop::where('stock', '>=', 1)->get();
+        $brands = Brand::where('image', '!=', 'null')->get();
         $laptopController = new LaptopController();
         $newLaptops = $laptopController->getNewLaptop();
         $bestSellerLaptops = $laptopController->getBestSellerLaptop();
@@ -41,12 +42,12 @@ class PagesController extends Controller
         try {
             if (Auth::user()->authority == 1) {
                 $users = User::where('authority', '!=', 1)->get();
-                return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'users', 'topBanner', 'bottomBanner', 'leftBanners', 'adsBanners'));
+                return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'users', 'topBanner', 'bottomBanner', 'leftBanners', 'adsBanners', 'brands'));
             }
         } catch (\Throwable $th) {
         }
 
-        return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'topBanner', 'bottomBanner', 'leftBanners', 'adsBanners'));
+        return view('home', compact('laptops', 'newLaptops', 'bestSellerLaptops', 'topBanner', 'bottomBanner', 'leftBanners', 'adsBanners', 'brands'));
     }
 
     public function getSingleLaptop(int $id)

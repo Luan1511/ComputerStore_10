@@ -22,9 +22,6 @@
                 <div class="col-lg-6 order-last order-lg-first">
                     <div class="about-text-wrap">
                         <h2><span>Provide Best</span>Product For You</h2>
-                        <p>We provide the best Beard oile all over the world. We are the worldd best store in indi for Beard
-                            Oil. You can buy our product without any hegitation because they truste us and buy our product
-                            without any hagitation because they belive and always happy buy our product.</p>
                         <p>Some of our customer say’s that they trust us and buy our product without any hagitation because
                             they belive us and always happy to buy our product.</p>
                         <p>We provide the beshat they trusted us and buy our product without any hagitation because they
@@ -35,7 +32,7 @@
                 <!-- About Image Start -->
                 <div class="col-lg-5 col-md-10">
                     <div class="about-image-wrap">
-                        <img class="img-full" src="images/about-us/about_cat.jpg" alt="About Us" />
+                        <img class="img-full" src="images/about-us/about_img.jpg" alt="About Us" />
                     </div>
                 </div>
                 <!-- About Image End -->
@@ -56,7 +53,7 @@
                             </div>
                             <div class="counter-info">
                                 <div class="counter-number">
-                                    <h3 class="counter">2169</h3>
+                                    <h3 class="counter">{{ \App\Models\User::where('authority', 2)->count() }}</h3>
                                 </div>
                                 <div class="counter-text">
                                     <span>HAPPY CUSTOMERS</span>
@@ -70,14 +67,14 @@
                     <!-- Begin limupa Counter Area -->
                     <div class="limupa-counter gray-bg">
                         <div class="counter-img">
-                            <img src="images/about-us/icon/2.png" alt="">
+                            <img src="images/about-us/icon/2.png" alt="" height="48px">
                         </div>
                         <div class="counter-info">
                             <div class="counter-number">
-                                <h3 class="counter">869</h3>
+                                <h3 class="counter">{{ \App\Models\Admin\Laptop::count() }}</h3>
                             </div>
                             <div class="counter-text">
-                                <span>AWARDS WINNED</span>
+                                <span>LAPTOPS</span>
                             </div>
                         </div>
                     </div>
@@ -87,14 +84,14 @@
                     <!-- Begin limupa Counter Area -->
                     <div class="limupa-counter white-smoke-bg">
                         <div class="counter-img">
-                            <img src="images/about-us/icon/3.png" alt="">
+                            <img src="images/about-us/icon/3.png" alt="" height="52px">
                         </div>
                         <div class="counter-info">
                             <div class="counter-number">
-                                <h3 class="counter">689</h3>
+                                <h3 class="counter">{{ \App\Models\Admin\Brand::count() }}</h3>
                             </div>
                             <div class="counter-text">
-                                <span>HOURS WORKED</span>
+                                <span>BRANDS</span>
                             </div>
                         </div>
                     </div>
@@ -104,14 +101,14 @@
                     <!-- Begin limupa Counter Area -->
                     <div class="limupa-counter gray-bg">
                         <div class="counter-img">
-                            <img src="images/about-us/icon/4.png" alt="">
+                            <img src="images/about-us/icon/4.png" alt="" height="60px">
                         </div>
                         <div class="counter-info">
                             <div class="counter-number">
-                                <h3 class="counter">2169</h3>
+                                <h3 class="counter">{{ \App\Models\Admin\Order::where('status', 4)->count() }}</h3>
                             </div>
                             <div class="counter-text">
-                                <span>COMPLETE PROJECTS</span>
+                                <span>COMPLETE ORDERS</span>
                             </div>
                         </div>
                     </div>
@@ -138,12 +135,12 @@
                             <img src="images/team/1.jpg" alt="Our Team Member" height="340px">
                         </div>
                         <div class="team-content text-center">
-                            <h3>Chee Luân</h3>
+                            <h3>Pham Viet Chi Luan</h3>
                             <p>IT Expert</p>
-                            <a href="#">info@example.com</a>
+                            <a href="#">luanpvc.23ai@vku.udn.vn</a>
                             <div class="team-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                {{-- <a href="#"><i class="fa fa-twitter"></i></a> --}}
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-google-plus"></i></a>
                             </div>
@@ -157,12 +154,12 @@
                             <img src="images/team/2.jpg" alt="Our Team Member" height="340px">
                         </div>
                         <div class="team-content text-center">
-                            <h3>Hồng Hà Nhi</h3>
+                            <h3>Nguyen Ha Nhi</h3>
                             <p>Web Designer</p>
-                            <a href="#">info@example.com</a>
+                            <a href="#">nhinh.23ai@vku.udn.vn</a>
                             <div class="team-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                {{-- <a href="#"><i class="fa fa-twitter"></i></a> --}}
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-google-plus"></i></a>
                             </div>

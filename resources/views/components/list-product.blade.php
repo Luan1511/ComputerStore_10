@@ -39,7 +39,7 @@
                                             <div class="product-review">
                                                 <h5 class="manufacturer">
                                                     <a
-                                                        href="{{ route('search-filter', ['search' => 'lenovó']) }}">{{ $laptop->brand->name ?? 'No Brand' }}</a>
+                                                        href="{{ route('search-filter', ['search' => $laptop->brand->name]) }}">{{ $laptop->brand->name ?? 'No Brand' }}</a>
                                                 </h5>
                                                 <div class="rating-box">
                                                     <ul class="rating">

@@ -30,7 +30,6 @@ class User extends Authenticatable
         'password',
         'img',
         'authority',
-
     ];
 
     /**
@@ -108,6 +107,13 @@ class User extends Authenticatable
             $user->comment()->delete();
             $user->license()->delete();
             $user->noti_sent()->delete();
+        });
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('countUser', function ($query) { 
+            // $query->where('authority', 2);
         });
     }
 }

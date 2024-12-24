@@ -44,4 +44,11 @@ class Order extends Model
             $order->subOrder()->delete();
         });
     }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('countOrder', function ($query) {
+            // $query->where('is_read', 0);
+        });
+    }
 }

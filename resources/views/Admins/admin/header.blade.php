@@ -13,7 +13,7 @@
     </div>
 
     {{-- Items --}}
-    <ul class="d-flex space-x-cus"> 
+    <ul class="d-flex space-x-cus">
         <li>
             <i class="fa-solid fa-bell" style="font-size: 25px; cursor: pointer;" onclick="toggleNotify()"></i>
             <span class="number-alert">{{ \App\Models\Admin\AdminNotification::where('is_read', 0)->count() }}</span>
@@ -77,13 +77,14 @@
         </li>
 
         <li>
-            <b style="font-size: 18px">Admin: <i style="color:#0363cd; cursor: pointer;" onclick="profile()">{{Auth::user()->name}}</i></b>
+            <b style="font-size: 18px">Admin: <i style="color:#0363cd; cursor: pointer;"
+                    onclick="profile()">{{ Auth::user()->name }}</i></b>
         </li>
 
         <li>
             @if (Auth::user()->img != null)
-                <img src="{{ asset('storage/' . Auth::user()->img) }}" alt="" height="40px" width="40px" onclick="profile()" 
-                    style="border-radius: 50%; cursor: pointer;">
+                <img src="{{ asset('storage/' . Auth::user()->img) }}" alt="" height="40px" width="40px"
+                    onclick="profile()" style="border-radius: 50%; cursor: pointer;">
             @else
                 <i class="fa-solid fa-circle-user" style="font-size: 25px; cursor: pointer;" onclick="profile()"></i>
             @endif
@@ -135,4 +136,24 @@
     function profile() {
         window.location.href = 'user/profile';
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        @if (session('status') === 'Deleted')
+            Swal.fire({
+                icon: 'success',
+                title: 'Deletd!',
+                text: 'Deleted',
+                timer: 1000,
+                showConfirmButton: false
+            });
+        @elseif (session('status') === 'existed')
+            Swal.fire({
+                icon: 'info',
+                title: 'Already Exists!',
+                text: 'Laptop is already in your wishlist.',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        @endif
+    });
 </script>

@@ -87,4 +87,11 @@ class Laptop extends Model
             $laptop->license()->delete();
         });
     }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('countLaptop', function ($query) { 
+            // $query->where('is_read', 0);
+        });
+    }
 }

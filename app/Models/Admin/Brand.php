@@ -14,5 +14,17 @@ class Brand extends Model
     protected $fillable = [
         'id',   
         'name',
+        'image',
     ];
+
+    public function laptops() {
+        return $this->hasMany(Laptop::class, 'brand_id', 'id');
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('countBrand', function ($query) { 
+            // $query->where('is_read', 0);
+        });
+    }
 }

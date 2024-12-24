@@ -4,12 +4,16 @@
     <div class="table-container">
         <div class="title-content">Add brand</div>
 
-        <form action="addHandle" method="POST">
+        <form action="addHandle" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control" id="name" name="name" required style="height: 45px">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="image" name="image" style="height: 45px">
                 </div>
             </div>
             <div class="row d-flex" style="justify-content: center;">

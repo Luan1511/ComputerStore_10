@@ -658,8 +658,8 @@
 .notify-panel {
     position: fixed;
     top: 75px;
-    right: -305px;
-    width: 300px;
+    right: -405px;
+    width: 400px;
     height: 500px;
     border-radius: 5px;
     border: dashed 1px #90e0ef;
@@ -675,6 +675,7 @@
     display: flex;
     flex-direction: column;
     gap: 7px;
+    overflow-y: auto;
     /* opacity: 1; */
     /* visibility: visible; */
 

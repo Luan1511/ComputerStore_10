@@ -39,8 +39,7 @@
                                         @else
                                             <li><a href="{{ route('login-page') }}">{{ __('messages.signin') }}</a></li>
                                             <li><a href="{{ route('register-page') }}">{{ __('messages.resgister') }}</a></li>
-                                        @endauth
-                                        <li><a href="checkout.html">Checkout</a></li>
+                                        @endauth 
                                         <li><a href="{{ route('admin-dashboard-page') }}">{{ __('messages.admin') }}</a></li>
                                         @auth
                                             <li><a href="{{ route('logout') }}">{{ __('messages.logout') }}</a></li>
@@ -99,18 +98,7 @@
                     <form action="#" class="hm-searchbox header-search-box">
                         <select class="nice-select select-search-category">
                             <option value="0">All</option>
-                            <option value="10">Laptops</option>
-                            <option value="17">- - Prime Video</option>
-                            <option value="20">- - - - All Videos</option>
-                            <option value="21">- - - - Blouses</option>
-                            <option value="12">Smartphone</option>
-                            <option value="66">- - Camera Accessories</option>
-                            <option value="71">- - - - 7.0 Screen</option>
-                            <option value="72">- - - - 9.0 Screen</option>
-                            <option value="13">Cameras</option>
-                            <option value="14">headphone</option>
-                            <option value="15">Smartwatch</option>
-                            <option value="16">Accessories</option>
+                            <option><a href="">Laptops</a></option>
                         </select>
                         <input type="text" id="search-input" placeholder="Enter your search key ..."
                             autocomplete="off">

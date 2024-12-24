@@ -47,7 +47,7 @@
 
     <div class="event-container">
         @if (date('m') == 11 || date('m') == 12)
-            <audio src="{{ asset('storage/audios/we-wish-you-a-merry-christmas-126685.mp3') }}" hidden loop></audio>
+            <audio src="{{ asset('storage/audios/we-wish-you-a-merry-christmas-126685.mp3') }}" autoplay loop></audio>
             <div class="main-snow">
                 <div class="initial-snow ">
                     @for ($i = 0; $i < 50; $i++)
@@ -99,12 +99,21 @@
 
         function display_hide_event() {
             $(".event-container").toggleClass('invisible');
-
+ 
             let savedEvent = localStorage.getItem('event');
             if (savedEvent == null || savedEvent == 'visible') {
                 localStorage.setItem('event', 'invisible');
             } else {
                 localStorage.setItem('event', 'visible');
+            }
+ 
+            const audio = document.querySelector('.event-container audio');
+            if (audio) {
+                if ($(".event-container").hasClass('invisible')) {
+                    audio.pause();  
+                } else {
+                    audio.play(); 
+                }
             }
         }
 
@@ -116,8 +125,18 @@
             } else {
                 $(".event-container").addClass('invisible');
             }
+
+            const audio = document.querySelector('.event-container audio');
+            if (audio) {
+                if ($(".event-container").hasClass('invisible')) {
+                    audio.pause();
+                } else {
+                    audio.play();
+                }
+            }
         });
     </script>
+
 </body>
 
 </html>

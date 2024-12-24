@@ -12,47 +12,65 @@
     {{-- List product --}}
     @include('components.list-product')
 
-    {{-- Chatbox --}}
-    <i class="fa fa-comments" id="chatbox-btn" aria-hidden="true"></i>
-    <div class="parent-chatbox">
-        <div class="chatbox-container">
-            <div class="messages">
-                @include('chattings.receive', ['message' => 'Hi, can I hép u?'])
-            </div>
-
-            <div class="bottom-fld">
-                <form id="form-chat">
-                    <input type="text" id="message" name="message" placeholder="Enter message..." autocomplete="off">
-                    @auth
-                        @if (auth()->user()->authority == 1)
-                            <button type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                        @else
-                            <button type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                        @endif
-                    @endauth
-                    {{-- <i class="fa fa-paper-plane" aria-hidden="true"></i> --}}
-                </form>
-            </div>
-        </div>
-    </div>
-    @auth
-        @if (auth()->user()->authority == 1)
-            <div class="tab-users">
-                @foreach ($users as $user)
-                    <div class="user-item d-flex" data-user-id="{{ $user->id }}">
-                        <img src="{{ asset('storage/' . $user->img) }}" style="margin: 3px" alt="" height="20px"
-                            width="20px">
-                        {{ $user->name }}
+    {{-- List product --}}
+    <div class="product-area pt-20 pb-50">
+        <div class="container">
+            <h4 class="tab-pane active show">With famous brands</h4>
+            <div class="brand-list row mt-40">
+                @foreach ($brands as $brand)
+                    <div class="brand-head">
+                        <a href="{{ route('search-filter', ['search' => $brand->name]) }}">
+                            <img src="{{ asset('storage/' . $brand->image) }}" alt="" height="100px"
+                                style="width: 100%">
+                        </a>
                     </div>
                 @endforeach
             </div>
-        @endif
-    @endauth
+        </div>
 
-    <div id="ad-banner" class="banner hidden">
-        <div class="banner-content">
-            <img id="banner-image" src="image1.jpg" alt="Ad" />
-            <button id="close-banner">×</button>
+        {{-- Chatbox --}}
+        <i class="fa fa-comments" id="chatbox-btn" aria-hidden="true"></i>
+        <div class="parent-chatbox">
+            <div class="chatbox-container">
+                <div class="messages">
+                    @include('chattings.receive', ['message' => 'Hi, can I help u?'])
+                </div>
+
+                <div class="bottom-fld">
+                    <form id="form-chat">
+                        <input type="text" id="message" name="message" placeholder="Enter message..."
+                            autocomplete="off">
+                        @auth
+                            @if (auth()->user()->authority == 1)
+                                <button type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            @else
+                                <button type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            @endif
+                        @endauth
+                        {{-- <i class="fa fa-paper-plane" aria-hidden="true"></i> --}}
+                    </form>
+                </div>
+            </div>
+        </div>
+        @auth
+            @if (auth()->user()->authority == 1)
+                <div class="tab-users">
+                    @foreach ($users as $user)
+                        <div class="user-item d-flex" data-user-id="{{ $user->id }}">
+                            <img src="{{ asset('storage/' . $user->img) }}" style="margin: 3px" alt="" height="20px"
+                                width="20px">
+                            {{ $user->name }}
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        @endauth
+
+        <div id="ad-banner" class="banner hidden">
+            <div class="banner-content">
+                <img id="banner-image" src="image1.jpg" alt="Ad" />
+                <button id="close-banner">×</button>
+            </div>
         </div>
     </div>
 
@@ -168,18 +186,18 @@
                 $('.tab-users').toggleClass('display-tab-users');
             });
 
-            Swal.fire({
-                title: 'Welcome!',
-                text: 'This is a notification with an image and a link.',
-                imageUrl: 'https://img.freepik.com/free-vector/merry-christmas-wallpaper-design_79603-2129.jpg',
-                imageWidth: 350,
-                imageHeight: 300,
-                html: `
-        <p>Click <a href="https://example.com" target="_blank" style="color: blue; text-decoration: underline;">here</a> to visit the page.</p>
-    `,
-                showConfirmButton: true,
-                confirmButtonText: 'Close'
-            });
+            //         Swal.fire({
+            //             title: 'Welcome!',
+            //             text: 'This is a notification with an image and a link.',
+            //             imageUrl: 'https://img.freepik.com/free-vector/merry-christmas-wallpaper-design_79603-2129.jpg',
+            //             imageWidth: 350,
+            //             imageHeight: 300,
+            //             html: `
+        //     <p>Click <a href="https://example.com" target="_blank" style="color: blue; text-decoration: underline;">here</a> to visit the page.</p>
+        // `,
+            //             showConfirmButton: true,
+            //             confirmButtonText: 'Close'
+            //         });
         });
 
         function showLoginAlert() {
@@ -221,29 +239,29 @@
             const banner = document.getElementById("ad-banner");
             const closeBannerButton = document.getElementById("close-banner");
             const bannerImage = document.getElementById("banner-image");
- 
+
             const images = @json($adsBanners);
 
             let currentImageIndex = 0;
- 
+
             const showBanner = () => {
                 banner.classList.remove("hidden");
             };
- 
+
             const hideBanner = () => {
                 banner.classList.add("hidden");
             };
- 
+
             const switchImage = () => {
                 currentImageIndex = (currentImageIndex + 1) % images.length;
                 bannerImage.src = 'storage/' + images[currentImageIndex];
-            }; 
+            };
             showBanner();
- 
+
             setInterval(switchImage, 3000);
- 
+
             closeBannerButton.addEventListener("click", hideBanner);
- 
+
             setInterval(showBanner, 3 * 60 * 1000);
         });
     </script>

@@ -43,7 +43,7 @@
                                         <td><img src="" alt="Banner"></td>
                                     @endif
                                     <td style="width: 25%"><a href="{{ url('admin/banner/delete/' . $leftBanner->id) }}"
-                                            class="delete-btn">Delete</a></td>
+                                            class="delete-btn" onclick="return confirm('Are you sure?')">Delete</a></td>
                                 </tr>
                             @endforeach
                         @endif
@@ -112,7 +112,6 @@
             if (imageTop) formData.append('image_top', imageTop);
             if (imageBottom) formData.append('image_bottom', imageBottom);
 
-            // Gửi request bằng Fetch API
             try {
                 fetch("{{ url('admin/banner/update') }}", {
                         method: 'POST',
@@ -145,61 +144,6 @@
             }
         });
 
-        // $('#left-banner-btn').hover(
-        //     function() {
-        //         $('.left-banner > img').css({
-        //             'transform': 'scale(1.05)',
-        //         });
-        //         $('.left-banner').css({
-        //             'box-shadow': '0 0 15px rgba(0, 0, 0, 0.2)',
-        //         });
-        //     },
-        //     function() {
-        //         $('.left-banner > img').css({
-        //             'transform': 'scale(1)',
-        //         });
-        //         $('.left-banner').css({
-        //             'box-shadow': '',
-        //         });
-        //     }
-        // );
-        // $('#top-banner-btn').hover(
-        //     function() {
-        //         $('.top-banner > img').css({
-        //             'transform': 'scale(1.05)',
-        //         });
-        //         $('.top-banner').css({
-        //             'box-shadow': '0 0 15px rgba(0, 0, 0, 0.2)',
-        //         });
-        //     },
-        //     function() {
-        //         $('.top-banner > img').css({
-        //             'transform': 'scale(1)',
-        //         });
-        //         $('.top-banner').css({
-        //             'box-shadow': '',
-        //         });
-        //     }
-        // );
-        // $('#bottom-banner-btn').hover(
-        //     function() {
-        //         $('.bottom-banner > img').css({
-        //             'transform': 'scale(1.05)',
-        //         });
-        //         $('.bottom-banner').css({
-        //             'box-shadow': '0 0 15px rgba(0, 0, 0, 0.2)',
-        //         });
-        //     },
-        //     function() {
-        //         $('.bottom-banner > img').css({
-        //             'transform': 'scale(1)',
-        //         });
-        //         $('.bottom-banner').css({
-        //             'box-shadow': '',
-        //         });
-        //     }
-        // );
-
         $(document).ready(function() {
             $('#ads-banner-table').DataTable({
                 autoWidth: true,
@@ -221,7 +165,7 @@
                         data: 'id',
                         render: function(data, type, row) {
                             return '<a class="delete-btn" onclick="return confirm(\'Are you sure?\')" href="' +
-                                '{{ url('admin/brand') }}' + '/' + data + '/delete">Delete</a>';
+                                '{{ url("admin/banner/delete") }}/' + data + '">Delete</a>';
                         }
                     },
                 ],

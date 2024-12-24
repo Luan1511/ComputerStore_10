@@ -32,8 +32,8 @@
                         </div>
                         <div class="single-contact-block last-child">
                             <h4><i class="fa fa-envelope-o"></i> Email</h4>
-                            <p>yourmail@domain.com</p>
-                            <p>support@hastech.company</p>
+                            <p>luanpvc.23ai@vku.udn.vn</p>
+                            <p>nhinh.23ai@vku.udn.vn</p>
                         </div>
                     </div>
                 </div>
